@@ -19,7 +19,7 @@ const Login = () => {
 
 
     const handleLogin = useMutation({
-        mutationFn: async (dto: AppUserLoginDTO) => {
+        mutationFn: async (dto) => {
             const res = await fetch(`${API_URL}/users/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
