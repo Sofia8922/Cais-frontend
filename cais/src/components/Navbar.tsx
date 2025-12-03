@@ -1,15 +1,16 @@
 import SearchBar from "./Searchbar";
-
+import "../stylesheets/navbar.css";
 
 
 function Navbar() {
     return (
         <nav className="navbar">
-            <div>
+            <div className="navbar-left">
+                <h1>a</h1>
                 {/* logo here */}
             </div>
 
-            <div className="">
+            <div className="navbar-center">
                 <SearchBar />
             </div>
 
