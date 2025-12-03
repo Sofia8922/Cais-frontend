@@ -1,10 +1,11 @@
+import Navbar from "../components/Navbar";
 import SimilarProducts from "../components/SimilarProducts";
 
 
 export default function ProductDetail() {
     return (
         <div>
-            {/* navbar component here */}
+            <Navbar />
 
             <div className="product-grid">
                 {/* left block */}
