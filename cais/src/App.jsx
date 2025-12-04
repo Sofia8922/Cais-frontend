@@ -1,35 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import Homepage from "./pages/Homepage.jsx";
+import Login from "./pages/Login.tsx";
+import ProductList from "./pages/ProductList.tsx";
+import ProductDetail from "./pages/ProductDetail.tsx";
+import UserProfilePage from "./pages/UserProfilePage.tsx";
+import CartPage from "./pages/CartPage.tsx";
+import { PrivateRoute } from "./pages/PrivateRoute.js";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Routes>
+      <Route path="/" element={<Homepage />} />
+      <Route path="/login" element={<Login />} />
 
+      {/* private routes go here. if user is not logged in return to login page */}
+      {/* <Route element={<PrivateRoute />}> */}
+      {/* all routes go here after the login page */}
+      <Route path="/products" element={<ProductList />} />
+      <Route path="/a" element={<ProductDetail />} />
+      <Route path="/products/:productId" element={<ProductDetail />} />
+      <Route path="/profile/:userId" element={<UserProfilePage />} />
+      <Route path="/:userId/cart" element={<CartPage />} />
+      {/* </Route> */}
+    </Routes>
+  );
+}
 export default App
