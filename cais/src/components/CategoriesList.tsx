@@ -14,7 +14,8 @@ export default function CategoriesList() {
                 margin: "8px",
                 display: "flex",
                 justifyContent: "center",
-                flexDirection: "column"
+                flexDirection: "column",
+                color: "white"
             }}>
                 <div style={{ fontSize: "25px", marginLeft: "15px", marginTop: "0px", marginBottom: "0px" }}
                 onClick={() => setExpandedId(1)}>
