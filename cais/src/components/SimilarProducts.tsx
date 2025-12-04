@@ -1,3 +1,4 @@
+import ProductCard from "./ProductCard";
 
 
 function SimilarProducts({products, currentProduct }) {
@@ -7,11 +8,10 @@ function SimilarProducts({products, currentProduct }) {
 
     return (
         <div className="similar-list">
-            {similar.map((p, index) => {
-                <div key={index} className="similar-item">
-                    <img src={p.imageLink || "/placeholder.png"} alt={p.name} />
-                    <p>{p.name}</p>
-                </div>
+            {similar.map((p) => {
+                return (
+                    <ProductCard key={p.id} product={p} />
+                )
             })}
         </div>
     )

@@ -1,9 +1,40 @@
 /* any product css goes here */
 
 /* product item css */
-/* .product-item {
+.product-card {
+    width: 180px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.15s ease;
+}
 
-} */
+.product-card:hover {
+    transform: translateY(-3px);
+}
+
+.product-card-image {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #f0f0f0;
+}
+
+.product-card-name {
+    font-size: 1rem;
+    margin: 8px 0 4px;
+    font-weight: 600;
+}
+
+.product-card-price {
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
 
 
 /* product details css */
