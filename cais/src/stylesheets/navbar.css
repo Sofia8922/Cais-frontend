@@ -1,0 +1,60 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* note when changing this also change the top-height in index.css */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    border-bottom: 5px solid;
+    border-image: linear-gradient(45deg, #b45f38, #d1a30c) 1;
+    background-color: #777c7c;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+/* .navbar-left {
+} */
+
+.navbar-center {
+    flex: 1;
+    max-width: 400px;
+    margin: 0 20px;
+}
+
+.search-input {
+    font-weight: bold;
+    letter-spacing: 1px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    border-image: linear-gradient(45deg, grey, white,) 1;
+    scale: 1;
+    transition: scale 0.2s ease-in;
+    outline: none;
+}
+
+/* .search-input:hover {
+    scale: 1.01;
+    transition: scale 0.5s ease-in;
+} */
+
+.search-input:focus {
+    scale: 1.01;
+    transition: scale 0.2s ease-in;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-right button {
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 18px;
+    /* border-image: linear-gradient(45deg, grey, white,) 1; */
+}
