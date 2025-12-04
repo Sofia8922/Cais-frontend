@@ -1,5 +1,12 @@
 /* any product css goes here */
 
+/* product item css */
+/* .product-item {
+
+} */
+
+
+/* product details css */
 .product-grid {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
@@ -10,7 +17,15 @@
 .product-left {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
+}
+
+.product-left img {
+    width: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: cover;
+    
 }
 
 .product-left .product-header {
@@ -22,7 +37,7 @@
 .product-center {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .product-cost {
@@ -35,15 +50,41 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    /* margin-top: 10%; */
 }
 
 .product-actions {
     display: flex;
-    gap: 10px;
+    gap: 15px;
+    /* margin-top: 10%; */
+}
+
+.product-actions button {
+    padding: 5px 5px;
 }
 
 .product-right {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 450px;
+}
+
+.similar-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.similar-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.similar-list::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 10px;
+}
+
+.similar-list::-webkit-scrollbar-track {
+    background: #eee;
 }

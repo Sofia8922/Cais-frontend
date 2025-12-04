@@ -1,8 +1,15 @@
 import Navbar from "../components/Navbar";
 import SimilarProducts from "../components/SimilarProducts";
+import { data } from "../components/Data";
 import "../stylesheets/product.css";
+import { useParams } from "react-router-dom";
 
 export default function ProductDetail() {
+
+    const product = data[2];
+    //enable this when getting data V
+    // const product = useParams();
+
     return (
         <div>
             <Navbar />
@@ -11,25 +18,27 @@ export default function ProductDetail() {
                 {/* left block */}
                 <div className="product-left">
                     <div className="product-header">
-                        <h2>Title here</h2>
-                        <span>stock here</span>
+                        <h2>{product.name}</h2>
+                        <span>{product.stock}</span>
                     </div>
                     {/* img here */}
-                    <img src="/placehold.png" alt="product" />
+                    <img src={product.imageLink || "/placeholder.png"} alt={product.name} />
                 </div>
 
                 {/* center block */}
                 <div className="product-center">
                     <div className="product-cost">
-                        <h2>cost here</h2>
+                        <h2>{product.price}</h2>
                         {/* admin button to edit here */}
+                        <button className="admin">Edit</button>
                     </div>
-                    <p>decription</p>
+                    <p>{product.description || "no description :("}</p>
 
                     <div className="product-category">
-                        <h2>category here</h2>
-                        <div className="product-">
+                        <p>{product.subcategory.category.name} {"->"} {product.subcategory.name}</p>
+                        <div className="product-actions">
                             {/* amount input here */}
+                            <input type="number" id="quantity" min="1" required />
                             <button>Add to cart</button>
                             {/* maybe a saved button next to the add to cart button too? */}
                         </div>
@@ -39,7 +48,7 @@ export default function ProductDetail() {
                 {/* right block */}
                 <div className="product-right">
                     <h1>Similar products:</h1>
-                    <SimilarProducts />
+                    <SimilarProducts products={data} currentProduct={product}/>
                 </div>
             </div>
         </div>

@@ -1,11 +1,19 @@
 
 
-function SimilarProducts() {
+function SimilarProducts({products, currentProduct }) {
+
+    // filter out current product
+    const similar = products.filter(p => p !== currentProduct);
 
     return (
-        <>
-        <h1>a</h1>
-        </>
+        <div className="similar-list">
+            {similar.map((p, index) => {
+                <div key={index} className="similar-item">
+                    <img src={p.imageLink || "/placeholder.png"} alt={p.name} />
+                    <p>{p.name}</p>
+                </div>
+            })}
+        </div>
     )
 }
 
