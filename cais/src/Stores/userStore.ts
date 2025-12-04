@@ -1,24 +1,25 @@
 import { createStore } from "@odemian/react-store";
 
 interface User {
-    email: String
-    password: String
-    id: number | null
-    //role: Role | null;
+    id: number | null;
+    email: string | null;
+    name: string | null
 }
 
-export const [currentUser, updateUser] = createStore<User>({
-    email: "",
-    password: "",
+export const [currentUser, setCurrentUser] = createStore<User>({
     id: null,
-    //role: null
+    email: null,
+    name: null,
 });
 
+export const login = (userData: User) => {
+    setCurrentUser(userData);
+};
+
 export const logout = () => {
-    updateUser({
-        email: "",
-        password: "",
+    setCurrentUser({
         id: null,
-        //role: null
+        email: null,
+        name: null,
     });
 };
