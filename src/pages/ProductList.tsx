@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 export default function ProductList() {
     const [priceFilter, setPriceFilter] = useState(0);
     const [expandedCategory, setExpandedCategory] = useState(NaN);
+    const [selectedSubcategory, setSubcategory] = useState(NaN);
     const { searchFilter } = useParams<{ searchFilter: string }>();
 
 
@@ -24,7 +25,7 @@ export default function ProductList() {
                 flexDirection: "column",
             }}>
 
-                <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory}/>
+                <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} subCategoryId={selectedSubcategory} setSubCategoryId={setSubcategory}/>
 
                 <div style={{
                     height: "15%",
@@ -59,7 +60,8 @@ export default function ProductList() {
 
 
             <div style={{flex: 1, display: "flex", flexDirection: "column"}}>
-                <p style={{fontSize: "30px", margin: "0px"}}>Showing {searchFilter ? "results for " + searchFilter : "products"} in {true ? expandedCategory : "all categories"}</p>
+                <p style={{fontSize: "30px", margin: "0px"}}>
+                    Showing {searchFilter ? "results for " + searchFilter : "products"} in {expandedCategory ? (selectedSubcategory ? "subcat " + selectedSubcategory : "cat " + expandedCategory) : "all categories"}</p>
                 <div style={{
                     flex: 1, display: "flex",
                     flexDirection: "row",
