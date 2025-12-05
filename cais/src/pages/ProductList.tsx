@@ -8,16 +8,15 @@ export default function ProductList() {
 
     return (
         <div style={{
-            height: "90vh",
+            flex:1,
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "row",
             background: "black",
             border: "2px solid white",
             borderRadius: "10px",
             color: "white"
         }}>
             <Navbar />
-            <CategoriesList/>
             
             <div style={{
                 height: "90vh",
