@@ -16,10 +16,11 @@ function App() {
       {/* private routes go here. if user is not logged in return to login page */}
       {/* <Route element={<PrivateRoute />}> */}
       {/* all routes go here after the login page */}
-      <Route path="/products" element={<ProductList />} />
+      <Route path="/products/" element={<ProductList />} />
+      <Route path="/products/:searchFilter" element={<ProductList />} />
       <Route path="/a" element={<ProductDetail />} />
       <Route path="/b" element={<UserProfilePage />} />
-      <Route path="/products/:productId" element={<ProductDetail />} />
+      <Route path="/product/:productId" element={<ProductDetail />} />
       <Route path="/profile/:userId" element={<UserProfilePage />} />
       <Route path="/:userId/cart" element={<CartPage />} />
       {/* </Route> */}
