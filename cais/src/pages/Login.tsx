@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { API_URL } from "../api/config.ts";
 import RegisterComponent from "../components/Register.tsx";
-import { updateUser } from "../Stores/userStore.ts";
+import { setCurrentUser } from "../Stores/userStore.ts";
 
 
 const Login = () => {
@@ -29,19 +29,17 @@ const Login = () => {
             return res.json();
         },
         onSuccess: (user) => {
-            updateUser({
-                email: user.email,
-                password: "",
+            setCurrentUser({
                 id: user.id,
-                //role: user.role
+                email: user.email,
+                name: user.name,
             });
-            navigate("/projects");
+            navigate("/products");
         },
         onError: () => {
             console.log("Login failed: user not found");
         },
     });
-
 
     return (
 

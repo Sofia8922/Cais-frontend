@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CategoriesList from "../components/CategoriesList";
+import Navbar from "../components/Navbar";
 
 export default function ProductList() {
     const [priceFilter, setPriceFilter] = useState(0);
@@ -13,8 +14,9 @@ export default function ProductList() {
             background: "black",
             border: "2px solid white",
             borderRadius: "10px",
+            color: "white"
         }}>
-
+            <Navbar />
             <CategoriesList/>
             
             <div style={{
