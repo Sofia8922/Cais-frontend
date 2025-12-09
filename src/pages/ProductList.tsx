@@ -39,7 +39,7 @@ export default function ProductList() {
                     flexDirection: "column"
                 }}>
                     <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "25px" }}>Price range</strong>
-                    <div style={{ display: "flex", flexDirection: "row", width: "90%", alignSelf: "center", marginTop: "0px", fontSize: "20px" }}>
+                    <div style={{ display: "flex", flexDirection: "row", width: "90%", alignSelf: "center", marginTop: "0px", fontSize: "25px" }}>
                         {"1" /* set to lowest in selection */}
                         <input
                             style={{ flex: 1 }}
