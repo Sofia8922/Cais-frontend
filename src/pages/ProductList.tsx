@@ -2,8 +2,12 @@ import { useState } from "react";
 import CategoriesList from "../components/CategoriesList";
 import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
+import "../stylesheets/productlist.css"
+import { data } from "../components/Data";
 
 export default function ProductList() {
+    const product = data[2];
+
     const [priceFilter, setPriceFilter] = useState(0);
     const [expandedCategory, setExpandedCategory] = useState(NaN);
     const [selectedSubcategory, setSubcategory] = useState(NaN);
@@ -11,36 +15,17 @@ export default function ProductList() {
 
 
     return (
-        <div style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "row",
-            color: "white"
-        }}>
+        <div className="mainDiv">
             <Navbar />
 
-            <div style={{
-                height: "90vh",
-                display: "flex",
-                flexDirection: "column",
-            }}>
+            <div className="settingsDiv">
 
-                <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} subCategoryId={selectedSubcategory} setSubCategoryId={setSubcategory}/>
+                <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} subCategoryId={selectedSubcategory} setSubCategoryId={setSubcategory} />
 
-                <div style={{
-                    height: "15%",
-                    width: "300px",
-                    background: "black",
-                    border: "2px solid white",
-                    borderRadius: "10px",
-                    margin: "8px",
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column"
-                }}>
+                <div className="priceDiv">
                     <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "25px" }}>Price range</strong>
                     <div style={{ display: "flex", flexDirection: "row", width: "90%", alignSelf: "center", marginTop: "0px", fontSize: "25px" }}>
-                        {"1" /* set to lowest in selection */}
+                        {"€1" /* set to lowest in selection */}
                         <input
                             style={{ flex: 1 }}
                             id="typeinp"
@@ -51,16 +36,16 @@ export default function ProductList() {
                             step="1">
                         </input>
 
-                        {"99" /* set to highest in selection */}
+                        {"€99" /* set to highest in selection */}
                     </div>
-                    <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>{priceFilter}</p>
+                    <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>€{priceFilter}</p>
                 </div>
             </div>
 
 
 
-            <div style={{flex: 1, display: "flex", flexDirection: "column"}}>
-                <p style={{fontSize: "30px", margin: "0px"}}>
+            <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                <p style={{ fontSize: "30px", margin: "0px" }}>
                     Showing {searchFilter ? "results for " + searchFilter : "products"} in {expandedCategory ? (selectedSubcategory ? "subcat " + selectedSubcategory : "cat " + expandedCategory) : "all categories"}</p>
                 <div style={{
                     flex: 1, display: "flex",
@@ -68,99 +53,65 @@ export default function ProductList() {
                     flexWrap: "wrap",
                     padding: "20px"
                 }}>
-
-
-                    <div //key={project.id}
-                        style={{
-                            height: "400px",
-                            width: "300px",
-                            display: "flex",
-                            marginBottom: "16px",
-                            border: "2px solid white",
-                            borderRadius: "10px",
-                            cursor: "pointer",
-                            justifyContent: "center",
-                            marginRight: "16px",
-                            flexDirection: "column",
-                            overflow: "hidden",
-                            position: "relative"
-                        }}
+                    <div className="productDiv"
+                        //key={product.id}
                         onMouseOver={(e) => {
-                            e.currentTarget.style.background = "rgba(0, 0, 0, 1)";
-                            const image = e.currentTarget.querySelector(".image") as HTMLElement;
-                            if (image) image.style.background = "rgba(247, 199, 85, 1)";
+                            e.currentTarget.style.background = "rgba(20, 20, 20, 1)";
+                            const image = e.currentTarget.querySelector(".productImage") as HTMLElement;
+                            if (image) {
+                                image.style.filter = "hue-rotate(5deg) saturate(1) brightness(0.9)";
+                                image.style.background = "rgba(0, 0, 0, 1)"
+                            }
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "rgba(0, 0, 0, 0)";
-                            const image = e.currentTarget.querySelector(".image") as HTMLElement;
-                            if (image) image.style.background = "rgba(252, 225, 94, 1)";
+                            e.currentTarget.style.background = "rgba(25, 25, 25, 1)";
+                            const image = e.currentTarget.querySelector(".productImage") as HTMLElement;
+                            if (image) {
+                                image.style.filter = "hue-rotate(0deg) saturate(1) brightness(1)";
+                                image.style.background = "rgba(15, 15, 15, 1)"
+                            }
                         }}
                         onClick={() => { /*navigate(`/projects/${project.id}`)*/ }}
                     >
-                        <div
-                            className="image"
-                            style={{
-                                flex: 1,
-                                background: "rgba(252, 225, 94, 1)",
-                                display: "flex",
-                                justifyContent: "center",
-                                margin: "10px",
-                                borderRadius: "10px"
-
-                            }}
+                        <img src={product.imageLink || "/placeholder.png"} alt={product.name}
+                            className="productImage"
                         />
                         <div style={{ height: "50px", marginBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>productName</strong>
 
-                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>$9</strong>
+                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>€9</strong>
 
                         </div>
                     </div>
 
                     {/* can remove down here lol */}
-                    <div //key={project.id}
-                        style={{
-                            height: "400px",
-                            width: "300px",
-                            display: "flex",
-                            marginBottom: "16px",
-                            border: "2px solid white",
-                            borderRadius: "10px",
-                            cursor: "pointer",
-                            justifyContent: "center",
-                            marginRight: "16px",
-                            flexDirection: "column",
-                            overflow: "hidden",
-                            position: "relative"
-                        }}
+                     <div className="productDiv"
+                        //key={product.id}
                         onMouseOver={(e) => {
-                            e.currentTarget.style.background = "rgba(0, 0, 0, 1)";
-                            const image = e.currentTarget.querySelector(".image") as HTMLElement;
-                            if (image) image.style.background = "rgba(247, 199, 85, 1)";
+                            e.currentTarget.style.background = "rgba(20, 20, 20, 1)";
+                            const image = e.currentTarget.querySelector(".productImage") as HTMLElement;
+                            if (image) {
+                                image.style.filter = "hue-rotate(5deg) saturate(1) brightness(0.9)";
+                                image.style.background = "rgba(0, 0, 0, 1)"
+                            }
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "rgba(0, 0, 0, 0)";
-                            const image = e.currentTarget.querySelector(".image") as HTMLElement;
-                            if (image) image.style.background = "rgba(252, 225, 94, 1)";
+                            e.currentTarget.style.background = "rgba(25, 25, 25, 1)";
+                            const image = e.currentTarget.querySelector(".productImage") as HTMLElement;
+                            if (image) {
+                                image.style.filter = "hue-rotate(0deg) saturate(1) brightness(1)";
+                                image.style.background = "rgba(15, 15, 15, 1)"
+                            }
                         }}
                         onClick={() => { /*navigate(`/projects/${project.id}`)*/ }}
                     >
-                        <div
-                            className="image"
-                            style={{
-                                flex: 1,
-                                background: "rgba(252, 225, 94, 1)",
-                                display: "flex",
-                                justifyContent: "center",
-                                margin: "10px",
-                                borderRadius: "10px"
-
-                            }}
+                        <img src={product.imageLink || "/placeholder.png"} alt={product.name}
+                            className="productImage"
                         />
                         <div style={{ height: "50px", marginBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>productName</strong>
 
-                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>$9</strong>
+                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>€9</strong>
 
                         </div>
                     </div>

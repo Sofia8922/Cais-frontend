@@ -2,8 +2,9 @@
 body {
   margin: 0;
   padding-top: 60px;
-  background: rgb(24, 24, 24);
+  background: rgb(35, 35, 35);
   font-family:'Trebuchet MS';
+  color: white;
 }
 
 .admin {

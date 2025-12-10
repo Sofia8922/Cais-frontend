@@ -19,7 +19,7 @@ export default function ProductDetail() {
                 <div className="product-left">
                     <div className="product-header">
                         <h2>{product.name}</h2>
-                        <span>{product.stock}</span>
+                        <span style={{color: "gray"}}>in stock: {product.stock}</span>
                     </div>
                     {/* img here */}
                     <img src={product.imageLink || "/placeholder.png"} alt={product.name} />
@@ -28,14 +28,14 @@ export default function ProductDetail() {
                 {/* center block */}
                 <div className="product-center">
                     <div className="product-cost">
-                        <h2>{product.price}</h2>
+                        <h2>€{product.price}</h2>
                         {/* admin button to edit here */}
                         <button className="admin">Edit</button>
                     </div>
-                    <p>{product.description || "no description :("}</p>
+                    <p>{product.description || "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."}</p>
 
                     <div className="product-category">
-                        <p>{product.subcategory.category.name} {"->"} {product.subcategory.name}</p>
+                        <p>Category: {product.subcategory.category.name} {"->"} {product.subcategory.name}</p>
                         <div className="product-actions">
                             {/* amount input here */}
                             <input type="number" id="quantity" min="1" required />

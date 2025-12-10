@@ -1,0 +1,56 @@
+.mainDiv {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+.settingsDiv {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.priceDiv {
+    height: 15%;
+    width: 300px;
+    background: black;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin: 8px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.productDiv {
+    height: 400px;
+    width: 300px;
+    display: flex;
+    margin-bottom: 16px;
+    border: 2px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    justify-content: center;
+    margin-right: 16px;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.productDiv:hover {
+    scale: 1.01;
+    transition: scale 0.2s ease-out;
+}
+
+.productImage {
+    flex: 1;
+    background: rgba(5, 5, 5, 1);
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+
+}
