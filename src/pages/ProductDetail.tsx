@@ -19,8 +19,8 @@ export default function ProductDetail() {
                 {/* left block */}
                 <div className="product-left">
                     <div className="product-header">
-                        <h2>{product.name}</h2>
-                        <span style={{color: "gray"}}>in stock: {product.stock}</span>
+                        <h2 style={{flex: 1}}>{product.name}</h2>
+                        <span className="price">in stock: {product.stock}</span>
                     </div>
                     {/* img here */}
                     <img src={product.imageLink || "/placeholder.png"} alt={product.name} />
