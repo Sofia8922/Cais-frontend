@@ -6,8 +6,7 @@ function Navbar() {
     return (
         <nav className="navbar">
             <div className="navbar-left">
-                <h1>a</h1>
-                {/* logo here */}
+                <img src="../src/assets/SiteLogo.svg" width="50" height="50" />
             </div>
 
             <div className="navbar-center">
