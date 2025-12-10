@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Price from "./Price"
 
 function ProductCard({ product}) {
     const navigate = useNavigate();
@@ -7,7 +8,7 @@ function ProductCard({ product}) {
         <div className="product-card" onClick={() => navigate(`/products/${product.id}`)}>
             <img src={product.imageLink || "/placeholder.png"} alt={product.name} className="product-card-image"/>
             <h3 className="product-card-name">{product.name}</h3>
-            <p className="product-card-price">{product.price}</p>
+            <p className="product-card-price">{<Price basePrice={product.price} />}</p>
         </div>
     );
 };
