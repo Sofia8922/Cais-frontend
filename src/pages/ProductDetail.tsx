@@ -3,6 +3,7 @@ import SimilarProducts from "../components/SimilarProducts";
 import { data } from "../components/Data";
 import "../stylesheets/product.css";
 import { useParams } from "react-router-dom";
+import Price from "../components/Price";
 
 export default function ProductDetail() {
 
@@ -28,7 +29,7 @@ export default function ProductDetail() {
                 {/* center block */}
                 <div className="product-center">
                     <div className="product-cost">
-                        <h2>€{product.price}</h2>
+                        <h2>{<Price basePrice={product.price} />}</h2>
                         {/* admin button to edit here */}
                         <button className="admin">Edit</button>
                     </div>
