@@ -20,6 +20,7 @@ function App() {
       <Route path="/products/:searchFilter" element={<ProductList />} />
       <Route path="/a" element={<ProductDetail />} />
       <Route path="/b" element={<UserProfilePage />} />
+      <Route path="/c" element={<CartPage />} />
       <Route path="/product/:productId" element={<ProductDetail />} />
       <Route path="/profile/:userId" element={<UserProfilePage />} />
       <Route path="/:userId/cart" element={<CartPage />} />
