@@ -40,47 +40,60 @@
 /* product details css */
 .product-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 20px;
+    grid-template-columns: 2fr 3fr 2fr;
+    grid-template-rows: 600px;
+    gap: 0px;
     padding: 20px;
+    height: 60%;
 }
 
 .product-left {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    background: black;
+    border: 2px solid white;
+    border-radius: 10px;
 }
 
 .product-left img {
     width: 100%;
-    max-width: 300px;
-    max-height: 300px;
-    object-fit: cover;
-    
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    align-self: center;
 }
 
 .product-left .product-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px;
 }
 
 .product-center {
+    padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    background: rgba(20, 20, 20, 1);
 }
 
 .product-cost {
     display: flex;
     justify-content: space-between;
     align-items: center;
+   font-size: 30px;
+   text-align: center;
 }
 
 .product-category {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    color: gray;
     /* margin-top: 10%; */
 }
 
@@ -98,7 +111,10 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 450px;
+    height: 100%;
+    background: black;
+    border: 2px solid white;
+    border-radius: 10px;
 }
 
 .similar-list {
