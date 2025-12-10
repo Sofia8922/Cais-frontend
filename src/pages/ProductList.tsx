@@ -2,6 +2,7 @@ import { useState } from "react";
 import CategoriesList from "../components/CategoriesList";
 import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
+import Price from "../components/Price"
 import "../stylesheets/productlist.css"
 import { data } from "../components/Data";
 
@@ -79,7 +80,7 @@ export default function ProductList() {
                         <div style={{ height: "50px", marginBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>productName</strong>
 
-                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>€9</strong>
+                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}><Price basePrice={9} /></strong>
 
                         </div>
                     </div>
@@ -111,7 +112,7 @@ export default function ProductList() {
                         <div style={{ height: "50px", marginBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>productName</strong>
 
-                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>€9</strong>
+                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}><Price basePrice={0.3} /></strong>
 
                         </div>
                     </div>
