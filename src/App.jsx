@@ -7,6 +7,8 @@ import UserProfilePage from "./pages/UserProfilePage.tsx";
 import CartPage from "./pages/CartPage.tsx";
 import { PrivateRoute } from "./pages/PrivateRoute.js";
 
+export const API_URL = `http://localhost:8080`
+
 function App() {
   return (
     <Routes>
