@@ -4,7 +4,7 @@ export interface ProductDTO {
     description: string;
     price: number;
     stock: number;
-    impageLink: string;
+    imageLink: string;
     subCategory: any;
     purchases: any;
 }
