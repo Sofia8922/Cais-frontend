@@ -1,94 +1,84 @@
+import { useNavigate } from "react-router-dom";
 import { data } from "../components/Data";
 import Navbar from "../components/Navbar";
 import Price from "../components/Price";
+import ProductComponent from "../components/ProductComponent";
+import "../stylesheets/cart.css";
 
 export default function CartPage() {
-    
-        const product = data[2];
+
+    const product = data[2];
+    const navigate = useNavigate();
 
 
     return (
-        <div className="mainDiv">
+        <div className="main-cart-div">
+
             <Navbar />
-
-
-
-            <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                <div style={{
-                    flex: 1, display: "flex",
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                    padding: "20px"
-                }}>
-                    <div className="productDiv"
-                        //key={product.id}
-                        onMouseOver={(e) => {
-                            e.currentTarget.style.background = "rgba(20, 20, 20, 1)";
-                            const image = e.currentTarget.querySelector(".productImage") as HTMLElement;
-                            if (image) {
-                                image.style.filter = "hue-rotate(5deg) saturate(1) brightness(0.9)";
-                                image.style.background = "rgba(0, 0, 0, 1)"
-                            }
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "rgba(25, 25, 25, 1)";
-                            const image = e.currentTarget.querySelector(".productImage") as HTMLElement;
-                            if (image) {
-                                image.style.filter = "hue-rotate(0deg) saturate(1) brightness(1)";
-                                image.style.background = "rgba(15, 15, 15, 1)"
-                            }
-                        }}
-                        onClick={() => { /*navigate(`/projects/${project.id}`)*/ }}
-                    >
-                        <img src={product.imageLink || "/placeholder.png"} alt={product.name}
-                            className="productImage"
-                        />
-                        <div style={{ height: "50px", marginBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>productName</strong>
-
-                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}><Price basePrice={9} /></strong>
-
+            <div className="cart-products-div">
+                <div className="cart-product">
+                    <div className="cart-product-card" onClick={() => navigate(`/products/${product.id}`)}>
+                        <img src={product.imageLink || "/placeholder.png"} alt={product.name} className="cart-product-card-image" />
+                        <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <h3 className="cart-product-card-name">{product.name}</h3>
+                            <p className="cart-product-card-price">{<Price basePrice={product.price} />}</p>
                         </div>
                     </div>
 
-                    {/* can remove down here lol */}
-                     <div className="productDiv"
-                        //key={product.id}
-                        onMouseOver={(e) => {
-                            e.currentTarget.style.background = "rgba(20, 20, 20, 1)";
-                            const image = e.currentTarget.querySelector(".productImage") as HTMLElement;
-                            if (image) {
-                                image.style.filter = "hue-rotate(5deg) saturate(1) brightness(0.9)";
-                                image.style.background = "rgba(0, 0, 0, 1)"
-                            }
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "rgba(25, 25, 25, 1)";
-                            const image = e.currentTarget.querySelector(".productImage") as HTMLElement;
-                            if (image) {
-                                image.style.filter = "hue-rotate(0deg) saturate(1) brightness(1)";
-                                image.style.background = "rgba(15, 15, 15, 1)"
-                            }
-                        }}
-                        onClick={() => { /*navigate(`/projects/${project.id}`)*/ }}
-                    >
-                        <img src={product.imageLink || "/placeholder.png"} alt={product.name}
-                            className="productImage"
-                        />
-                        <div style={{ height: "50px", marginBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>productName</strong>
-
-                            <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}><Price basePrice={0.3} /></strong>
-
+                    <div className="cart-actions">
+                        <div className="product-quantity">
+                            <input type="number" id="quantity" min="1" required />
+                            <button>Save</button>
                         </div>
+                        <button>Remove</button>
                     </div>
-
-
-
-
-
                 </div>
+
+                
+                <div className="cart-product">
+                    <div className="cart-product-card" onClick={() => navigate(`/products/${product.id}`)}>
+                        <img src={product.imageLink || "/placeholder.png"} alt={product.name} className="cart-product-card-image" />
+                        <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <h3 className="cart-product-card-name">{product.name}</h3>
+                            <p className="cart-product-card-price">{<Price basePrice={product.price} />}</p>
+                        </div>
+                    </div>
+
+                    <div className="cart-actions">
+                        <div className="product-quantity">
+                            <input type="number" id="quantity" min="1" required />
+                            <button>Save</button>
+                        </div>
+                        <button>Remove</button>
+                    </div>
+                </div>
+
+                
+                <div className="cart-product">
+                    <div className="cart-product-card" onClick={() => navigate(`/products/${product.id}`)}>
+                        <img src={product.imageLink || "/placeholder.png"} alt={product.name} className="cart-product-card-image" />
+                        <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <h3 className="cart-product-card-name">{product.name}</h3>
+                            <p className="cart-product-card-price">{<Price basePrice={product.price} />}</p>
+                        </div>
+                    </div>
+
+                    <div className="cart-actions">
+                        <div className="product-quantity">
+                            <input type="number" id="quantity" min="1" required />
+                            <button>Save</button>
+                        </div>
+                        <button>Remove</button>
+                    </div>
+                </div>
+
+                
+
+
+
+
             </div>
+
         </div>
     );
 }
