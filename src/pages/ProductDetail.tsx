@@ -4,6 +4,7 @@ import { data } from "../components/Data";
 import "../stylesheets/product.css";
 import { useParams } from "react-router-dom";
 import Price from "../components/Price";
+import CustomImage from "../components/CustomImage";
 
 export default function ProductDetail() {
 
@@ -23,7 +24,7 @@ export default function ProductDetail() {
                         <span className="price">in stock: {product.stock}</span>
                     </div>
                     {/* img here */}
-                    <img src={product.imageLink || "/placeholder.png"} alt={product.name} />
+                    <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName=""/>
                 </div>
 
                 {/* center block */}
