@@ -1,11 +1,38 @@
+import { useParams } from "react-router-dom";
+import { currentAccount } from "../Stores/userStore";
+import { useEffect, useState } from "react";
+import { AccountService } from "../services/accountService";
+
 export default function UserProfilePage() {
+    const { userId } = useParams();
+    const account = currentAccount();
+    const accountId = account?.id;
+    const [profile, setProfile] = useState(null);
+
+    useEffect(() => {
+        const fetchAccount = async () => {
+            try {
+                const res = await AccountService.getAccountById(Number(userId));
+                setProfile(res);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        if (userId) {
+            fetchAccount();
+        }
+    }, [userId]);
+
+    if (!profile) return <p>Loading profile...</p>
+
     return (
         <div className="profile-page">
             <div className="profile-informaton">
-                <h1>{"[user]"}'s profile! </h1>
-                <h2>Email: </h2>
-                <h2>Address: </h2>
-                <h2>Phone number: </h2>
+                <h1>{profile.username}'s profile! </h1>
+                <h2>Email: {profile.email}</h2>
+                <h2>Address: {profile.address || "No address set"}</h2>
+                <h2>Phone number: {profile.phoneNumber || "No phone number set"}</h2>
             </div>
             <div className="profile-admin">
                 <div>

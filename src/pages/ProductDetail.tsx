@@ -17,8 +17,6 @@ export default function ProductDetail() {
     
     useEffect(() => {
         const fetchProduct = async () => {
-            if (!productId) return;
-            console.log("productId:", productId);
             try {
                 const res = await ProductService.getProductById(Number(productId));
                 setProduct(res);
