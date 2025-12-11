@@ -6,16 +6,18 @@ import { useParams } from "react-router-dom";
 import { AccountService } from "../services/accountService";
 import { ProductService } from "../services/productService";
 import { useEffect, useState } from "react";
+import { currentAccount } from "../Stores/userStore";
 
 export default function ProductDetail() {
     const { productId } = useParams();
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState(null);
-    const accountId = 1; //temp account
-    // const product = data[2];
+    const account = currentAccount();
+    const accountId = account?.id;
     
     useEffect(() => {
         const fetchProduct = async () => {
+            if (!productId) return;
             console.log("productId:", productId);
             try {
                 const res = await ProductService.getProductById(Number(productId));
@@ -28,6 +30,9 @@ export default function ProductDetail() {
     }, [productId]);
 
     const handleAddToCart = async () => {
+        if (!accountId) {
+            alert("You must be logged in to add items to cart!");
+        }
         try {
             await AccountService.addToCart(accountId, product.id, quantity);
             alert("Added to cart!");
@@ -50,7 +55,6 @@ export default function ProductDetail() {
                         <h2 style={{flex: 1}}>{product.name}</h2>
                         <span className="price">in stock: {product.stock}</span>
                     </div>
-                    {/* img here */}
                     <img src={product.imageLink || "/placeholder.png"} alt={product.name} />
                 </div>
 
@@ -66,7 +70,6 @@ export default function ProductDetail() {
                     <div className="product-category">
                         <p>Category: {product.subcategory.category.name} {"->"} {product.subcategory.name}</p>
                         <div className="product-actions">
-                            {/* amount input here */}
                             <input type="number" id="quantity" min="1" onChange={(e) => setQuantity(Number(e.target.value))} required />
                             <button onClick={handleAddToCart}>Add to cart</button>
                             {/* maybe a saved button next to the add to cart button too? */}
