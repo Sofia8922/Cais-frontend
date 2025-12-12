@@ -40,20 +40,20 @@ export default function CategoriesList({ expandedId, setExpandedId, expandedSubC
                 categoryList
                     .map((category) => (
                         <div style={{ fontSize: "25px", marginLeft: "15px", marginTop: "0px", marginBottom: "0px" }}
-                            onClick={() => { expandedId == category.id ? setExpandedId(NaN) : setExpandedId(category.id); setSubCategoryId(NaN) }}>
-                            {expandedId == category.id ? <strong style={{ cursor: "pointer", margin: "0px" }}>{category.name}</strong> : <p style={{ cursor: "pointer", margin: "0px" }}>{category.name}</p>}
-                            {expandedId == category.id && category.subcategories?.length > 0 && (
+                            onClick={() => { expandedId?.id == category.id ? setExpandedId() : setExpandedId(category); setSubCategoryId() }}>
+                            {expandedId?.id == category.id ? <strong style={{ cursor: "pointer", margin: "0px" }}>{category.name}</strong> : <p style={{ cursor: "pointer", margin: "0px" }}>{category.name}</p>}
+                            {expandedId?.id == category.id && category.subcategories?.length > 0 && (
                                 category.subcategories.map(sc =>
                                     <>
-                                        {expandedSubCategory == sc.id ?
+                                        {expandedSubCategory?.id == sc.id ?
 
                                             <div className="category-text"
-                                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(NaN) }}>
+                                                onClick={(e) => { e.stopPropagation(); setSubCategoryId() }}>
                                                 <strong >{"> " + sc.name}</strong>
                                             </div>
                                             :
                                             <div className="category-text"
-                                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(sc.id) }}>
+                                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(sc) }}>
                                                 {"> " + sc.name}
                                             </div>
                                         }
