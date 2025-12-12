@@ -26,30 +26,38 @@ export default function ProductListComponent() {
         },
     })
 
-    if(isProductListLoading) {
+    if (isProductListLoading) {
         return <>loading...</>
     }
 
-    if(productListError) {
+    if (productListError) {
         return <>loading error</>
     }
 
     console.log(productList);
+    // let filteredProducts = productList?.filter(p => p.subCategory.id == selectedSubcategory)
+    // if (searchFilter && filteredProducts && filteredProducts.length > 0)
+    // {
+    //     filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(searchFilter.toLowerCase()))
+    // }
 
-     return <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                <p style={{ fontSize: "30px", margin: "0px" }}>
-                    Showing {searchFilter ? "results for " + searchFilter : "products"} in {expandedCategory ? (selectedSubcategory ? "subcat " + selectedSubcategory : "cat " + expandedCategory) : "all categories"}</p>
-                <div style={{
-                    flex: 1, display: "flex",
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                    padding: "20px"
-                }}>
-                    {productList && productList?.length > 0 ? (
-                        productList.map((product, index) => (
+    return (
+    <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <p style={{ fontSize: "30px", margin: "0px" }}>
+            Showing {searchFilter ? "results for " + searchFilter : "products"} in {expandedCategory ? (selectedSubcategory ? "subcat " + selectedSubcategory : "cat " + expandedCategory) : "all categories"}</p>
+        <div style={{
+            flex: 1, display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            padding: "20px"
+        }}>
+            {productList && productList?.length > 0 ? (
+                productList
+                    .map((product, index) => (
                         <ProductComponent key={index} product={product} />
                     )))
-                    : (<>no products found</>)}
-                </div>
+                : (<>no products found</>)}
+        </div>
     </div>
+    )
 }
