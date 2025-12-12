@@ -1,9 +1,20 @@
 .main-cart-div {
     flex: 1;
     display: flex;
-    flex-direction: row;
     height: calc(100vh - 65px);
     justify-content: center;
+}
+
+.cart-content-div {
+    width: auto;
+    height: 100%;
+    background: rgba(15, 15, 15, 1);
+    border-right: 2px solid white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
 }
 
 .cart-products-div {
@@ -40,6 +51,7 @@
 
 .cart-actions button {
     padding: 5px 5px;
+    height: 50px;
 }
 
 .cart-actions input
@@ -99,4 +111,27 @@
     font-size: 25px;
     padding: 10px;
     text-align: center;
+}
+
+.total-price-div {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    width: 400px;
+    margin: 50px;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.total-price-div button {
+    padding: 5px;
+    width: 70%;
+    height: 50px;
+}
+
+.total-price-div p {
+    color: gray;
+    margin: 10px;
 }
