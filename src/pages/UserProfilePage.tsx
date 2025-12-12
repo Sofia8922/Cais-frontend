@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import { currentAccount } from "../Stores/userStore";
+import { useUserStore } from "../Stores/userStore";
 import { useEffect, useState } from "react";
 import { AccountService } from "../services/accountService";
 
 export default function UserProfilePage() {
     const { userId } = useParams();
-    const account = currentAccount();
+    const account = useUserStore((state) => state.user);
     const accountId = account?.id;
     const [profile, setProfile] = useState(null);
 

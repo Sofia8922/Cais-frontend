@@ -1,25 +1,31 @@
-import { createStore } from "@odemian/react-store";
+import { create } from "zustand";
 
 interface Account {
     id: number | null;
     email: string | null;
-    name: string | null
+    name: string | null;
 }
 
-export const [currentAccount, setCurrentAccount] = createStore<Account>({
-    id: null,
-    email: null,
-    name: null,
-});
+interface UserStore {
+  user: Account;
+  login: (account: Account) => void;
+  logout: () => void;
+}
 
-export const login = (AccountData: Account) => {
-    setCurrentAccount(AccountData);
-};
+const savedUser = typeof window !== "undefined" ? localStorage.getItem("currentAccount") : null;
 
-export const logout = () => {
-    setCurrentAccount({
-        id: null,
-        email: null,
-        name: null,
-    });
-};
+const initialUser: Account = savedUser ? JSON.parse(savedUser) : {id: null, email: null, name: null};
+
+export const useUserStore = create<UserStore>((set) => ({
+    user: initialUser,
+
+    login: (account: Account) => {
+        set({ user: account });
+        localStorage.setItem("currentAccount", JSON.stringify(account));
+    },
+    logout: () => {
+    const emptyUser: Account = { id: null, email: null, name: null };
+    set({ user: emptyUser });
+    localStorage.removeItem("currentAccount");
+  }
+}));
