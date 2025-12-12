@@ -1,10 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { currentAccount } from "../Stores/userStore";
+import { useUserStore } from "../Stores/userStore";
 
 
 export const PrivateRoute = () => {
     // add user store here
-    const user = currentAccount();
+    const user = useUserStore((state) => state.user);
     const isLoggedIn = !!user.id;
 
     return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;

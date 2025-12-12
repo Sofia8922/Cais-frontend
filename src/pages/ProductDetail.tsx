@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { AccountService } from "../services/accountService";
 import { ProductService } from "../services/productService";
 import { useEffect, useState } from "react";
-import { currentAccount } from "../Stores/userStore";
+import { useUserStore } from "../Stores/userStore";
 import Price from "../components/Price";
 import CustomImage from "../components/CustomImage";
 
@@ -14,7 +14,7 @@ export default function ProductDetail() {
     const { productId } = useParams();
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState(null);
-    const account = currentAccount();
+    const account = useUserStore((state) => state.user);
     const accountId = account?.id;
     
     useEffect(() => {
@@ -46,8 +46,6 @@ export default function ProductDetail() {
 
     return (
         <div>
-            <Navbar />
-
             <div className="product-grid">
                 {/* left block */}
                 <div className="product-left">
