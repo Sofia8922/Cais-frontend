@@ -4,6 +4,7 @@ import Homepage from "./pages/Homepage.jsx";
 import ProductList from "./pages/ProductList.tsx";
 import ProductDetail from "./pages/ProductDetail.tsx";
 import UserProfilePage from "./pages/UserProfilePage.tsx";
+import CreateProductPage from "./pages/CreateProductPage.tsx";
 import CartPage from "./pages/CartPage.tsx";
 import { PrivateRoute } from "./pages/PrivateRoute.js";
 import FavouritesPage from "./pages/FavouritesPage.tsx";
@@ -25,6 +26,7 @@ function App() {
       <Route path="/b" element={<UserProfilePage />} />
       <Route path="/c" element={<CartPage />} />
       <Route path="/d" element={<FavouritesPage />} />
+      <Route path="/create" element={<CreateProductPage />} />
       <Route path="/product/:productId" element={<ProductDetail />} />
       <Route path="/profile/:userId" element={<UserProfilePage />} />
       <Route path="/:userId/cart" element={<CartPage />} />
