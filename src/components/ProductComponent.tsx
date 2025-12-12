@@ -1,9 +1,10 @@
-
 import { useNavigate } from "react-router-dom";
 import "../stylesheets/product.css";
 import Price from "./Price";
+import { ProductDTO } from "../dtos/ProductDTOs";
+import CustomImage from "./CustomImage.tsx";
 
-export default function ProductComponent({ product }) {
+export default function ProductComponent({ product }: {product: ProductDTO}) {
     const navigate = useNavigate();
 
     return (
@@ -27,13 +28,11 @@ export default function ProductComponent({ product }) {
             }}
             onClick={() => { /*navigate(`/projects/${project.id}`)*/ }}
         >
-            <img src={product.imageLink || "/placeholder.png"} alt={product.name}
-                className="productImage"
-            />
+            <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName="productImage"/>
             <div style={{ height: "50px", marginBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>productName</strong>
+                <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>{product.name}</strong>
 
-                <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}><Price basePrice={9} /></strong>
+                <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}><Price basePrice={product.price} /></strong>
 
             </div>
         </div>

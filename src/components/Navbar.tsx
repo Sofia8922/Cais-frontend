@@ -14,9 +14,9 @@ function Navbar() {
             </div>
 
             <div className="navbar-right">
-                <button className="nav-btn favorite">a</button>
-                <button className="nav-btn cart">2</button>
-                <button className="nav-btn profile">5</button>
+                <button className="nav-btn favorite">saved</button>
+                <button className="nav-btn cart">cart</button>
+                <button className="nav-btn profile">profile</button>
             </div>
         </nav>
     )
