@@ -55,7 +55,7 @@ export default function ProductDetail() {
                         <h2 style={{flex: 1}}>{product.name}</h2>
                         <span className="price">in stock: {product.stock}</span>
                     </div>
-                    <img src={product.imageLink || "/placeholder.png"} alt={product.name} />
+                    {/* <img src={product.imageLink || "/placeholder.png"} alt={product.name} /> */}
                     {/* img here */}
                     <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName=""/>
                 </div>
