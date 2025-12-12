@@ -17,7 +17,7 @@ export default function ProductList() {
 
             <div className="settingsDiv">
 
-                <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} subCategoryId={selectedSubcategory} setSubCategoryId={setSubcategory} />
+                <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} expandedSubCategory={selectedSubcategory} setSubCategoryId={setSubcategory} />
 
                 <div className="priceDiv">
                     <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "25px" }}>Price range</strong>

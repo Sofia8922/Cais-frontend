@@ -3,14 +3,46 @@ import SimilarProducts from "../components/SimilarProducts";
 import { data } from "../components/Data";
 import "../stylesheets/product.css";
 import { useParams } from "react-router-dom";
+import { AccountService } from "../services/accountService";
+import { ProductService } from "../services/productService";
+import { useEffect, useState } from "react";
+import { currentAccount } from "../Stores/userStore";
 import Price from "../components/Price";
 import CustomImage from "../components/CustomImage";
 
 export default function ProductDetail() {
+    const { productId } = useParams();
+    const [quantity, setQuantity] = useState(1);
+    const [product, setProduct] = useState(null);
+    const account = currentAccount();
+    const accountId = account?.id;
+    
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const res = await ProductService.getProductById(Number(productId));
+                setProduct(res);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        fetchProduct();
+    }, [productId]);
 
-    const product = data[2];
-    //enable this when getting data V
-    // const product = useParams();
+    const handleAddToCart = async () => {
+        if (!accountId) {
+            alert("You must be logged in to add items to cart!");
+        }
+        try {
+            await AccountService.addToCart(accountId, product.id, quantity);
+            alert("Added to cart!");
+        } catch (err) {
+            console.error(err);
+            alert("Failed to add to cart!");
+        }
+    };
+
+    if (!product) return <p>Loading...</p>
 
     return (
         <div>
@@ -23,6 +55,7 @@ export default function ProductDetail() {
                         <h2 style={{flex: 1}}>{product.name}</h2>
                         <span className="price">in stock: {product.stock}</span>
                     </div>
+                    {/* <img src={product.imageLink || "/placeholder.png"} alt={product.name} /> */}
                     {/* img here */}
                     <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName=""/>
                 </div>
@@ -39,9 +72,8 @@ export default function ProductDetail() {
                     <div className="product-category">
                         <p>Category: {product.subcategory.category.name} {"->"} {product.subcategory.name}</p>
                         <div className="product-actions">
-                            {/* amount input here */}
-                            <input type="number" id="quantity" min="1" required />
-                            <button>Add to cart</button>
+                            <input type="number" id="quantity" min="1" onChange={(e) => setQuantity(Number(e.target.value))} required />
+                            <button onClick={handleAddToCart}>Add to cart</button>
                             {/* maybe a saved button next to the add to cart button too? */}
                         </div>
                     </div>
@@ -50,7 +82,7 @@ export default function ProductDetail() {
                 {/* right block */}
                 <div className="product-right">
                     <h1>Similar products:</h1>
-                    <SimilarProducts products={data} currentProduct={product}/>
+                    <SimilarProducts products={[]} currentProduct={product}/>
                 </div>
             </div>
         </div>

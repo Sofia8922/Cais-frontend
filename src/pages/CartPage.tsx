@@ -16,69 +16,79 @@ export default function CartPage() {
         <div className="main-cart-div">
 
             <Navbar />
-            <div className="cart-products-div">
-                <div className="cart-product">
-                    <div className="cart-product-card" onClick={() => navigate(`/products/${product.id}`)}>
-                        <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName="cart-product-card-image"/>
-                        <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <h3 className="cart-product-card-name">{product.name}</h3>
-                            <p className="cart-product-card-price">{<Price basePrice={product.price} />}</p>
+            <div className="cart-content-div">
+                <div className="cart-products-div">
+                    <div className="cart-product">
+                        <div className="cart-product-card" onClick={() => navigate(`/products/${product.id}`)}>
+                            <CustomImage imageSource={product.imageLink || "/placeholder.png"} imageAlt={product.name} imageClassName="cart-product-card-image" />
+                            <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <h3 className="cart-product-card-name">{product.name}</h3>
+                                <p className="cart-product-card-price">{<Price basePrice={product.price} />}</p>
+                            </div>
+                        </div>
+
+                        <div className="cart-actions">
+                            <div className="product-quantity">
+                                <input type="number" id="quantity" min="1" required />
+                                <button>Save</button>
+                            </div>
+                            <button>Remove</button>
                         </div>
                     </div>
 
-                    <div className="cart-actions">
-                        <div className="product-quantity">
-                            <input type="number" id="quantity" min="1" required />
-                            <button>Save</button>
+
+                    <div className="cart-product">
+                        <div className="cart-product-card" onClick={() => navigate(`/products/${product.id}`)}>
+                            <img src={product.imageLink || "/placeholder.png"} alt={product.name} className="cart-product-card-image" />
+                            <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <h3 className="cart-product-card-name">{product.name}</h3>
+                                <p className="cart-product-card-price">{<Price basePrice={product.price} />}</p>
+                            </div>
                         </div>
-                        <button>Remove</button>
+
+                        <div className="cart-actions">
+                            <div className="product-quantity">
+                                <input type="number" id="quantity" min="1" required />
+                                <button>Save</button>
+                            </div>
+                            <button>Remove</button>
+                        </div>
                     </div>
+
+
+                    <div className="cart-product">
+                        <div className="cart-product-card" onClick={() => navigate(`/products/${product.id}`)}>
+                            <img src={product.imageLink || "/placeholder.png"} alt={product.name} className="cart-product-card-image" />
+                            <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <h3 className="cart-product-card-name">{product.name}</h3>
+                                <p className="cart-product-card-price">{<Price basePrice={product.price} />}</p>
+                            </div>
+                        </div>
+
+                        <div className="cart-actions">
+                            <div className="product-quantity">
+                                <input type="number" id="quantity" min="1" required />
+                                <button>Save</button>
+                            </div>
+                            <button>Remove</button>
+                        </div>
+                    </div>
+
+
+
+
+
+
                 </div>
 
-                
-                <div className="cart-product">
-                    <div className="cart-product-card" onClick={() => navigate(`/products/${product.id}`)}>
-                        <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName="cart-product-card-image"/>
-                        <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <h3 className="cart-product-card-name">{product.name}</h3>
-                            <p className="cart-product-card-price">{<Price basePrice={product.price} />}</p>
-                        </div>
-                    </div>
-
-                    <div className="cart-actions">
-                        <div className="product-quantity">
-                            <input type="number" id="quantity" min="1" required />
-                            <button>Save</button>
-                        </div>
-                        <button>Remove</button>
-                    </div>
+                <div className="total-price-div">
+                    <strong>Total cost: €{28}</strong>
+                    <p>Amount saved: €{(28 * 0.2).toFixed(2)}</p>
+                    <button>Purchase</button>
                 </div>
-
-                
-                <div className="cart-product">
-                    <div className="cart-product-card" onClick={() => navigate(`/products/${product.id}`)}>
-                        <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName="cart-product-card-image"/>
-                        <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <h3 className="cart-product-card-name">{product.name}</h3>
-                            <p className="cart-product-card-price">{<Price basePrice={product.price} />}</p>
-                        </div>
-                    </div>
-
-                    <div className="cart-actions">
-                        <div className="product-quantity">
-                            <input type="number" id="quantity" min="1" required />
-                            <button>Save</button>
-                        </div>
-                        <button>Remove</button>
-                    </div>
-                </div>
-
-                
-
-
-
-
             </div>
+
+
 
         </div>
     );
