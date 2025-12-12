@@ -21,7 +21,7 @@ const CustomImage = ({ imageSource, imageAlt, imageClassName }: LinkProps) => {
 
   if (hasError || imageSource == "") {
     return <img
-      src={"../src/assets/SiteLogo.svg"}
+      src={"../src/assets/SiteLogoGrey.svg"}
       alt={imageAlt}
       className={imageClassName}
       onError={handleError}
