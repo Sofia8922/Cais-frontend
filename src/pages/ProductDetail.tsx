@@ -7,6 +7,8 @@ import { AccountService } from "../services/accountService";
 import { ProductService } from "../services/productService";
 import { useEffect, useState } from "react";
 import { currentAccount } from "../Stores/userStore";
+import Price from "../components/Price";
+import CustomImage from "../components/CustomImage";
 
 export default function ProductDetail() {
     const { productId } = useParams();
@@ -54,12 +56,14 @@ export default function ProductDetail() {
                         <span className="price">in stock: {product.stock}</span>
                     </div>
                     <img src={product.imageLink || "/placeholder.png"} alt={product.name} />
+                    {/* img here */}
+                    <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName=""/>
                 </div>
 
                 {/* center block */}
                 <div className="product-center">
                     <div className="product-cost">
-                        <h2>€{product.price}</h2>
+                        <h2>{<Price basePrice={product.price} />}</h2>
                         {/* admin button to edit here */}
                         <button className="admin">Edit</button>
                     </div>

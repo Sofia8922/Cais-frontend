@@ -6,8 +6,7 @@ function Navbar() {
     return (
         <nav className="navbar">
             <div className="navbar-left">
-                <h1>a</h1>
-                {/* logo here */}
+                <img src="../src/assets/SiteLogo.svg" width="50" height="50" />
             </div>
 
             <div className="navbar-center">
@@ -15,9 +14,9 @@ function Navbar() {
             </div>
 
             <div className="navbar-right">
-                <button className="nav-btn favorite">a</button>
-                <button className="nav-btn cart">2</button>
-                <button className="nav-btn profile">5</button>
+                <button className="nav-btn favorite">saved</button>
+                <button className="nav-btn cart">cart</button>
+                <button className="nav-btn profile">profile</button>
             </div>
         </nav>
     )

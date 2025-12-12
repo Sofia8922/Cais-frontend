@@ -6,6 +6,9 @@ import ProductDetail from "./pages/ProductDetail.tsx";
 import UserProfilePage from "./pages/UserProfilePage.tsx";
 import CartPage from "./pages/CartPage.tsx";
 import { PrivateRoute } from "./pages/PrivateRoute.js";
+import FavouritesPage from "./pages/FavouritesPage.tsx";
+
+export const API_URL = `http://localhost:8080`
 
 function App() {
   return (
@@ -20,6 +23,8 @@ function App() {
       <Route path="/products/:searchFilter" element={<ProductList />} />
       <Route path="/a" element={<ProductDetail />} />
       <Route path="/b" element={<UserProfilePage />} />
+      <Route path="/c" element={<CartPage />} />
+      <Route path="/d" element={<FavouritesPage />} />
       <Route path="/product/:productId" element={<ProductDetail />} />
       <Route path="/profile/:userId" element={<UserProfilePage />} />
       <Route path="/:userId/cart" element={<CartPage />} />
