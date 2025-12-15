@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useUserStore } from "../Stores/userStore";
 import { useEffect, useState } from "react";
 import { AccountService } from "../services/accountService";
+import RecentOrders from "../components/RecentOrders";
 
 export default function UserProfilePage() {
     const { userId } = useParams();
@@ -41,7 +42,7 @@ export default function UserProfilePage() {
                 </div>
             </div>
             <div className="profile-orders">
-                {/* what am i to do here??? */}
+                <RecentOrders orders={profile.RecentOrders} />
             </div>
         </div>
     );
