@@ -10,6 +10,8 @@ export interface CategoryShortDTO {
     name: string;
 }
 
+export type CategoryDTOList = CategoryDTO[];
+
 export interface SubCategoryDTO {
     id: number;
     name: string;
@@ -22,4 +24,4 @@ export interface SubCategoryShortDTO {
 }
 
 
-export type CategoryDTOList = CategoryDTO[];
+export type SubCategoryDTOList = SubCategoryDTO[];
