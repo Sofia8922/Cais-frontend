@@ -37,7 +37,7 @@ export default function CartPage() {
 
 
                     <div className="cart-product">
-                        <div className="cart-product-card" onClick={() => navigate(`/products/${product.id}`)}>
+                        <div className="cart-product-card" onClick={() => navigate(`/product/${product.id}`)}>
                             <img src={product.imageLink || "/placeholder.png"} alt={product.name} className="cart-product-card-image" />
                             <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <h3 className="cart-product-card-name">{product.name}</h3>

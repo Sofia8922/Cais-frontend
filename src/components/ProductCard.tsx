@@ -7,7 +7,7 @@ function ProductCard({ product }) {
     const navigate = useNavigate();
 
     return (
-        <div className="product-card" onClick={() => navigate(`/products/${product.id}`)}>
+        <div className="product-card" onClick={() => navigate(`/product/${product.id}`)}>
             <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName="product-card-image"/>
             <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <h3 className="product-card-name">{product.name}</h3>
