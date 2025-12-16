@@ -6,6 +6,7 @@ import { API_URL } from "../App";
 import { useState } from "react";
 import CustomImage from "./CustomImage";
 import React from 'react';
+import { resume } from "react-dom/server";
 
 export default function ProductCreateComponent() {
     const [formData, setFormData] =
@@ -43,8 +44,14 @@ export default function ProductCreateComponent() {
     })
 
     const handleChangeBootstrap = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("updating " + event.target.value);
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value })
+    }
+
+    const handleChangeBootstrapLink = (value: string) => {
+        console.log("updating link " + value);
+        setFormData({ ...formData, imageLink: value })
     }
 
     const {
@@ -60,47 +67,89 @@ export default function ProductCreateComponent() {
             },
     })
 
+    const [text, setText] = useState('');
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const items = e.dataTransfer.items;
+
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+
+            if (item.kind === 'string') {
+            if (item.type === 'text/uri-list') {
+                item.getAsString((src: string) => {
+                console.log("dropped " + src);
+                    handleChangeBootstrapLink(src);
+                });
+            } else if (item.type === 'text/html') {
+                item.getAsString((html: string) => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const img = doc.querySelector('img');
+                if (img && img.src) {
+                    const src = img.src;
+                    console.log("Extracted image src from HTML: " + src);
+                    handleChangeBootstrapLink(src);
+                }
+                });
+            }
+            }
+        }
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault(); // Allow drop
+    };
 
     return (
         <div>
             <p>
+                name: 
                 <input name="name" type="text" placeholder="name" defaultValue={formData.name} onChange={handleChangeBootstrap} />
             </p>  
             <p>
+                description:
                 <input name="description" type="text" placeholder="description" defaultValue={formData.description} onChange={handleChangeBootstrap} />
             </p>
             <p>
+                stock:
                 <input name="stock" type="number" defaultValue={formData.stock} min={0} onChange={handleChangeBootstrap} />
             </p>
             <p>
+                price:
                 €<input name="price" type="number" value={Number(formData.price).toFixed(2)} defaultValue={formData.price} min={0.01} step={0.01} onChange={handleChangeBootstrap} />
             </p>
-            <p>
+            <p onDrop={handleDrop} onDragOver={handleDragOver}>
+                image: 
                 <div style={{ maxHeight: '200px', overflow: 'scroll' }}>
-                <CustomImage imageSource={formData.imageLink} imageAlt="image preview" imageClassName="preview" />
+                <CustomImage imageSource={formData.imageLink} imageAlt="image preview" imageClassName="preview"/>
                 </div>
-                <input name="imageLink" type="text" defaultValue={formData.imageLink} onChange={handleChangeBootstrap} />
+                <input name="imageLink" type="text" defaultValue={formData.imageLink} onChange={(e) => {handleChangeBootstrap(e);}} />
             </p>
-            <form>
-                {subList && subList.length > 0 ? (
-                    subList.map((sub, index) => (
-                    <React.Fragment key={index}>
-                       <input type="radio" id={sub.name} name="subcategory"
-                            checked={formData.subcategoryId === sub.id}
-                            onChange={() => setFormData({ ...formData, subcategoryId: sub.id })}/>
-                       <label> {sub.name} <b>({sub.category.name})</b></label>
-                       <br/>
-                    </React.Fragment>
-                ))) : (
-                    <>please wait...</>
-                )
-                }
-            </form>
+            <p>
+                subcategory:
+                <form>
+                    {subList && subList.length > 0 ? (
+                        subList.map((sub, index) => (
+                        <React.Fragment key={index}>
+                        <input type="radio" id={sub.name} name="subcategory"
+                                checked={formData.subcategoryId === sub.id}
+                                onChange={() => setFormData({ ...formData, subcategoryId: sub.id })}/>
+                        <label> {sub.name} <b>({sub.category.name})</b></label>
+                        <br/>
+                        </React.Fragment>
+                    ))) : (
+                        <>please wait...</>
+                    )
+                    }
+                </form>
+            </p>
 
             <hr/>
             
             <div>
-                <button onClick={() => createProduct.mutate(formData)}>Create!</button>
+                <button onClick={() => createProduct.mutate(formData)}>Add Product</button>
             </div>
         </div>
     );
