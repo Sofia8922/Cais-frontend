@@ -6,17 +6,16 @@ import { API_URL } from "../App";
 import { useState } from "react";
 import CustomImage from "./CustomImage";
 import React from 'react';
-import { resume } from "react-dom/server";
 
 export default function ProductCreateComponent() {
     const [formData, setFormData] =
         useState({
-            name: "cheddar2",
-            description: "from England",
-            price: 0.01,
+            name: "",
+            description: "",
+            price: 0,
             stock: 0,
-            imageLink: "https://upload.wikimedia.org/wikipedia/commons/1/18/Somerset-Cheddar.jpg",
-            subcategoryId: 3
+            imageLink: "",
+            subcategoryId: 0
         });
 
     const createProduct = useMutation({
@@ -44,13 +43,11 @@ export default function ProductCreateComponent() {
     })
 
     const handleChangeBootstrap = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("updating " + event.target.value);
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value })
     }
 
     const handleChangeBootstrapLink = (value: string) => {
-        console.log("updating link " + value);
         setFormData({ ...formData, imageLink: value })
     }
 
@@ -67,9 +64,7 @@ export default function ProductCreateComponent() {
             },
     })
 
-    const [text, setText] = useState('');
-
-    const handleDrop = (e) => {
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         const items = e.dataTransfer.items;
 
@@ -98,8 +93,8 @@ export default function ProductCreateComponent() {
         }
     };
 
-    const handleDragOver = (e) => {
-        e.preventDefault(); // Allow drop
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
     };
 
     return (
@@ -149,7 +144,13 @@ export default function ProductCreateComponent() {
             <hr/>
             
             <div>
-                <button onClick={() => createProduct.mutate(formData)}>Add Product</button>
+                {!(formData.name === "" || formData.price === 0 || formData.subcategoryId === 0 ) ?
+                (
+                    <button onClick={() => createProduct.mutate(formData)}>Add Product</button>
+                ) : (
+                    <></>
+                )
+                }
             </div>
         </div>
     );
