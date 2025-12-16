@@ -65,7 +65,8 @@ export default function ProductListComponent({ expandedCategory, expandedSubCate
     return (
         <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
             <p style={{ fontSize: "30px", margin: "0px" }}>
-                Showing {searchFilter ? "results for " + searchFilter : "products"} in {expandedCategory ? (expandedSubCategory ? expandedSubCategory.name : expandedCategory.name) : "all categories"}</p>
+                Showing {searchFilter ? "results for " + searchFilter : "products"} in 
+                {expandedCategory ? (expandedSubCategory ? expandedSubCategory.name : expandedCategory.name) : "all categories"}</p>
             <div style={{
                 flex: 1, display: "flex",
                 flexDirection: "row",
