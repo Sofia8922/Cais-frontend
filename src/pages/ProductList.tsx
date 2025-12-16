@@ -5,11 +5,13 @@ import Price from "../components/Price"
 import "../stylesheets/productlist.css"
 import ProductComponent from "../components/ProductComponent";
 import ProductListComponent from "../components/ProductListComponent";
+import { CategoryDTO, SubCategoryDTO } from "../dtos/CategoryDTOs";
 
 export default function ProductList() {
     const [priceFilter, setPriceFilter] = useState(0);
-    const [expandedCategory, setExpandedCategory] = useState(NaN);
-    const [selectedSubcategory, setSubcategory] = useState(NaN);
+    const [expandedCategory, setExpandedCategory] = useState<CategoryDTO>();
+    const [selectedSubcategory, setSubcategory] = useState<SubCategoryDTO>();
+    const [priceRange, setPriceRange] = useState({minPrice: 0, maxPrice: 99})
 
     return (
         <div className="mainDiv">
@@ -17,7 +19,7 @@ export default function ProductList() {
 
             <div className="settingsDiv">
 
-                <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} subCategoryId={selectedSubcategory} setSubCategoryId={setSubcategory} />
+                <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} expandedSubCategory={selectedSubcategory} setSubCategoryId={setSubcategory} />
 
                 <div className="priceDiv">
                     <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "25px" }}>Price range</strong>
@@ -27,10 +29,10 @@ export default function ProductList() {
                             style={{ flex: 1 }}
                             id="typeinp"
                             type="range"
-                            min="0" max="99"
+                            min={priceRange.minPrice} max={priceRange.maxPrice}
                             value={priceFilter}
                             onChange={(e) => { setPriceFilter(e.target.valueAsNumber) }}
-                            step="1">
+                            step=".05">
                         </input>
 
                         {"€99" /* set to highest in selection */}
@@ -39,7 +41,7 @@ export default function ProductList() {
                 </div>
             </div>
 
-            <ProductListComponent/>
+            <ProductListComponent expandedCategory={expandedCategory} expandedSubCategory={selectedSubcategory} maxPrice={priceFilter} setPriceRange={setPriceRange} priceRange={priceRange}/>
         </div>
     );
 }

@@ -26,7 +26,7 @@ export default function ProductComponent({ product }: {product: ProductDTO}) {
                     image.style.background = "rgba(15, 15, 15, 1)"
                 }
             }}
-            onClick={() => { /*navigate(`/projects/${project.id}`)*/ }}
+            onClick={() => { navigate(`/product/${product.id}`) }}
         >
             <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName="productImage"/>
             <div style={{ height: "50px", marginBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>

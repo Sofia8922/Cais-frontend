@@ -1,6 +1,26 @@
 import { useState } from "react";
+import { API_URL } from "../App";
+import { useQuery } from "@tanstack/react-query";
+import { CategoryDTOList } from "../dtos/CategoryDTOs";
 
-export default function CategoriesList({ expandedId, setExpandedId, subCategoryId, setSubCategoryId }) {
+export default function CategoriesList({ expandedId, setExpandedId, expandedSubCategory, setSubCategoryId }) {
+
+
+    const {
+        data: categoryList,
+        isLoading: isCategoryListLoading,
+        error: categoryListError
+    } = useQuery<CategoryDTOList>({
+        queryKey: ["categoryList"],
+        queryFn: async () => {
+            const response = await fetch(`${API_URL}/categories`);
+            if (!response.ok) {
+                throw new Error("error")
+            }
+            return response.json();
+        },
+    })
+
 
     return (
         <div style={{
@@ -16,87 +36,32 @@ export default function CategoriesList({ expandedId, setExpandedId, subCategoryI
             color: "white",
             overflowY: "scroll"
         }}>
-            <div style={{ fontSize: "25px", marginLeft: "15px", marginTop: "0px", marginBottom: "0px" }}
-                onClick={() => { expandedId == 1 ? setExpandedId(NaN) : setExpandedId(1); setSubCategoryId(NaN) }}>
-                {expandedId == 1 ? <strong style={{ cursor: "pointer", margin: "0px" }}>catName</strong> : <p style={{ cursor: "pointer", margin: "0px" }}>catName</p>}
-                {expandedId == 1 && (
-                    <>
-                        {subCategoryId == 1 ?
+            {categoryList && categoryList?.length > 0 && (
+                categoryList
+                    .map((category) => (
+                        <div style={{ fontSize: "25px", marginLeft: "15px", marginTop: "0px", marginBottom: "0px" }}
+                            onClick={() => { expandedId?.id == category.id ? setExpandedId() : setExpandedId(category); setSubCategoryId() }}>
+                            {expandedId?.id == category.id ? <strong style={{ cursor: "pointer", margin: "0px" }}>{category.name}</strong> : <p style={{ cursor: "pointer", margin: "0px" }}>{category.name}</p>}
+                            {expandedId?.id == category.id && category.subcategories?.length > 0 && (
+                                category.subcategories.map(sc =>
+                                    <>
+                                        {expandedSubCategory?.id == sc.id ?
 
-                            <div style={{ fontSize: "25px", marginLeft: "20px", marginTop: "0px", marginBottom: "0px", cursor: "pointer" }}
-                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(NaN) }}>
-                                <strong >{"> " + "subCatName"}</strong>
-                            </div>
-                            :
-                            <div style={{ fontSize: "25px", marginLeft: "20px", marginTop: "0px", marginBottom: "0px", cursor: "pointer" }}
-                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(1) }}>
-                                {"> " + "subCatName"}
-                            </div>
-                        }
-
-                        {subCategoryId == 2 ?
-                            <div style={{ fontSize: "25px", marginLeft: "20px", marginTop: "0px", marginBottom: "0px", cursor: "pointer" }}
-                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(NaN) }}>
-                                <strong>{"> " + "subCatName"}</strong>
-                            </div>
-                            :
-                            <div style={{ fontSize: "25px", marginLeft: "20px", marginTop: "0px", marginBottom: "0px", cursor: "pointer" }}
-                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(2) }}>
-                                {"> " + "subCatName"}
-                            </div>
-                        }
-                    </>
-                )}
-            </div>
-
-
-
-
-
-            <div style={{ fontSize: "25px", marginLeft: "15px", marginTop: "0px", marginBottom: "0px" }}
-                onClick={() => { expandedId == 2 ? setExpandedId(NaN) : setExpandedId(2); setSubCategoryId(NaN) }}>
-                {expandedId == 2 ? <strong style={{ cursor: "pointer", margin: "0px" }}>catName</strong> : <p style={{ cursor: "pointer", margin: "0px" }}>catName</p>}
-                {expandedId == 2 && (
-                    <>
-                        {subCategoryId == 1 ?
-
-                            <div style={{ fontSize: "25px", marginLeft: "20px", marginTop: "0px", marginBottom: "0px", cursor: "pointer" }}
-                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(NaN) }}>
-                                <strong >{"> " + "subCatName"}</strong>
-                            </div>
-                            :
-                            <div style={{ fontSize: "25px", marginLeft: "20px", marginTop: "0px", marginBottom: "0px", cursor: "pointer" }}
-                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(1) }}>
-                                {"> " + "subCatName"}
-                            </div>
-                        }
-
-                        {subCategoryId == 2 ?
-                            <div style={{ fontSize: "25px", marginLeft: "20px", marginTop: "0px", marginBottom: "0px", cursor: "pointer" }}
-                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(NaN) }}>
-                                <strong>{"> " + "subCatName"}</strong>
-                            </div>
-                            :
-                            <div style={{ fontSize: "25px", marginLeft: "20px", marginTop: "0px", marginBottom: "0px", cursor: "pointer" }}
-                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(2) }}>
-                                {"> " + "subCatName"}
-                            </div>
-                        }
-
-                        {subCategoryId == 3 ?
-                            <div style={{ fontSize: "25px", marginLeft: "20px", marginTop: "0px", marginBottom: "0px", cursor: "pointer" }}
-                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(NaN) }}>
-                                <strong>{"> " + "subCatName"}</strong>
-                            </div>
-                            :
-                            <div style={{ fontSize: "25px", marginLeft: "20px", marginTop: "0px", marginBottom: "0px", cursor: "pointer" }}
-                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(3) }}>
-                                {"> " + "subCatName"}
-                            </div>
-                        }
-                    </>
-                )}
-            </div>
+                                            <div className="category-text"
+                                                onClick={(e) => { e.stopPropagation(); setSubCategoryId() }}>
+                                                <strong >{"> " + sc.name}</strong>
+                                            </div>
+                                            :
+                                            <div className="category-text"
+                                                onClick={(e) => { e.stopPropagation(); setSubCategoryId(sc) }}>
+                                                {"> " + sc.name}
+                                            </div>
+                                        }
+                                    </>
+                                )
+                            )}
+                        </div>
+                    )))}
 
 
 

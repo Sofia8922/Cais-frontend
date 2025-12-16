@@ -54,3 +54,11 @@
     object-fit: contain;
 
 }
+
+.category-text {
+    font-size: 25px;
+    margin-left: 20px; 
+    margin-top: 0px;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
