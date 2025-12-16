@@ -20,13 +20,24 @@ interface UserStore {
 
 const savedUser = typeof window !== "undefined" ? localStorage.getItem("currentAccount") : null;
 
-const initialUser: Account = savedUser ? JSON.parse(savedUser) : null;
+const initialUser: Account | null = savedUser ? {
+  ...JSON.parse(savedUser),
+  favorites: JSON.parse(savedUser).favorites ?? [],
+  recentOrders: JSON.parse(savedUser).recentOrders ?? [],
+  cart: JSON.parse(savedUser).cart ?? [],
+} : null;
 
 export const useUserStore = create<UserStore>((set) => ({
     user: initialUser,
 
     login: (account: Account) => {
-        set({ user: account });
+        set({ user: {
+            ...account,
+            favorites: account.favorites ?? [],
+            recentOrders: account.recentOrders ?? [],
+            cart: account.cart ?? [],
+          },
+        });
         localStorage.setItem("currentAccount", JSON.stringify(account));
     },
     logout: () => {
