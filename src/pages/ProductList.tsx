@@ -22,9 +22,9 @@ export default function ProductList() {
                 <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} expandedSubCategory={selectedSubcategory} setSubCategoryId={setSubcategory} />
 
                 <div className="priceDiv">
-                    <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "25px" }}>Price range</strong>
-                    <div style={{ display: "flex", flexDirection: "row", width: "90%", alignSelf: "center", marginTop: "0px", fontSize: "25px" }}>
-                        {"€0" /* set to lowest in selection */}
+                    <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "23px" }}>Price range</strong>
+                    <div style={{ display: "flex", flexDirection: "row", width: "90%", alignSelf: "center", marginTop: "0px", fontSize: "23px", justifyContent: "center", alignItems: "center" }}>
+                        <p style={{textAlign: "left", margin: "0px"}}>{"€" + priceRange.minPrice.toFixed(2)}</p>
                         <input
                             style={{ flex: 1 }}
                             id="typeinp"
@@ -35,13 +35,13 @@ export default function ProductList() {
                             step=".05">
                         </input>
 
-                        {"€99" /* set to highest in selection */}
+                        <p style={{textAlign: "right", margin: "0px"}}>{"€" + priceRange.maxPrice.toFixed(2)}</p>
                     </div>
-                    <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>€{priceFilter}</p>
+                    <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>€{priceFilter.toFixed(2)}</p>
                 </div>
             </div>
 
-            <ProductListComponent expandedCategory={expandedCategory} expandedSubCategory={selectedSubcategory} maxPrice={priceFilter} setPriceRange={setPriceRange} priceRange={priceRange}/>
+            <ProductListComponent expandedCategory={expandedCategory} expandedSubCategory={selectedSubcategory} maxPrice={priceFilter} setPriceRange={setPriceRange} priceRange={priceRange} setPriceFilter={setPriceFilter}/>
         </div>
     );
 }
