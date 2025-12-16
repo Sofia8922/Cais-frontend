@@ -15,7 +15,6 @@ export default function CartPage() {
     return (
         <div className="main-cart-div">
 
-            <Navbar />
             <div className="cart-content-div">
                 <div className="cart-products-div">
                     <div className="cart-product">

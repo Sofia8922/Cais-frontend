@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { AccountService } from "../services/accountService";
 import { ProductService } from "../services/productService";
 import { useEffect, useState } from "react";
-import { currentAccount } from "../Stores/userStore";
+import { useUserStore } from "../Stores/userStore";
 import Price from "../components/Price";
 import CustomImage from "../components/CustomImage";
 
@@ -14,7 +14,8 @@ export default function ProductDetail() {
     const { productId } = useParams();
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState(null);
-    const account = currentAccount();
+    const [similarProducts, setSimilarProducts] = useState([]);
+    const account = useUserStore((state) => state.user);
     const accountId = account?.id;
     
     useEffect(() => {
@@ -22,6 +23,11 @@ export default function ProductDetail() {
             try {
                 const res = await ProductService.getProductById(Number(productId));
                 setProduct(res);
+
+                const allProducts = await ProductService.getAllProducts();
+
+                const filtered = allProducts.filter(p => p.subcategory.id === res.subcategory.id).filter(p => p.id !== res.id);
+                setSimilarProducts(filtered);
             } catch (err) {
                 console.error(err);
             }
@@ -46,8 +52,6 @@ export default function ProductDetail() {
 
     return (
         <div>
-            <Navbar />
-
             <div className="product-grid">
                 {/* left block */}
                 <div className="product-left">
@@ -82,7 +86,7 @@ export default function ProductDetail() {
                 {/* right block */}
                 <div className="product-right">
                     <h1>Similar products:</h1>
-                    <SimilarProducts products={[]} currentProduct={product}/>
+                    <SimilarProducts products={similarProducts} currentProduct={product}/>
                 </div>
             </div>
         </div>
