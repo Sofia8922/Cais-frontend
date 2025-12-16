@@ -11,14 +11,10 @@ import { useState } from "react";
 
 export default function CartPage() {
     const account = useUserStore((state) => state.user);
-    const [profile, setProfile] = useState(null);
     const product = data[2];
     const navigate = useNavigate();
-
-    const cartMutation = useMutation({
-        mutationFn: async ()
-    })
-
+    //add cart from id.
+    
     return (
         <div className="main-cart-div">
 
