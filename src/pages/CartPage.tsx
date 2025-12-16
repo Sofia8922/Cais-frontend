@@ -5,12 +5,19 @@ import Price from "../components/Price";
 import ProductComponent from "../components/ProductComponent";
 import "../stylesheets/cart.css";
 import CustomImage from "../components/CustomImage";
+import { useUserStore } from "../Stores/userStore";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 
 export default function CartPage() {
-
+    const account = useUserStore((state) => state.user);
+    const [profile, setProfile] = useState(null);
     const product = data[2];
     const navigate = useNavigate();
 
+    const cartMutation = useMutation({
+        mutationFn: async ()
+    })
 
     return (
         <div className="main-cart-div">

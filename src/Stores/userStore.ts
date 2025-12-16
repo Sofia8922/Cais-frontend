@@ -2,8 +2,14 @@ import { create } from "zustand";
 
 interface Account {
     id: number | null;
-    // email: string | null;
-    name: string | null;
+    username: string | null;
+    email: string | null;
+    address: string | null;
+    phoneNumber: string | null;
+    cart: any[];
+    favorites: any[];
+    recentOrders: any[];
+    roles: any[];
 }
 
 interface UserStore {
@@ -14,7 +20,7 @@ interface UserStore {
 
 const savedUser = typeof window !== "undefined" ? localStorage.getItem("currentAccount") : null;
 
-const initialUser: Account = savedUser ? JSON.parse(savedUser) : {id: null, name: null};
+const initialUser: Account = savedUser ? JSON.parse(savedUser) : null;
 
 export const useUserStore = create<UserStore>((set) => ({
     user: initialUser,
@@ -24,8 +30,7 @@ export const useUserStore = create<UserStore>((set) => ({
         localStorage.setItem("currentAccount", JSON.stringify(account));
     },
     logout: () => {
-    const emptyUser: Account = { id: null, name: null };
-    set({ user: emptyUser });
+    set({ user: null });
     localStorage.removeItem("currentAccount");
   }
 }));
