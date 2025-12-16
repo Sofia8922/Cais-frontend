@@ -1,13 +1,13 @@
-import Navbar from "../components/Navbar";
+import Navbar from "./Navbar";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ProductCreateDTO } from "../dtos/ProductDTOs";
 import { SubCategoryDTOList } from "../dtos/CategoryDTOs";
 import { API_URL } from "../App";
 import { useState } from "react";
-import CustomImage from "../components/CustomImage";
+import CustomImage from "./CustomImage";
 import React from 'react';
 
-export default function FavouritesPage() {
+export default function ProductCreateComponent() {
     const [formData, setFormData] =
         useState({
             name: "cheddar2",
@@ -63,8 +63,6 @@ export default function FavouritesPage() {
 
     return (
         <div>
-            <Navbar />
-
             <p>
                 <input name="name" type="text" placeholder="name" defaultValue={formData.name} onChange={handleChangeBootstrap} />
             </p>  
@@ -90,7 +88,7 @@ export default function FavouritesPage() {
                        <input type="radio" id={sub.name} name="subcategory"
                             checked={formData.subcategoryId === sub.id}
                             onChange={() => setFormData({ ...formData, subcategoryId: sub.id })}/>
-                       <label for={sub.name}> {sub.name} <b>({sub.category.name})</b></label>
+                       <label> {sub.name} <b>({sub.category.name})</b></label>
                        <br/>
                     </React.Fragment>
                 ))) : (
