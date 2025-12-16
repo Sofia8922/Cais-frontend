@@ -29,10 +29,10 @@ function App() {
         <Route path="/b" element={<UserProfilePage />} />
         <Route path="/c" element={<CartPage />} />
         <Route path="/create" element={<CreateProductPage />} />
-        <Route path="/favorites/" element={<FavouritesPage />} />
+        <Route path="/favorites" element={<FavouritesPage />} />
         <Route path="/product/:productId" element={<ProductDetail />} />
-        <Route path="/profile/:userId" element={<UserProfilePage />} />
-        <Route path="/cart/:userId" element={<CartPage />} />
+        <Route path="/profile" element={<UserProfilePage />} />
+        <Route path="/cart" element={<CartPage />} />
         {/* </Route> */}
       </Routes>
     </>

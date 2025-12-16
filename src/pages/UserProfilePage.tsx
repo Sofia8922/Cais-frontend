@@ -1,29 +1,24 @@
-import { useParams } from "react-router-dom";
 import { useUserStore } from "../Stores/userStore";
 import { useEffect, useState } from "react";
 import { AccountService } from "../services/accountService";
 import RecentOrders from "../components/RecentOrders";
 
 export default function UserProfilePage() {
-    const { userId } = useParams();
     const account = useUserStore((state) => state.user);
-    const accountId = account?.id;
     const [profile, setProfile] = useState(null);
 
     useEffect(() => {
         const fetchAccount = async () => {
             try {
-                const res = await AccountService.getAccountById(Number(userId));
+                const res = await AccountService.getAccountById(account.id);
                 setProfile(res);
             } catch (err) {
                 console.error(err);
             }
         };
 
-        if (userId) {
-            fetchAccount();
-        }
-    }, [userId]);
+        fetchAccount();
+    }, [account?.id]);
 
     if (!profile) return <p>Loading profile...</p>
 
