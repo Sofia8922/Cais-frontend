@@ -120,7 +120,7 @@ export default function ProductDetail() {
                         <p>Category: {product.subcategory.category.name} {"->"} {product.subcategory.name}</p>
                         <div className="product-actions">
                             <input type="number" id="quantity" min="1" onChange={(e) => setQuantity(Number(e.target.value))} required />
-                            <button onClick={handleAddToCart}>Add to cart</button>
+                            <button onClick={handleAddToCart} disabled={product.stock < 1 || quantity > product.stock}>{product.stock < 1 ? "Öut of stock": "Add to cart"}</button>
                             {/* maybe a saved button next to the add to cart button too? */}
                             <button type="button" onClick={handleAddToFavorites}>{exists ? "del fav" : "add fav"}</button>
                         </div>

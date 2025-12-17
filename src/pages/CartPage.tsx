@@ -44,7 +44,7 @@ export default function CartPage() {
         <div className="main-cart-div">
             {products.map((item) => (
                 <div key={item.product.id} className="cart-product">
-                    <div className="cart-product-card" onClick={() => navigate(`/products/${item.product.id}`)}>
+                    <div className="cart-product-card" onClick={() => navigate(`/product/${item.product.id}`)}>
                         <CustomImage imageSource={item.product.imageLink || "/placeholder.png"} imageAlt={item.product.name} imageClassName="cart-product-card-image" />
                         <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <h3 className="cart-product-card-name">{item.product.name}</h3>
