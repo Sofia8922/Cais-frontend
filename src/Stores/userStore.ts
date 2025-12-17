@@ -16,6 +16,7 @@ interface UserStore {
   user: Account | null;
   login: (account: Account) => void;
   logout: () => void;
+  updateUser: (partial: Partial<Account>) => void;
 }
 
 const savedUser = typeof window !== "undefined" ? localStorage.getItem("currentAccount") : null;
@@ -40,8 +41,18 @@ export const useUserStore = create<UserStore>((set) => ({
         });
         localStorage.setItem("currentAccount", JSON.stringify(account));
     },
+
     logout: () => {
-    set({ user: null });
-    localStorage.removeItem("currentAccount");
-  }
+      set({ user: null });
+      localStorage.removeItem("currentAccount");
+    },
+
+    updateUser: (partial: Partial<Account>) => {
+      set((state) => {
+        if (!state.user) return state;
+        const updatedUser = {...state.user, ...partial};
+        localStorage.setItem("currentAccount", JSON.stringify(updatedUser));
+        return {user: updatedUser};
+      });
+    },
 }));

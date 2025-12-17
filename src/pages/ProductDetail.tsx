@@ -16,7 +16,8 @@ export default function ProductDetail() {
     const [product, setProduct] = useState(null);
     const [similarProducts, setSimilarProducts] = useState([]);
     const account = useUserStore((state) => state.user);
-    const accountId = account?.id;
+    const updateAccount = useUserStore((state) => state.updateUser);
+    const exists = account?.favorites?.some((fav) => fav.id === product?.id) ?? false;
     
     useEffect(() => {
         const fetchProduct = async () => {
@@ -36,17 +37,42 @@ export default function ProductDetail() {
     }, [productId]);
 
     const handleAddToCart = async () => {
-        if (!accountId) {
+        if (!account?.id) {
             alert("You must be logged in to add items to cart!");
+            return;
         }
         try {
-            await AccountService.addToCart(accountId, product.id, quantity);
+            await AccountService.addToCart(account?.id, product.id, quantity);
             alert("Added to cart!");
         } catch (err) {
             console.error(err);
             alert("Failed to add to cart!");
         }
     };
+
+    const handleAddToFavorites = async () => {
+        if (!account) return;
+        
+        try {
+            if (exists) {
+                await AccountService.removeFromFavorites(account.id, product.id);
+
+                updateAccount({
+                    favorites: account.favorites.filter((fav) => fav.id !== product.id),
+                })
+            } else {
+                await AccountService.addToFavorites(account.id, product.id);
+
+                updateAccount({
+                    favorites: [...account?.favorites, product]
+                })
+            }
+    
+        } catch (err) {
+            console.error(err);
+            alert("failed to add to favorites!");
+        }
+    }
 
     if (!product) return <p>Loading...</p>
 
@@ -59,7 +85,6 @@ export default function ProductDetail() {
                         <h2 style={{flex: 1}}>{product.name}</h2>
                         <span className="price">in stock: {product.stock}</span>
                     </div>
-                    {/* <img src={product.imageLink || "/placeholder.png"} alt={product.name} /> */}
                     {/* img here */}
                     <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName=""/>
                 </div>
@@ -79,6 +104,7 @@ export default function ProductDetail() {
                             <input type="number" id="quantity" min="1" onChange={(e) => setQuantity(Number(e.target.value))} required />
                             <button onClick={handleAddToCart}>Add to cart</button>
                             {/* maybe a saved button next to the add to cart button too? */}
+                            <button type="button" onClick={handleAddToFavorites}>{exists ? "del fav" : "add fav"}</button>
                         </div>
                     </div>
                 </div>

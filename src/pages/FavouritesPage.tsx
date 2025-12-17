@@ -19,19 +19,17 @@ export default function FavouritesPage() {
     return (
         <div className="mainDiv">
             <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                {account.favorites.map((order) => (
-                    <div key={order.id}>
+                {favorites.map((product) => (
+                    <div key={product.id}>
                         <div style={{
                         flex: 1, display: "flex",
                         flexDirection: "row",
                         flexWrap: "wrap",
                         padding: "20px"
                         }}>
-                            {order.products.map((product) => (
-                                <ProductComponent
-                                key={product.id}
-                                product={product} />
-                            ))}
+                        <ProductComponent
+                            key={product.id}
+                            product={product} />
                         </div>
                     </div>
                 ))}
