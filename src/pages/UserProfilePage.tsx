@@ -1,16 +1,22 @@
 import { useUserStore } from "../Stores/userStore";
-import { useEffect, useState } from "react";
 import { AccountService } from "../services/accountService";
 import RecentOrders from "../components/RecentOrders";
 import { useNavigate } from "react-router-dom";
 
 export default function UserProfilePage() {
     const account = useUserStore((state) => state.user);
+    const logout = useUserStore((state) => state.logout);
     const navigate = useNavigate();
 
     if (!account) {
         navigate("/login");
         return null;
+    }
+    
+    const handleLogout = async () => {
+        alert("Logging out!");
+        logout();
+        navigate("/login");
     }
 
     return (
@@ -23,8 +29,7 @@ export default function UserProfilePage() {
             </div>
             <div className="profile-admin">
                 <div>
-                    <button className="admin">view user</button>
-                    <button className="admin">add product</button>
+                    <button className="admin" onClick={handleLogout}>Logout</button>
                 </div>
             </div>
             <div className="profile-orders">

@@ -116,7 +116,7 @@ export default function Login() {
         },
         onSuccess: (user) => {
             loginUser(user);
-            alert(`welcome `)
+            alert(`welcome ${user.username}`)
             navigate("/products");
         },
         onError: (error: any) => {
