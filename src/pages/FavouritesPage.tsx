@@ -6,7 +6,6 @@ import { useUserStore } from "../Stores/userStore";
 export default function FavouritesPage() {
     const account = useUserStore((state) => state.user);
     const favorites = account?.favorites ?? [];
-    const product = data[2];
     console.log("favorites:", favorites);
     if (!account) {
         return <p>Login to see favorites.</p>

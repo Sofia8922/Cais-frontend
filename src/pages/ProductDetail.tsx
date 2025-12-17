@@ -37,12 +37,30 @@ export default function ProductDetail() {
     }, [productId]);
 
     const handleAddToCart = async () => {
-        if (!account?.id) {
+        if (!account || !product) {
             alert("You must be logged in to add items to cart!");
             return;
         }
+
         try {
-            await AccountService.addToCart(account?.id, product.id, quantity);
+            await AccountService.addToCart(account.id, product.id, quantity);
+
+            const existing = account.cart.find(
+                (item) => item.product.id === product.id
+            );
+
+            let updatedCart;
+
+            if(existing) {
+                updatedCart = account.cart.map((item) => item.product.id === product.id ? {...item, quantity: item.quantity + quantity} : item);
+            } else {
+                updatedCart = [
+                    ...account.cart,
+                    {product, quantity},
+                ];
+            }
+
+            updateAccount({ cart: updatedCart });
             alert("Added to cart!");
         } catch (err) {
             console.error(err);
