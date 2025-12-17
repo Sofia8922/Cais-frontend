@@ -1,4 +1,3 @@
-import Navbar from "./Navbar";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ProductCreateDTO } from "../dtos/ProductDTOs";
 import { SubCategoryDTOList } from "../dtos/CategoryDTOs";
@@ -8,15 +7,18 @@ import CustomImage from "./CustomImage";
 import React from 'react';
 
 export default function ProductCreateComponent() {
-    const [formData, setFormData] =
-        useState({
-            name: "",
-            description: "",
-            price: 0,
-            stock: 0,
-            imageLink: "",
-            subcategoryId: 0
-        });
+    const initialFormData = {
+        name: "",
+        description: "",
+        price: 0,
+        stock: 0,
+        imageLink: "",
+        subcategoryId: 0
+    };
+
+    const [formData, setFormData] = useState(initialFormData);
+
+    const [error, setError] = useState({errorfound: false, errorMessage: ""});
 
     const createProduct = useMutation({
         mutationFn: async (editData: ProductCreateDTO) => {
@@ -27,18 +29,30 @@ export default function ProductCreateComponent() {
                     body: JSON.stringify(editData)
                 });
             if (!response) throw new Error("No response.")
-            else console.log("Request sent")
+
+            if(response.ok) {
+                console.log("Ok");
+                setError({errorfound: false, errorMessage: ""});
+            }
+            else {
+                console.log("Not ok");
+                setError({errorfound: true, errorMessage: ""});
+            }
+
             return response.json();
         },
         onSuccess: (response) => {
-            if (response.message !== undefined) {
-                console.log("message undefined");
-            } else {
-                console.log(response.message);
+            console.log(response.message);
+            if(error.errorfound) {
+                setError({errorfound: true, errorMessage: response.message});
+            }
+            else {
+                setFormData(initialFormData);
             }
         },
-        onError: () => {
-            console.log("Something went wrong.")
+        onError: (response) => {
+            console.log("ERROR: " + response.message);
+            setError({errorfound: true, errorMessage: "Unknown error"});
         }
     })
 
@@ -101,15 +115,15 @@ export default function ProductCreateComponent() {
         <div>
             <p>
                 name: 
-                <input name="name" type="text" placeholder="name" defaultValue={formData.name} onChange={handleChangeBootstrap} />
+                <input name="name" type="text" value={formData.name} placeholder="name" defaultValue={formData.name} onChange={handleChangeBootstrap} />
             </p>  
             <p>
                 description:
-                <input name="description" type="text" placeholder="description" defaultValue={formData.description} onChange={handleChangeBootstrap} />
+                <input name="description" type="text" value={formData.description} placeholder="description" defaultValue={formData.description} onChange={handleChangeBootstrap} />
             </p>
             <p>
                 stock:
-                <input name="stock" type="number" defaultValue={formData.stock} min={0} onChange={handleChangeBootstrap} />
+                <input name="stock" type="number" value={formData.stock} defaultValue={formData.stock} min={0} onChange={handleChangeBootstrap} />
             </p>
             <p>
                 price:
@@ -120,12 +134,12 @@ export default function ProductCreateComponent() {
                 <div style={{ maxHeight: '200px', overflow: 'scroll' }}>
                 <CustomImage imageSource={formData.imageLink} imageAlt="image preview" imageClassName="preview"/>
                 </div>
-                <input name="imageLink" type="text" defaultValue={formData.imageLink} onChange={(e) => {handleChangeBootstrap(e);}} />
+                <input name="imageLink" type="text" placeholder="imageLink" defaultValue={formData.imageLink} onChange={handleChangeBootstrap} />
             </p>
             <p>
                 subcategory:
                 <form>
-                    {subList && subList.length > 0 ? (
+                    {(subList && subList.length > 0) ? (
                         subList.map((sub, index) => (
                         <React.Fragment key={index}>
                         <input type="radio" id={sub.name} name="subcategory"
@@ -144,11 +158,18 @@ export default function ProductCreateComponent() {
             <hr/>
             
             <div>
-                {!(formData.name === "" || formData.price === 0 || formData.subcategoryId === 0 ) ?
+                {(error.errorfound) ?
                 (
-                    <button onClick={() => createProduct.mutate(formData)}>Add Product</button>
+                    <p>{error.errorMessage}</p>
                 ) : (
                     <></>
+                ) }
+
+                {(formData.name === "" || formData.price === 0 || formData.subcategoryId === 0 ) ?
+                (
+                    <></>
+                ) : (
+                    <button onClick={() => createProduct.mutate(formData)}>Add Product</button>
                 )
                 }
             </div>
