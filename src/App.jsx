@@ -4,7 +4,7 @@ import Login from "./pages/Login.tsx";
 import ProductList from "./pages/ProductList.tsx";
 import ProductDetail from "./pages/ProductDetail.tsx";
 import UserProfilePage from "./pages/UserProfilePage.tsx";
-import CreateProductPage from "./pages/CreateProductPage.tsx";
+import ProductCreatePage from "./pages/ProductCreatePage.tsx";
 import CartPage from "./pages/CartPage.tsx";
 import { PrivateRoute } from "./pages/PrivateRoute.js";
 import FavouritesPage from "./pages/FavouritesPage.tsx";

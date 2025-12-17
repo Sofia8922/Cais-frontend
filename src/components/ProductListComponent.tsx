@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { API_URL } from "../App";
 import { useQuery } from "@tanstack/react-query";
 import ProductComponent from "./ProductComponent";
@@ -6,7 +6,7 @@ import { data } from "./Data";
 import { ProductDTOList } from "../dtos/ProductDTOs.tsx";
 import { useParams } from "react-router-dom";
 
-export default function ProductListComponent({ expandedCategory, expandedSubCategory, maxPrice, setPriceRange }) {
+export default function ProductListComponent({ expandedCategory, expandedSubCategory, maxPrice, setPriceRange, setPriceFilter }) {
     const { searchFilter } = useParams<{ searchFilter: string }>();
 
 
@@ -25,13 +25,6 @@ export default function ProductListComponent({ expandedCategory, expandedSubCate
         },
     })
 
-    if (isProductListLoading) {
-        return <>loading...</>
-    }
-
-    if (productListError) {
-        return <>loading error</>
-    }
 
 
     let filteredProducts = productList;
@@ -56,25 +49,52 @@ export default function ProductListComponent({ expandedCategory, expandedSubCate
     }
 
 
+    useEffect(() => {
+        isRangeSet.current = false;
+    }, [expandedCategory, expandedSubCategory]);
 
-    filteredProducts = filteredProducts?.filter(p => p.price <= maxPrice);
+    const isRangeSet = useRef(false);
+    useEffect(() => {
+        if (!filteredProducts?.length) return;
+        if (isRangeSet.current) return;
+
+        const prices = filteredProducts.map(p => p.price);
+
+        setPriceRange({
+            minPrice: Math.min(...prices),
+            maxPrice: Math.max(...prices),
+        });
+        setPriceFilter(Math.max(...prices))
+
+        isRangeSet.current = true;
+    }, [filteredProducts, setPriceRange]);
+
+
+    const priceFilteredProducts = filteredProducts?.filter(p => p.price <= maxPrice);
 
 
 
+    if (isProductListLoading) {
+        return <>loading...</>
+    }
+
+    if (productListError) {
+        return <>loading error</>
+    }
 
     return (
         <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
             <p style={{ fontSize: "30px", margin: "0px" }}>
-                Showing {searchFilter ? "results for " + searchFilter : "products"} in 
-                {expandedCategory ? (expandedSubCategory ? expandedSubCategory.name : expandedCategory.name) : "all categories"}</p>
+                Showing {searchFilter ? "results for " + searchFilter : "products"} in {
+                expandedCategory ? (expandedSubCategory ? expandedSubCategory.name : expandedCategory.name) : "all categories"}</p>
             <div style={{
                 flex: 1, display: "flex",
                 flexDirection: "row",
                 flexWrap: "wrap",
                 padding: "20px"
             }}>
-                {filteredProducts && filteredProducts?.length > 0 ? (
-                    filteredProducts
+                {priceFilteredProducts && priceFilteredProducts?.length > 0 ? (
+                    priceFilteredProducts
                         .map((product, index) => (
                             <ProductComponent key={index} product={product} />
                         )))

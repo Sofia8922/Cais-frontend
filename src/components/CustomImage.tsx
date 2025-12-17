@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { DragEventHandler, useState } from 'react';
 
 interface LinkProps{
     imageSource: string;
@@ -19,7 +19,7 @@ const CustomImage = ({ imageSource, imageAlt, imageClassName }: LinkProps) => {
     setLoading(false);
   };
 
-  if (hasError || imageSource == "") {
+  if (hasError || loading || imageSource == "") {
     return <img
       src={"../src/assets/SiteLogoGrey.svg"}
       alt={imageAlt}
