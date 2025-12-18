@@ -2,15 +2,22 @@ import { useState } from "react";
 import ProductCreateComponent from "./ProductCreateComponent";
 import { useQuery } from "@tanstack/react-query";
 import { API_URL } from "../App";
-import { ProductDTOList } from "../dtos/ProductDTOs";
+import { ProductDTO, ProductDTOList } from "../dtos/ProductDTOs";
 import ProductTile from "./ProductTile";
+import ProductEditComponent from "./ProductEditComponent";
 
 export default function PopupContent() {
     enum state { OVERVIEW, CREATE_PRODUCT, EDIT_PRODUCT }
     const [mode, setMode] = useState(state.OVERVIEW)
 
     const [searchString, setSearchString] = useState("")
+    const [viewedProduct, setViewedProduct] = useState<ProductDTO>()
 
+
+    const viewProduct = (product : ProductDTO) => {
+        setViewedProduct(product);
+        setMode(state.EDIT_PRODUCT);
+    }
 
     const {
         data: productList,
@@ -28,10 +35,8 @@ export default function PopupContent() {
     })
 
     if (mode === state.CREATE_PRODUCT) return (<ProductCreateComponent closeFunction={() => { setMode(state.OVERVIEW) }} />);
-    if (mode === state.EDIT_PRODUCT) return (<></>);
+    if (mode === state.EDIT_PRODUCT) return (<ProductEditComponent product={viewedProduct}/>);
     return (
-
-
         <>
 
             <textarea
@@ -78,10 +83,7 @@ export default function PopupContent() {
                     </div >
                     <div style={{ width: "85%", overflowY: "scroll", display: "flex", flexDirection: "column", alignItems: "center" }}>
                         {productList?.map((product) => (
-                            <ProductTile product={product} setMode={() => setMode(state.EDIT_PRODUCT)} key={product.id}  />
-                        ))}
-                        {productList?.map((product) => (
-                            <ProductTile product={product} key={product.id} />
+                            <ProductTile product={product} setMode={() => viewProduct(product)} key={product.id}  />
                         ))}
                     </div>
                 </>
