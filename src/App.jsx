@@ -20,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
+        {/* <Route path="/register" element={ } /> */}
 
         {/* private routes go here. if user is not logged in return to login page */}
         {/* <Route element={<PrivateRoute />}> */}

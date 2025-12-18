@@ -10,16 +10,15 @@ export default function Login() {
     const navigate = useNavigate();
 
     const loginMutation = useMutation({
-    mutationFn: async (dto: { username: string; password: string }) => {
-        return await AccountService.login(dto);
+        mutationFn: async () => {
+            await loginUser(credentials);
         },
-        onSuccess: (user) => {
-            loginUser(user);
-            alert(`welcome ${user.username}`)
+        onSuccess: () => {
+            alert(`Welcome ${credentials.username}`);
             navigate("/products");
         },
-        onError: (error: any) => {
-            alert(error.message || "Login failed");
+        onError: () => {
+            alert("Invalid username or password");
         },
     });
 
@@ -39,7 +38,7 @@ export default function Login() {
                 onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
             />
             <button
-                onClick={() => loginMutation.mutate(credentials)}
+                onClick={() => loginMutation.mutate()}
                 disabled={loginMutation.isPending}
             >
                 {loginMutation.isPending ? "Logging in..." : "Login"}

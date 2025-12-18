@@ -5,20 +5,19 @@ import { useUserStore } from "../Stores/userStore";
 
 export default function FavouritesPage() {
     const account = useUserStore((state) => state.user);
-    const favorites = account?.favorites ?? [];
-    console.log("favorites:", favorites);
+    const removeFavorite = useUserStore((state) => state.removeFavorite)
     if (!account) {
         return <p>Login to see favorites.</p>
     }
 
-    if (favorites.length === 0) {
+    if (account.favorites.length === 0) {
         return <p>No favorites yet 💀💀💀</p>
     }
 
     return (
         <div className="mainDiv">
             <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                {favorites.map((product) => (
+                {account.favorites.map((product) => (
                     <div key={product.id}>
                         <div style={{
                         flex: 1, display: "flex",

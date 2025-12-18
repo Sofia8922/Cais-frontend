@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function UserProfilePage() {
     const account = useUserStore((state) => state.user);
     const logout = useUserStore((state) => state.logout);
+    const updateUser = useUserStore((state) => state.updateUser);
     const navigate = useNavigate();
 
     if (!account) {
@@ -13,7 +14,7 @@ export default function UserProfilePage() {
         return null;
     }
     
-    const handleLogout = async () => {
+    const handleLogout = () => {
         alert("Logging out!");
         logout();
         navigate("/login");

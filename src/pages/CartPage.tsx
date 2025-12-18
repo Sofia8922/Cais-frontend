@@ -9,45 +9,38 @@ import { AccountService } from "../services/accountService";
 
 export default function CartPage() {
     const account = useUserStore((state) => state.user);
-    const products = account?.cart ?? [];
-    const updateAccount = useUserStore((state) => state.updateUser);
+    const addToCart = useUserStore((state) => state.addToCart);
+    const removeFromCart = useUserStore((state) => state.removeFromCart);
+    const checkout = useUserStore((state) => state.checkout);
     const navigate = useNavigate();
 
     if (!account) {
         return <p>Login to see cart.</p>
     }
 
-    if (products.length === 0) {
+    if (account.cart.length === 0) {
         return <p>Cart is empty 💀💀💀</p>
     }
 
-    const handleQuantityChange = (productId: number, quantity: number) => {
-        updateAccount({
-            cart: products.map((item) => item.product.id === productId ? {...item, quantity} : item),
-        });
+    const handleQuantityChange = async (productId: number, quantity: number) => {
+        const currentItem = account.cart.find(item => item.product.id === productId);
+        if (!currentItem) return;
+        
+        const diff = quantity - currentItem.quantity;
+        if (diff > 0) await addToCart(productId, diff);
+        else if (diff < 0) await removeFromCart(productId, -diff);
     };
 
-    const handleRemove = (productId: number) => {
-        updateAccount({
-            cart: products.filter(
-                (item) => item.product.id !== productId),
-        });
+    const handleRemove = async (productId: number) => {
+        const currentItem = account.cart.find(item => item.product.id === productId);
+        if (!currentItem) return;
+        await removeFromCart(productId, currentItem.quantity);
     };
 
     const handlePurchase = async () => {
-        if (!account || account.cart.length === 0) {
-            alert("Cart is empty");
-            return;
-        }
 
         try {
-            const updatedAccount = await AccountService.checkout(account.id);
-
-            updateAccount({
-                cart: updatedAccount.cart ?? [],
-                recentOrders: updatedAccount.recentOrders ?? [],
-            });
-
+            await checkout();
             alert("Purchase sucessful!");
         } catch (err) {
             console.error(err);
@@ -55,7 +48,7 @@ export default function CartPage() {
         }
     }
 
-    const total = products.reduce(
+    const total = account.cart.reduce(
         (sum, item) => sum + item.product.price * item.quantity, 0
     );
 
@@ -65,7 +58,7 @@ export default function CartPage() {
     
     return (
         <div className="main-cart-div">
-            {products.map((item) => (
+            {account.cart.map((item) => (
                 <div key={item.product.id} className="cart-product">
                     <div className="cart-product-card" onClick={() => navigate(`/product/${item.product.id}`)}>
                         <CustomImage imageSource={item.product.imageLink || "/placeholder.png"} imageAlt={item.product.name} imageClassName="cart-product-card-image" />
@@ -93,7 +86,6 @@ export default function CartPage() {
             <div className="total-price-div">
                 <strong>Total cost: ${total.toFixed(2)}</strong>
                 <p>Amount saved: €{(total * 0.2).toFixed(2)}</p>
-                {/* add onclick here */}
                 <button onClick={handlePurchase} disabled={account.cart.length === 0 || outOfStock}> {outOfStock ? "Item is out of stock" : "Purchase"} </button>
             </div>
         </div>

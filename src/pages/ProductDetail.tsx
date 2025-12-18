@@ -1,9 +1,6 @@
-import Navbar from "../components/Navbar";
 import SimilarProducts from "../components/SimilarProducts";
-import { data } from "../components/Data";
 import "../stylesheets/product.css";
 import { useParams } from "react-router-dom";
-import { AccountService } from "../services/accountService";
 import { ProductService } from "../services/productService";
 import { useEffect, useState } from "react";
 import { useUserStore } from "../Stores/userStore";
@@ -16,6 +13,9 @@ export default function ProductDetail() {
     const [product, setProduct] = useState(null);
     const [similarProducts, setSimilarProducts] = useState([]);
     const account = useUserStore((state) => state.user);
+    const addToCart = useUserStore((state) => state.addToCart);
+    const addFavorite = useUserStore((state) => state.addFavorite);
+    const removeFavorite = useUserStore((state) => state.removeFavorite);
     const updateAccount = useUserStore((state) => state.updateUser);
     const exists = account?.favorites?.some((fav) => fav.id === product?.id) ?? false;
     
@@ -43,24 +43,7 @@ export default function ProductDetail() {
         }
 
         try {
-            await AccountService.addToCart(account.id, product.id, quantity);
-
-            const existing = account.cart.find(
-                (item) => item.product.id === product.id
-            );
-
-            let updatedCart;
-
-            if(existing) {
-                updatedCart = account.cart.map((item) => item.product.id === product.id ? {...item, quantity: item.quantity + quantity} : item);
-            } else {
-                updatedCart = [
-                    ...account.cart,
-                    {product, quantity},
-                ];
-            }
-
-            updateAccount({ cart: updatedCart });
+            await addToCart( product.id, quantity);
             alert("Added to cart!");
         } catch (err) {
             console.error(err);
@@ -69,23 +52,14 @@ export default function ProductDetail() {
     };
 
     const handleAddToFavorites = async () => {
-        if (!account) return;
+        if (!account || !product) return;
         
         try {
             if (exists) {
-                await AccountService.removeFromFavorites(account.id, product.id);
-
-                updateAccount({
-                    favorites: account.favorites.filter((fav) => fav.id !== product.id),
-                })
+                await removeFavorite(product.id);
             } else {
-                await AccountService.addToFavorites(account.id, product.id);
-
-                updateAccount({
-                    favorites: [...account?.favorites, product]
-                })
+                await addFavorite(product.id);
             }
-    
         } catch (err) {
             console.error(err);
             alert("failed to add to favorites!");
