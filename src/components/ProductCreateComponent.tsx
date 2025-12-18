@@ -6,7 +6,7 @@ import { useState } from "react";
 import CustomImage from "./CustomImage";
 import React from 'react';
 
-export default function ProductCreateComponent() {
+export default function ProductCreateComponent({closeFunction}) {
     const initialFormData = {
         name: "",
         description: "",
@@ -154,10 +154,18 @@ export default function ProductCreateComponent() {
                     }
                 </form>
             </p>
-
-            <hr/>
             
             <div>
+                {(formData.name === "" || formData.price === 0 || formData.subcategoryId === 0 ) ?
+                (
+                    <></>
+                ) : (
+                    <>
+                        <hr/>
+                        <button onClick={() => createProduct.mutate(formData)}>Add Product</button>
+                    </>
+                ) }
+                
                 {(error.errorfound) ?
                 (
                     <p>{error.errorMessage}</p>
@@ -165,13 +173,7 @@ export default function ProductCreateComponent() {
                     <></>
                 ) }
 
-                {(formData.name === "" || formData.price === 0 || formData.subcategoryId === 0 ) ?
-                (
-                    <></>
-                ) : (
-                    <button onClick={() => createProduct.mutate(formData)}>Add Product</button>
-                )
-                }
+                <button onClick={closeFunction}>return to overview</button>
             </div>
         </div>
     );
