@@ -98,36 +98,29 @@
 
 // export default Login;
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { API_URL } from "../api/config.ts";
-import { useUserStore } from "../Stores/userStore";
+import { useUserStore } from "../Stores/userStore.ts";
+import { AccountService } from "../services/accountService.js";
 
-export default function login() {
-    const [credentials, setCredentials] = useState({ email: "", password: "" });
+export default function Login() {
+    const [credentials, setCredentials] = useState({ username: "", password: "" });
     const loginUser = useUserStore((state) => state.login);
     const navigate = useNavigate();
 
     const loginMutation = useMutation({
-        mutationFn: async (dto: { email: string; password: string }) => {
-            const res = await fetch(`${API_URL}/users/login`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dto),
-            });
-            if (!res.ok) {
-                const err = await res.json();
-                throw new Error(err.message || "Login failed");
-            }
-            return res.json();
+    mutationFn: async (dto: { username: string; password: string }) => {
+        return await AccountService.login(dto);
         },
         onSuccess: (user) => {
-            loginUser({ id: user.id, email: user.email, name: user.name });
+            loginUser(user);
+            alert(`welcome `)
             navigate("/products");
         },
         onError: (error: any) => {
-            alert(error.message || "Login failed: check credentials");
+            alert(error.message || "Login failed");
         },
     });
 
@@ -135,10 +128,10 @@ export default function login() {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "100px", gap: "10px" }}>
             <h1>Login</h1>
             <input
-                type="email"
-                placeholder="Email"
-                value={credentials.email}
-                onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+                type="username"
+                placeholder="Username"
+                value={credentials.username}
+                onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
             />
             <input
                 type="password"

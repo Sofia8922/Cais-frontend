@@ -7,9 +7,9 @@ import { useUserStore } from "../Stores/userStore";
 function Navbar() {
     const navigate = useNavigate();
 
-    // const user =  useUserStore((state) => state.user);
-    // const userId = user?.id;
-    const userId = 1;
+    const user =  useUserStore((state) => state.user);
+    console.log("Navbar user:", user);
+    // const userId = 1;
     return (
         <nav className="navbar">
             <div className="navbar-left">
@@ -22,8 +22,13 @@ function Navbar() {
 
             <div className="navbar-right">
                 <button className="nav-btn favorite" onClick={() => navigate(`/favorites`)}>saved</button>
-                <button className="nav-btn cart" onClick={() => navigate(`/cart/${userId}`)}>cart</button>
-                <button className="nav-btn profile" onClick={() => navigate(`/profile/${userId}`)}>profile</button>
+                <button className="nav-btn cart" onClick={() => navigate(`/cart`)}>cart</button>
+                <button className="nav-btn profile" onClick={() => { 
+                    if (!user) {
+                        navigate("/login")
+                    } else {
+                        navigate(`/profile`)
+                    }}}>profile</button>
             </div>
         </nav>
     )

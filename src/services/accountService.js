@@ -6,6 +6,9 @@ export const AccountService = {
     register: (dto) =>
         api.post("/accounts", dto),
 
+    login: (dto) => 
+        api.post("/accounts/login", dto),
+
     getAllAccounts: () => api.get("/accounts"),
 
     getAccountById: (id) => api.get(`/accounts/${id}`),
