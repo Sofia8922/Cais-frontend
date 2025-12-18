@@ -77,7 +77,21 @@ export default function CartPage() {
                                 )
                             }}/>
 
-                            <button onClick={() => handleRemove(item.product.id)}>Remove</button>
+                    <div className="cart-product">
+                        <div className="cart-product-card" onClick={() => navigate(`/product/${product.id}`)}>
+                            <img src={product.imageLink || "/placeholder.png"} alt={product.name} className="cart-product-card-image" />
+                            <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <h3 className="cart-product-card-name">{product.name}</h3>
+                                <p className="cart-product-card-price">{<Price basePrice={product.price} />}</p>
+                            </div>
+                        </div>
+
+                        <div className="cart-actions">
+                            <div className="product-quantity">
+                                <input type="number" id="quantity" min="1" required />
+                                <button>Save</button>
+                            </div>
+                            <button>Remove</button>
                         </div>
                     </div>
                 </div>
