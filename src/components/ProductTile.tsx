@@ -1,10 +1,10 @@
 import { ProductDTO } from "../dtos/ProductDTOs"
 
-export default function ProductTile(product) {
+export default function ProductTile({product, setMode}) {
 console.log(product)
     return (
         <div style={{
-            width: "900px",
+            width: "95%",
             height: "30px",
             background: "black",
             border: "2px solid white",
@@ -22,10 +22,10 @@ console.log(product)
         }}
             onMouseOver={(e) => { e.currentTarget.style.background = "rgba(19, 19, 19, 1)" }}
             onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(0, 0, 0, 1)" }}
-            onClick={() => { }}>
-            <p style={{textAlign: "left", width: "25%"}}>{product.product.name}</p>
-            <p style={{textAlign: "left", width: "25%"}}>{product.product.stock}</p>
-            <p style={{textAlign: "left", width: "25%"}}>€{product.product.price}</p>
+            onClick={setMode}>
+            <p style={{textAlign: "left", width: "25%"}}>{product.name}</p>
+            <p style={{textAlign: "left", width: "25%"}}>{product.stock}</p>
+            <p style={{textAlign: "left", width: "25%"}}>€{product.price}</p>
             <p style={{textAlign: "left", width: "25%"}}>??</p>
         </div>
     )
