@@ -88,12 +88,12 @@ export default function ProductDetail() {
                         {/* admin button to edit here */}
                         <button className="admin">Edit</button>
                     </div>
-                    <p>{product.description || "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."}</p>
+                    <p>{product.description || "No description available"}</p>
 
                     <div className="product-category">
                         <p>Category: {product.subcategory.category.name} {"->"} {product.subcategory.name}</p>
                         <div className="product-actions">
-                            <input type="number" id="quantity" min="1" onChange={(e) => setQuantity(Math.min(product.stock, Math.max(1, Number(e.target.value))))} required />
+                            <input type="number" id="quantity" min="1" max={product.stock} onChange={(e) => setQuantity(Math.min(product.stock, Math.max(1, Number(e.target.value))))} required />
                             <button onClick={handleAddToCart} disabled={product.stock < 1 || quantity > product.stock}>{product.stock < 1 ? "Öut of stock": "Add to cart"}</button>
                             {/* maybe a saved button next to the add to cart button too? */}
                             <button type="button" onClick={handleAddToFavorites}>{exists ? "del fav" : "add fav"}</button>

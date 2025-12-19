@@ -7,8 +7,10 @@ import ProductComponent from "../components/ProductComponent";
 import ProductListComponent from "../components/ProductListComponent";
 import { CategoryDTO, SubCategoryDTO } from "../dtos/CategoryDTOs";
 import ProductMenu from "../components/ProductMenu";
+import { useUserStore } from "../Stores/userStore";
 
 export default function ProductList() {
+    const account = useUserStore((state) => state.user);
     const [priceFilter, setPriceFilter] = useState(0);
     const [expandedCategory, setExpandedCategory] = useState<CategoryDTO>();
     const [selectedSubcategory, setSubcategory] = useState<SubCategoryDTO>();
@@ -43,11 +45,15 @@ export default function ProductList() {
                     <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>€{priceFilter.toFixed(2)}</p>
                 </div>
 
-                <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
-                onClick={() => openProductMenu(true)}>Manage products</button>
-                {(isProductMenuOpened && <ProductMenu closeFunction={() => openProductMenu(false)}/>)}
+                {account?.roles.some(role => role === "ADMIN") ?
+                <>
+                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
+                    onClick={() => openProductMenu(true)}>Manage products</button>
+                    {(isProductMenuOpened && <ProductMenu closeFunction={() => openProductMenu(false)}/>)}
+                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}>Manage categories</button>
+                </>
+                : <>no admin</>}
 
-                <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}>Manage categories</button>
             </div>
 
             <ProductListComponent expandedCategory={expandedCategory} expandedSubCategory={selectedSubcategory} maxPrice={priceFilter} setPriceRange={setPriceRange} priceRange={priceRange} setPriceFilter={setPriceFilter} />
