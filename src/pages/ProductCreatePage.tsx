@@ -9,7 +9,7 @@ export default function ProductCreatePage() {
 
             <ProductListAdminComponent/>
             <hr/>
-            <ProductCreateComponent/>
+            {/* <ProductCreateComponent/> */}
         </div>
     );
 }
