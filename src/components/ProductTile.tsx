@@ -1,4 +1,5 @@
 import { ProductDTO } from "../dtos/ProductDTOs"
+import PriceFormat from "./PriceFormat"
 
 export default function ProductTile({product, setMode}) {
 console.log(product)
@@ -25,7 +26,7 @@ console.log(product)
             onClick={setMode}>
             <p style={{textAlign: "left", width: "25%"}}>{product.name}</p>
             <p style={{textAlign: "left", width: "25%"}}>{product.stock}</p>
-            <p style={{textAlign: "left", width: "25%"}}>€{product.price}</p>
+            <p style={{textAlign: "left", width: "25%"}}><PriceFormat priceNumber={product.price} /></p>
             <p style={{textAlign: "left", width: "25%"}}>??</p>
         </div>
     )

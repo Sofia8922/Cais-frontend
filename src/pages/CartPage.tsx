@@ -5,6 +5,7 @@ import "../stylesheets/cart.css";
 import CustomImage from "../components/CustomImage";
 import { useUserStore } from "../Stores/userStore";
 import { AccountService } from "../services/accountService";
+import PriceFormat from "../components/PriceFormat";
 
 
 export default function CartPage() {
@@ -84,8 +85,8 @@ export default function CartPage() {
             ))}
 
             <div className="total-price-div">
-                <strong>Total cost: ${total.toFixed(2).replace('.', ',')}</strong>
-                <p>Amount saved: €{(total * 0.2).toFixed(2).replace('.', ',')}</p>
+                <strong>Total cost: <PriceFormat priceNumber={total} /> </strong>
+                <p>Amount saved: <PriceFormat priceNumber={total*0.4} /></p>
                 <button onClick={handlePurchase} disabled={account.cart.length === 0 || outOfStock}> {outOfStock ? "Item is out of stock" : "Purchase"} </button>
             </div>
         </div>

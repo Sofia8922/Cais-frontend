@@ -127,7 +127,7 @@ export default function ProductCreateComponent({closeFunction}) {
             </p>
             <p>
                 price:
-                €<input name="price" type="number" value={Number(formData.price).toFixed(2).replace('.', ',')} defaultValue={formData.price} min={0.01} step={0.01} onChange={handleChangeBootstrap} />
+                €<input name="price" type="number" value={Number(formData.price).toFixed(2)} defaultValue={formData.price} min={0.01} step={0.01} onChange={handleChangeBootstrap} />
             </p>
             <p onDrop={handleDrop} onDragOver={handleDragOver}>
                 image: 

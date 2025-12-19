@@ -8,6 +8,7 @@ import ProductListComponent from "../components/ProductListComponent";
 import { CategoryDTO, SubCategoryDTO } from "../dtos/CategoryDTOs";
 import ProductMenu from "../components/ProductMenu";
 import { useUserStore } from "../Stores/userStore";
+import PriceFormat from "../components/PriceFormat";
 
 export default function ProductList() {
     const account = useUserStore((state) => state.user);
@@ -29,7 +30,7 @@ export default function ProductList() {
                 <div className="priceDiv">
                     <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "23px" }}>Price range</strong>
                     <div style={{ display: "flex", flexDirection: "row", width: "90%", alignSelf: "center", marginTop: "0px", fontSize: "23px", justifyContent: "center", alignItems: "center" }}>
-                        <p style={{ textAlign: "left", margin: "0px" }}>{"€" + priceRange.minPrice.toFixed(2).replace('.', ',')}</p>
+                        <p style={{ textAlign: "left", margin: "0px" }}><PriceFormat priceNumber={priceRange.minPrice}/></p>
                         <input
                             style={{ flex: 1 }}
                             id="typeinp"
@@ -40,9 +41,9 @@ export default function ProductList() {
                             step=".05">
                         </input>
 
-                        <p style={{ textAlign: "right", margin: "0px" }}>{"€" + priceRange.maxPrice.toFixed(2).replace('.', ',')}</p>
+                        <p style={{ textAlign: "right", margin: "0px" }}><PriceFormat priceNumber={priceRange.maxPrice}/></p>
                     </div>
-                    <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>€{priceFilter.toFixed(2).replace('.', ',')}</p>
+                    <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}><PriceFormat priceNumber={priceFilter}/></p>
                 </div>
 
                 {account?.roles.some(role => role === "ADMIN") ?

@@ -2,6 +2,7 @@ import { API_URL } from "../App";
 import { useQuery } from "@tanstack/react-query";
 import { ProductDTOList } from "../dtos/ProductDTOs.tsx";
 import { useState } from "react";
+import PriceFormat from "./PriceFormat.tsx";
 
 export default function ProductListAdminComponent() {  
     const [search, setSearch] = useState({value: ""});
@@ -60,7 +61,7 @@ export default function ProductListAdminComponent() {
                     <tr key={product.id} style={product.id % 2 === 0 ? {background: "red"}: {background: "green"}}>
                         <th>{product.name}</th>
                         <th>Stock: {product.stock}</th>
-                        <th>€{Number(product.price).toFixed(2).replace('.', ',')}</th>
+                        <th><PriceFormat priceNumber={product.price} /></th>
                         <th>{(product.purchases) ? product.purchases?.length : "error"}</th>
                     </tr>
                 )))
