@@ -4,9 +4,7 @@ interface PriceProps {
 
 const PriceFormat = ({priceNumber}: PriceProps) => {
     return (
-        <>
-            <>€{priceNumber.toFixed(2).replace('.', ',')}</>
-        </>
+        <>€{priceNumber.toFixed(2).replace('.', ',')}</>
     );
 };
 

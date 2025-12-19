@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import Price from "../components/Price";
 import ProductComponent from "../components/ProductComponent";
 import "../stylesheets/cart.css";
 import CustomImage from "../components/CustomImage";
 import { useUserStore } from "../Stores/userStore";
 import { AccountService } from "../services/accountService";
 import PriceFormat from "../components/PriceFormat";
+import Price from "../components/Price";
 
 
 export default function CartPage() {
@@ -85,7 +85,7 @@ export default function CartPage() {
             ))}
 
             <div className="total-price-div">
-                <strong>Total cost: <PriceFormat priceNumber={total} /> </strong>
+                <strong>Total cost: <Price basePrice={total} /> </strong>
                 <p>Amount saved: <PriceFormat priceNumber={total*0.4} /></p>
                 <button onClick={handlePurchase} disabled={account.cart.length === 0 || outOfStock}> {outOfStock ? "Item is out of stock" : "Purchase"} </button>
             </div>
