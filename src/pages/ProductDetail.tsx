@@ -1,9 +1,6 @@
-import Navbar from "../components/Navbar";
 import SimilarProducts from "../components/SimilarProducts";
-import { data } from "../components/Data";
 import "../stylesheets/product.css";
 import { useParams } from "react-router-dom";
-import { AccountService } from "../services/accountService";
 import { ProductService } from "../services/productService";
 import { useEffect, useState } from "react";
 import { useUserStore } from "../Stores/userStore";
@@ -16,7 +13,11 @@ export default function ProductDetail() {
     const [product, setProduct] = useState(null);
     const [similarProducts, setSimilarProducts] = useState([]);
     const account = useUserStore((state) => state.user);
-    const accountId = account?.id;
+    const addToCart = useUserStore((state) => state.addToCart);
+    const addFavorite = useUserStore((state) => state.addFavorite);
+    const removeFavorite = useUserStore((state) => state.removeFavorite);
+    const updateAccount = useUserStore((state) => state.updateUser);
+    const exists = account?.favorites?.some((fav) => fav.id === product?.id) ?? false;
     
     useEffect(() => {
         const fetchProduct = async () => {
@@ -36,17 +37,34 @@ export default function ProductDetail() {
     }, [productId]);
 
     const handleAddToCart = async () => {
-        if (!accountId) {
+        if (!account || !product) {
             alert("You must be logged in to add items to cart!");
+            return;
         }
+
         try {
-            await AccountService.addToCart(accountId, product.id, quantity);
+            await addToCart( product.id, quantity);
             alert("Added to cart!");
         } catch (err) {
             console.error(err);
             alert("Failed to add to cart!");
         }
     };
+
+    const handleAddToFavorites = async () => {
+        if (!account || !product) return;
+        
+        try {
+            if (exists) {
+                await removeFavorite(product.id);
+            } else {
+                await addFavorite(product.id);
+            }
+        } catch (err) {
+            console.error(err);
+            alert("failed to add to favorites!");
+        }
+    }
 
     if (!product) return <p>Loading...</p>
 
@@ -59,7 +77,6 @@ export default function ProductDetail() {
                         <h2 style={{flex: 1}}>{product.name}</h2>
                         <span className="price">in stock: {product.stock}</span>
                     </div>
-                    {/* <img src={product.imageLink || "/placeholder.png"} alt={product.name} /> */}
                     {/* img here */}
                     <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName=""/>
                 </div>
@@ -76,9 +93,10 @@ export default function ProductDetail() {
                     <div className="product-category">
                         <p>Category: {product.subcategory.category.name} {"->"} {product.subcategory.name}</p>
                         <div className="product-actions">
-                            <input type="number" id="quantity" min="1" onChange={(e) => setQuantity(Number(e.target.value))} required />
-                            <button onClick={handleAddToCart}>Add to cart</button>
+                            <input type="number" id="quantity" min="1" onChange={(e) => setQuantity(Math.min(product.stock, Math.max(1, Number(e.target.value))))} required />
+                            <button onClick={handleAddToCart} disabled={product.stock < 1 || quantity > product.stock}>{product.stock < 1 ? "Öut of stock": "Add to cart"}</button>
                             {/* maybe a saved button next to the add to cart button too? */}
+                            <button type="button" onClick={handleAddToFavorites}>{exists ? "del fav" : "add fav"}</button>
                         </div>
                     </div>
                 </div>

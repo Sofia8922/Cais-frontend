@@ -17,12 +17,12 @@ export default function RecentOrders({ orders }) {
             <h2>Recent Orders</h2>
 
             {orders.map((order) => (
-                <div key={order.id} className="order=card">
+                <div key={order.id} className="order-card">
                     <p><strong>Order ID:</strong> {order.id}</p>
-                    <p><strong>Product:</strong> {order.product.name}</p>
+                    <p><strong>Product:</strong> {order.productDTO.name ?? "Unknown Product"}</p>
                     <p><strong>Quantity:</strong> {order.amount}</p>
                     <p><strong>Status:</strong> {order.status}</p>
-                    <p><strong>Price:</strong> ${order.product.price}</p>
+                    <p><strong>Price:</strong> { ((order.unitPrice ?? 0) * (order.amount ?? 1).toFixed(2)) ?? "0.00"}</p>
                 </div>
             ))}
         </div>

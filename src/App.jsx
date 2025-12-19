@@ -9,6 +9,7 @@ import CartPage from "./pages/CartPage.tsx";
 import { PrivateRoute } from "./pages/PrivateRoute.js";
 import FavouritesPage from "./pages/FavouritesPage.tsx";
 import Navbar from "./components/Navbar.tsx";
+import ProductCreatePage from "./pages/ProductCreatePage.tsx";
 
 export const API_URL = `http://localhost:8080`
 
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
+        {/* <Route path="/register" element={ } /> */}
 
         {/* private routes go here. if user is not logged in return to login page */}
         {/* <Route element={<PrivateRoute />}> */}

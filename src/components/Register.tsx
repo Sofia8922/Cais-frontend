@@ -2,7 +2,7 @@ import { Form, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { API_URL } from "../api/config.ts";
 import { useMutation } from "@tanstack/react-query";
-import { updateUser } from "../Stores/userStore.ts";
+
 
 
 const RegisterComponent = ({ onBack }: { onBack: () => void }) => {
