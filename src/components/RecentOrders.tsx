@@ -22,10 +22,10 @@ export default function RecentOrders({orders}: RecentOrdersProps) {
 
             {orders.map((order) => (
                 <p key={order.id} className="order-card">
+                    <hr/>
                     <p><strong>Purchase:</strong> {order.productDTO.name ?? "Unknown Product"} × {order.amount}</p>
                     <p><strong>Total price:</strong> <PriceFormat priceNumber={((order.productDTO.price) * (order.amount))}/></p>
                     <p><strong>Status:</strong> {order.status}</p>
-                    <hr/>
                 </p>
             ))}
         </div>
