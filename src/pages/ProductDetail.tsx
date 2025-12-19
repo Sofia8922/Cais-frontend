@@ -85,8 +85,9 @@ export default function ProductDetail() {
                 <div className="product-center">
                     <div className="product-cost">
                         <h2>{<Price basePrice={product.price} />}</h2>
-                        {/* admin button to edit here */}
-                        <button className="admin">Edit</button>
+                        {account?.roles.some(role => role === "ADMIN") ?
+                        <button className="admin">Edit</button> :
+                        <></>}
                     </div>
                     <p>{product.description || "No description available"}</p>
 
@@ -96,7 +97,7 @@ export default function ProductDetail() {
                             <input type="number" id="quantity" min="1" max={product.stock} onChange={(e) => setQuantity(Math.min(product.stock, Math.max(1, Number(e.target.value))))} required />
                             <button onClick={handleAddToCart} disabled={product.stock < 1 || quantity > product.stock}>{product.stock < 1 ? "Öut of stock": "Add to cart"}</button>
                             {/* maybe a saved button next to the add to cart button too? */}
-                            <button type="button" onClick={handleAddToFavorites}>{exists ? "del fav" : "add fav"}</button>
+                            <button type="button" onClick={handleAddToFavorites}>{exists ? "delete from favourites" : "add to favourites"}</button>
                         </div>
                     </div>
                 </div>

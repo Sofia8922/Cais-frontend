@@ -53,7 +53,7 @@ export default function ProductList() {
                     {(isProductMenuOpened && <ProductMenu closeFunction={() => openProductMenu(false)}/>)}
                     <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}>Manage categories</button>
                 </>
-                : <>no admin</>}
+                : <></>}
 
             </div>
 
