@@ -21,7 +21,7 @@ function Navbar() {
             </div>
 
             <div className="navbar-right">
-                <button className="nav-btn favorite" onClick={() => navigate(`/favorites`)}>saved</button>
+                <button className="nav-btn favorite" onClick={() => navigate(`/favorites`)}>favourites</button>
                 <button className="nav-btn cart" onClick={() => navigate(`/cart`)}>cart</button>
                 <button className="nav-btn profile" onClick={() => { 
                     if (!user) {
