@@ -1,5 +1,5 @@
 import { SubCategoryDTO } from "./CategoryDTOs";
-import { PurchaseDTOList } from "./PurchaseDTOs";
+import { PurchaseShortDTOList } from "./PurchaseDTOs";
 
 export interface ProductDTO {
     id: number;
@@ -9,7 +9,7 @@ export interface ProductDTO {
     stock: number;
     imageLink: string;
     subcategory: SubCategoryDTO;
-    purchases: PurchaseDTOList;
+    purchases: PurchaseShortDTOList;
 }
 
 export type ProductDTOList = ProductDTO[];
@@ -21,4 +21,14 @@ export interface ProductCreateDTO {
     stock: number;
     imageLink: string;
     subcategoryId: number;
+}
+
+export interface ProductShortDTO {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    stock: number;
+    imageLink: string;
+    subcategory: SubCategoryDTO;
 }

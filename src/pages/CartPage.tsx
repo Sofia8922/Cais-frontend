@@ -84,8 +84,8 @@ export default function CartPage() {
             ))}
 
             <div className="total-price-div">
-                <strong>Total cost: ${total.toFixed(2)}</strong>
-                <p>Amount saved: €{(total * 0.2).toFixed(2)}</p>
+                <strong>Total cost: ${total.toFixed(2).replace('.', ',')}</strong>
+                <p>Amount saved: €{(total * 0.2).toFixed(2).replace('.', ',')}</p>
                 <button onClick={handlePurchase} disabled={account.cart.length === 0 || outOfStock}> {outOfStock ? "Item is out of stock" : "Purchase"} </button>
             </div>
         </div>

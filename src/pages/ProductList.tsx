@@ -29,7 +29,7 @@ export default function ProductList() {
                 <div className="priceDiv">
                     <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "23px" }}>Price range</strong>
                     <div style={{ display: "flex", flexDirection: "row", width: "90%", alignSelf: "center", marginTop: "0px", fontSize: "23px", justifyContent: "center", alignItems: "center" }}>
-                        <p style={{ textAlign: "left", margin: "0px" }}>{"€" + priceRange.minPrice.toFixed(2)}</p>
+                        <p style={{ textAlign: "left", margin: "0px" }}>{"€" + priceRange.minPrice.toFixed(2).replace('.', ',')}</p>
                         <input
                             style={{ flex: 1 }}
                             id="typeinp"
@@ -40,9 +40,9 @@ export default function ProductList() {
                             step=".05">
                         </input>
 
-                        <p style={{ textAlign: "right", margin: "0px" }}>{"€" + priceRange.maxPrice.toFixed(2)}</p>
+                        <p style={{ textAlign: "right", margin: "0px" }}>{"€" + priceRange.maxPrice.toFixed(2).replace('.', ',')}</p>
                     </div>
-                    <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>€{priceFilter.toFixed(2)}</p>
+                    <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>€{priceFilter.toFixed(2).replace('.', ',')}</p>
                 </div>
 
                 {account?.roles.some(role => role === "ADMIN") ?

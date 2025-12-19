@@ -4,14 +4,14 @@ interface PriceProps {
 
 const Price = ({basePrice}: PriceProps) => {
     const highPrice = 
-        (basePrice * 1.4).toFixed(2);
+        (basePrice * 1.4).toFixed(2).replace('.', ',');
 
     const lowPrice =
-        basePrice.toFixed(2);
+        basePrice.toFixed(2).replace('.', ',');
 
     return (
         <>
-            <>€{lowPrice.toString()}</> <s>€{highPrice.toString()}</s>
+            <>€{lowPrice}</> <s>€{highPrice}</s>
         </>
     );
 };
