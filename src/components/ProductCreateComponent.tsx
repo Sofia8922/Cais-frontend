@@ -16,6 +16,7 @@ export default function ProductCreateComponent({closeFunction}) {
         subcategoryId: 0
     };
 
+    const queryClient = useQueryClient();
     const [formData, setFormData] = useState(initialFormData);
 
     const [error, setError] = useState({errorfound: false, errorMessage: ""});
@@ -43,6 +44,7 @@ export default function ProductCreateComponent({closeFunction}) {
         },
         onSuccess: (response) => {
             console.log(response.message);
+            queryClient.invalidateQueries({ queryKey: ["productList"]});
             if(error.errorfound) {
                 setError({errorfound: true, errorMessage: response.message});
             }

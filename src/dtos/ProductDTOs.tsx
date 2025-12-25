@@ -22,6 +22,14 @@ export interface ProductCreateDTO {
     imageLink: string;
     subcategoryId: number;
 }
+export interface ProductEditDTO {
+    name: string;
+    description: string;
+    price: number;
+    stock: number;
+    imageLink: string;
+    subcategoryId: number;
+}
 
 export interface ProductShortDTO {
     id: number;
