@@ -2,6 +2,7 @@ import { useUserStore } from "../Stores/userStore";
 import { AccountService } from "../services/accountService";
 import RecentOrders from "../components/RecentOrders";
 import { useNavigate } from "react-router-dom";
+import GetExcel from "../components/GetExcel";
 
 export default function UserProfilePage() {
     const account = useUserStore((state) => state.user);
@@ -33,6 +34,13 @@ export default function UserProfilePage() {
                     <button className="admin" onClick={handleLogout}>Logout</button>
                 </div>
             </div>
+            {account?.roles.some(role => role === "ADMIN") ?
+                        <div>
+                            <br/>
+                            <GetExcel></GetExcel>
+                            <br/>
+                        </div> :
+                        <></>}
             <div className="profile-orders">
                 <RecentOrders orders={account.recentOrders} />
             </div>

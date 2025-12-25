@@ -13,9 +13,11 @@
     "@odemian/react-store": "^0.0.12",
     "@tanstack/react-query": "^5.90.11",
     "bootstrap": "^5.3.8",
+    "file-saver": "^2.0.5",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6",
+    "xlsx": "^0.18.5",
     "zustand": "^5.0.9"
   },
   "devDependencies": {
