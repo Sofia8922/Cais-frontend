@@ -30,6 +30,7 @@ function App() {
   return (
     <div style={appStyles}>
       <Navbar />
+      <div style={routesStyles}>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
@@ -50,7 +51,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           {/* </Route> */}
         </Routes>
-      {/* </div> */}
+      </div>
       <Footer />
     </div>
   );
