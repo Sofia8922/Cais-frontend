@@ -28,7 +28,7 @@ export default function ProductComponent({ product }: {product: ProductDTO}) {
             }}
             onClick={() => { navigate(`/product/${product.id}`) }}
         >
-            <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName="productImage"/>
+            <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName="productImage" greyedOut={product.stock === 0}/>
             <div style={{ height: "50px", marginBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>{product.name}</strong>
 

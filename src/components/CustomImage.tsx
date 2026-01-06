@@ -4,9 +4,10 @@ interface LinkProps{
     imageSource: string;
     imageAlt: string;
     imageClassName: string;
+    greyedOut: boolean;
 }
 
-const CustomImage = ({ imageSource, imageAlt, imageClassName }: LinkProps) => {
+const CustomImage = ({ imageSource, imageAlt, imageClassName, greyedOut }: LinkProps) => {
   const [hasError, setHasError] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -19,14 +20,17 @@ const CustomImage = ({ imageSource, imageAlt, imageClassName }: LinkProps) => {
     setLoading(false);
   };
 
+  let imageStyle = {};
+
+  if(greyedOut) {
+    imageStyle = {
+      filter: 'alpha(opacity=40)',
+      opacity: '0.1'
+    }
+  }
+  
   if (hasError || loading || imageSource == "") {
-    return <img
-      src={"../src/assets/SiteLogoGrey.svg"}
-      alt={imageAlt}
-      className={imageClassName}
-      onError={handleError}
-      onLoad={handleLoad}
-    />
+    imageSource = "../src/assets/SiteLogoGrey.svg";
   }
 
   return (
@@ -36,8 +40,8 @@ const CustomImage = ({ imageSource, imageAlt, imageClassName }: LinkProps) => {
       className={imageClassName}
       onError={handleError}
       onLoad={handleLoad}
-    />
-  );
+      style={imageStyle}
+    />)
 };
 
 export default CustomImage;
