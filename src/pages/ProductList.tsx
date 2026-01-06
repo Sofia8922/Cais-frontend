@@ -21,7 +21,7 @@ export default function ProductList() {
 
     return (
         <div className="mainDiv">
-            <Navbar />
+            {/* <Navbar /> */}
 
             <div className="settingsDiv">
 

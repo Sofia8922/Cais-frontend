@@ -4,10 +4,10 @@ import { api } from "./apiService";
 
 export const AccountService = {
     register: (dto) =>
-        api.post("/accounts", dto),
+        api.postUser("/accounts", dto),
 
     login: (dto) => 
-        api.post("/accounts/login", dto),
+        api.postUser("/accounts/login", dto),
 
     getAllAccounts: () => api.get("/accounts"),
 
