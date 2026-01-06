@@ -12,10 +12,10 @@ import PriceFormat from "../components/PriceFormat";
 
 export default function ProductList() {
     const account = useUserStore((state) => state.user);
-    const [priceFilter, setPriceFilter] = useState(0);
     const [expandedCategory, setExpandedCategory] = useState<CategoryDTO>();
     const [selectedSubcategory, setSubcategory] = useState<SubCategoryDTO>();
     const [priceRange, setPriceRange] = useState({ minPrice: 0, maxPrice: 99 })
+    const [priceFilter, setPriceFilter] = useState(priceRange.maxPrice + 1);
 
     const [isProductMenuOpened, openProductMenu] = useState(false)
 
@@ -42,7 +42,12 @@ export default function ProductList() {
 
                         <p style={{ textAlign: "right", margin: "0px" }}><PriceFormat priceNumber={priceRange.maxPrice}/></p>
                     </div>
-                    <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}><PriceFormat priceNumber={priceFilter}/></p>
+                    {
+                        priceFilter > priceRange.maxPrice ?
+                        <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>€ -</p>
+                        :
+                        <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}><PriceFormat priceNumber={priceFilter}/></p>
+                    }
                 </div>
 
                 {account?.roles.some(role => role === "ADMIN") ?
