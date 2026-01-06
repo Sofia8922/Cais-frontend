@@ -9,6 +9,7 @@ import CartPage from "./pages/CartPage.tsx";
 import { PrivateRoute } from "./pages/PrivateRoute.js";
 import FavouritesPage from "./pages/FavouritesPage.tsx";
 import Navbar from "./components/Navbar.tsx";
+import Footer from "./components/Footer.tsx";
 
 
 export const API_URL = `http://localhost:8080`
@@ -37,6 +38,7 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         {/* </Route> */}
       </Routes>
+      <Footer />
     </>
   );
 }
