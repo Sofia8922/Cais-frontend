@@ -43,7 +43,7 @@ export default function ProductDetail() {
         }
 
         try {
-            await addToCart( product.id, quantity);
+            await addToCart(product.id, quantity);
             alert("Added to cart!");
         } catch (err) {
             console.error(err);

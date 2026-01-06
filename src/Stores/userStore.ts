@@ -10,12 +10,20 @@ interface Account {
     cart: any[];
     favorites: any[];
     recentOrders: any[];
-    roles: any[];
+    roles: string[];
+}
+
+interface RegisterDTO {
+  username: string;
+  password: string;
+  email: string;
+  roles: string[];
 }
 
 interface UserStore {
   user: Account | null;
   login: (credentials: { username: string; password: string }) => Promise<void>;
+  register: (dto: RegisterDTO) => Promise<void>;
   logout: () => void;
   refreshUser: () => Promise<void>;
   updateUser: (data: Partial<Account>) => Promise<void>;
@@ -49,9 +57,30 @@ export const useUserStore = create<UserStore>((set, get) => ({
         set({user: normalized});
     },
 
-    logout: () => {
-      localStorage.removeItem("currentAccount");
-      set({ user: null });
+    register: async (dto) => {
+      const account = await AccountService.register(dto);
+
+      const normalized = {
+        ...account,
+        cartItems: account.cartItems ?? [],
+        favorites: account.favorites ?? [],
+        recentOrders: account.recentOrders ?? [],
+        roles: account.roles ?? [],
+      };
+
+      localStorage.setItem("currentAccount", JSON.stringify(normalized));
+      set({user: normalized});
+    },
+
+    logout: async () => {
+      try {
+        await AccountService.logout();
+      } catch (err) {
+        console.error("Logout failed", err);
+      } finally {
+        localStorage.removeItem("currentAccount");
+        set({ user: null });
+      }
     },
 
     refreshUser: async () => {
