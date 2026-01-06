@@ -4,17 +4,20 @@ import { api } from "./apiService";
 
 export const AccountService = {
     register: (dto) =>
-        api.postUser("/accounts", dto),
+        api.postUser("/accounts/register", dto),
 
     login: (dto) => 
         api.postUser("/accounts/login", dto),
+
+    logout: () => 
+        api.postUser("/accounts/logout", null),
 
     getAllAccounts: () => api.get("/accounts"),
 
     getAccountById: (id) => api.get(`/accounts/${id}`),
 
     addToCart: (accountId, productId, amount = 1) =>
-    api.post(`/accounts/${accountId}/cart/${productId}?amount=${amount}`),
+    api.postUser(`/accounts/${accountId}/cart/${productId}?amount=${amount}`),
     
     removeFromCart: (accountId, productId, amount = 1) => 
         api.delete(`/accounts/${accountId}/cart/${productId}?amount=${amount}`),
