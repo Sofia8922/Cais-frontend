@@ -21,8 +21,6 @@ export default function ProductList() {
 
     return (
         <div className="mainDiv">
-            {/* <Navbar /> */}
-
             <div className="settingsDiv">
 
                 <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} expandedSubCategory={selectedSubcategory} setSubCategoryId={setSubcategory} />
@@ -31,6 +29,7 @@ export default function ProductList() {
                     <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "23px" }}>Price range</strong>
                     <div style={{ display: "flex", flexDirection: "row", width: "90%", alignSelf: "center", marginTop: "0px", fontSize: "23px", justifyContent: "center", alignItems: "center" }}>
                         <p style={{ textAlign: "left", margin: "0px" }}><PriceFormat priceNumber={priceRange.minPrice}/></p>
+                        
                         <input
                             style={{ flex: 1 }}
                             id="typeinp"

@@ -64,7 +64,7 @@ export default function ProductListComponent({ expandedCategory, expandedSubCate
             minPrice: Math.min(...prices),
             maxPrice: Math.max(...prices),
         });
-        setPriceFilter(Math.max(...prices))
+        //setPriceFilter(Math.min(...prices))
 
         isRangeSet.current = true;
     }, [filteredProducts, setPriceRange]);
