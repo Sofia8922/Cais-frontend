@@ -15,11 +15,11 @@ export default function UserProfilePage() {
         return null;
     }
     
-    const handleLogout = () => {
+    const handleLogout = async () => {
         alert("Logging out!");
         logout();
         navigate("/login");
-    }
+    };
 
     return (
         <div className="profile-page">

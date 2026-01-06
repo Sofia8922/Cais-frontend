@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useUserStore } from "../Stores/userStore.ts";
@@ -43,6 +43,8 @@ export default function Login() {
             >
                 {loginMutation.isPending ? "Logging in..." : "Login"}
             </button>
+
+            <button onClick={() => navigate("/register")}>Register</button>
         </div>
     );
 }

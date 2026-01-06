@@ -9,6 +9,7 @@ import CartPage from "./pages/CartPage.tsx";
 import { PrivateRoute } from "./pages/PrivateRoute.js";
 import FavouritesPage from "./pages/FavouritesPage.tsx";
 import Navbar from "./components/Navbar.tsx";
+import Register from "./pages/Register.tsx";
 import Footer from "./components/Footer.tsx";
 
 
@@ -29,11 +30,10 @@ function App() {
   return (
     <div style={appStyles}>
       <Navbar />
-      <div style={routesStyles}>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/login" element={<Login />} />
-          {/* <Route path="/register" element={ } /> */}
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
           {/* private routes go here. if user is not logged in return to login page */}
           {/* <Route element={<PrivateRoute />}> */}
@@ -50,7 +50,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           {/* </Route> */}
         </Routes>
-      </div>
+      {/* </div> */}
       <Footer />
     </div>
   );
