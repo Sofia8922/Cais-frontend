@@ -23,6 +23,12 @@ export default function UserProfilePage() {
 
     return (
         <div className="profile-page">
+            {account?.roles.some(role => role === "ADMIN") ?
+                <div>
+                    <br/>
+                    <GetExcel/>
+                </div> :
+                <></>}
             <div className="profile-informaton">
                 <h1>{account.username}'s profile! </h1>
                 <h2>Email: {account.email}</h2>
@@ -34,13 +40,6 @@ export default function UserProfilePage() {
                     <button className="admin" onClick={handleLogout}>Logout</button>
                 </div>
             </div>
-            {account?.roles.some(role => role === "ADMIN") ?
-                        <div>
-                            <br/>
-                            <GetExcel></GetExcel>
-                            <br/>
-                        </div> :
-                        <></>}
             <div className="profile-orders">
                 <RecentOrders orders={account.recentOrders} />
             </div>

@@ -76,9 +76,7 @@ function GetExcel() {
     };
 
     return (
-        <div>
-        <button onClick={handleExport}>Download Excel</button>
-        </div>
+        <button onClick={handleExport} className="admin">Download Financial Overview</button>
     );
 }
 
