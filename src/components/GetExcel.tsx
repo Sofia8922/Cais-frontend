@@ -36,6 +36,7 @@ function GetExcel() {
             row++;
 
             const purchases = productList?.at(i)?.purchases;
+            
             let totalSold = 0;
             for(let k = 0; k < (purchases?.length ?? 0); k++ ) {
                 totalSold += purchases?.at(k)?.amount ?? 0;

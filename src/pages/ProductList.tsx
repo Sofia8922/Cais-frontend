@@ -12,17 +12,15 @@ import PriceFormat from "../components/PriceFormat";
 
 export default function ProductList() {
     const account = useUserStore((state) => state.user);
-    const [priceFilter, setPriceFilter] = useState(0);
     const [expandedCategory, setExpandedCategory] = useState<CategoryDTO>();
     const [selectedSubcategory, setSubcategory] = useState<SubCategoryDTO>();
     const [priceRange, setPriceRange] = useState({ minPrice: 0, maxPrice: 99 })
+    const [priceFilter, setPriceFilter] = useState(priceRange.maxPrice + 1);
 
     const [isProductMenuOpened, openProductMenu] = useState(false)
 
     return (
         <div className="mainDiv">
-            {/* <Navbar /> */}
-
             <div className="settingsDiv">
 
                 <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} expandedSubCategory={selectedSubcategory} setSubCategoryId={setSubcategory} />
@@ -31,6 +29,7 @@ export default function ProductList() {
                     <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "23px" }}>Price range</strong>
                     <div style={{ display: "flex", flexDirection: "row", width: "90%", alignSelf: "center", marginTop: "0px", fontSize: "23px", justifyContent: "center", alignItems: "center" }}>
                         <p style={{ textAlign: "left", margin: "0px" }}><PriceFormat priceNumber={priceRange.minPrice}/></p>
+                        
                         <input
                             style={{ flex: 1 }}
                             id="typeinp"
@@ -43,7 +42,12 @@ export default function ProductList() {
 
                         <p style={{ textAlign: "right", margin: "0px" }}><PriceFormat priceNumber={priceRange.maxPrice}/></p>
                     </div>
-                    <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}><PriceFormat priceNumber={priceFilter}/></p>
+                    {
+                        priceFilter > priceRange.maxPrice ?
+                        <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>€ -</p>
+                        :
+                        <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}><PriceFormat priceNumber={priceFilter}/></p>
+                    }
                 </div>
 
                 {account?.roles.some(role => role === "ADMIN") ?
