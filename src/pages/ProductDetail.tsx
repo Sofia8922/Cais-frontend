@@ -85,9 +85,9 @@ export default function ProductDetail() {
                 <div className="product-center">
                     <div className="product-cost">
                         <h2>{<Price basePrice={product.price} />}</h2>
-                        {account?.roles.some(role => role === "ADMIN") ?
+                        {/* {account?.roles.some(role => role === "ADMIN") ?
                         <button className="admin">Edit</button> :
-                        <></>}
+                        <></>} */}
                     </div>
                     <p>{product.description || "No description available"}</p>
 
