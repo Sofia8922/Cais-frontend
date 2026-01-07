@@ -9,6 +9,7 @@ import { CategoryDTO, SubCategoryDTO } from "../dtos/CategoryDTOs";
 import ProductMenu from "../components/ProductMenu";
 import { useUserStore } from "../Stores/userStore";
 import PriceFormat from "../components/PriceFormat";
+import GetExcel from "../components/GetExcel";
 
 export default function ProductList() {
     const account = useUserStore((state) => state.user);
@@ -56,6 +57,7 @@ export default function ProductList() {
                     onClick={() => openProductMenu(true)}>Manage products</button>
                     {(isProductMenuOpened && <ProductMenu closeFunction={() => openProductMenu(false)}/>)}
                     <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}>Manage categories</button>
+                    <GetExcel/>
                 </>
                 : <></>}
 
