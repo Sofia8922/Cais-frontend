@@ -10,6 +10,7 @@ import ProductMenu from "../components/ProductMenu";
 import { useUserStore } from "../Stores/userStore";
 import PriceFormat from "../components/PriceFormat";
 import CategoryMenu from "../components/CategoryMenu";
+import GetExcel from "../components/GetExcel";
 
 export default function ProductList() {
     const account = useUserStore((state) => state.user);
@@ -18,8 +19,8 @@ export default function ProductList() {
     const [priceRange, setPriceRange] = useState({ minPrice: 0, maxPrice: 99 })
     const [priceFilter, setPriceFilter] = useState(priceRange.maxPrice + 1);
 
-    const [isProductMenuOpened, openProductMenu] = useState(false)
-    const [isCategoryMenuOpened, openCategoryMenu] = useState(false)
+    enum menuStates {NONE, PRODUCT, CATEGORIES, ACCOUNTS};
+    const [whichMenuIsOpened, openMenu] = useState(menuStates.NONE)
 
     return (
         <div className="mainDiv">
@@ -52,14 +53,25 @@ export default function ProductList() {
                     }
                 </div>
 
-                {account?.roles.some(role => role === "ADMIN") && <>
-                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px" }}
-                        onClick={() => openProductMenu(true)}>Manage products</button>
-                    {(isProductMenuOpened && <ProductMenu closeFunction={() => openProductMenu(false)} />)}
+                {account?.roles.some(role => role === "ADMIN") &&
+                <>
+                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
+                        onClick={() => openMenu(menuStates.PRODUCT)}>Manage products</button>
+                    
+                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
+                        onClick={() => openMenu(menuStates.CATEGORIES)}>Manage categories</button>
+                    
+                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
+                        onClick={() => openMenu(menuStates.ACCOUNTS)}>Manage accounts</button>
+                    
+                    <GetExcel/>
 
-                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px" }}
-                        onClick={() => openCategoryMenu(true)}>Manage categories</button>
-                    {(isCategoryMenuOpened && <CategoryMenu closeFunction={() => openCategoryMenu(false)} />)}
+                    {(whichMenuIsOpened === menuStates.PRODUCT &&
+                        <ProductMenu closeFunction={() => openMenu(menuStates.NONE)}/>)}
+                    {(whichMenuIsOpened === menuStates.CATEGORIES &&
+                        <CategoryMenu closeFunction={() => openMenu(menuStates.NONE)} />)}
+                    {(whichMenuIsOpened === menuStates.ACCOUNTS &&
+                        <button onClick={() => openMenu(menuStates.NONE)}>ACCOUNTS</button>)}
                 </>
                 }
 

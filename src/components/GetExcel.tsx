@@ -1,5 +1,6 @@
 import { API_URL } from "../App";
-import { useQuery } from "@tanstack/react-query";import * as XLSX from 'xlsx';
+import { useQuery } from "@tanstack/react-query";
+import * as XLSX from 'xlsx';
 import saveAs from 'file-saver';
 import { ProductDTOList } from "../dtos/ProductDTOs";
 
@@ -76,7 +77,7 @@ function GetExcel() {
     };
 
     return (
-        <button onClick={handleExport} className="admin">Download Financial Overview</button>
+        <button onClick={handleExport} style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}>Download Financial Overview</button>
     );
 }
 

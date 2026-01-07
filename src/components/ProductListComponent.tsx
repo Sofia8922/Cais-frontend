@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { API_URL } from "../App";
 import { useQuery } from "@tanstack/react-query";
 import ProductComponent from "./ProductComponent";
-import { data } from "./Data";
 import { ProductDTOList } from "../dtos/ProductDTOs.tsx";
 import { useParams } from "react-router-dom";
 
