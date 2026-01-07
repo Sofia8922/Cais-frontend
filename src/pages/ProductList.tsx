@@ -18,7 +18,8 @@ export default function ProductList() {
     const [priceRange, setPriceRange] = useState({ minPrice: 0, maxPrice: 99 })
     const [priceFilter, setPriceFilter] = useState(priceRange.maxPrice + 1);
 
-    const [isProductMenuOpened, openProductMenu] = useState(false)
+    enum menuStates {NONE, PRODUCT, CATEGORIES, ACCOUNTS};
+    const [whichMenuIsOpened, openMenu] = useState(menuStates.NONE)
 
     return (
         <div className="mainDiv">
@@ -54,10 +55,22 @@ export default function ProductList() {
                 {account?.roles.some(role => role === "ADMIN") ?
                 <>
                     <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
-                    onClick={() => openProductMenu(true)}>Manage products</button>
-                    {(isProductMenuOpened && <ProductMenu closeFunction={() => openProductMenu(false)}/>)}
-                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}>Manage categories</button>
+                        onClick={() => openMenu(menuStates.PRODUCT)}>Manage products</button>
+                    
+                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
+                        onClick={() => openMenu(menuStates.CATEGORIES)}>Manage categories</button>
+                    
+                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
+                        onClick={() => openMenu(menuStates.ACCOUNTS)}>Manage accounts</button>
+                    
                     <GetExcel/>
+
+                    {(whichMenuIsOpened === menuStates.PRODUCT &&
+                        <ProductMenu closeFunction={() => openMenu(menuStates.NONE)}/>)}
+                    {(whichMenuIsOpened === menuStates.CATEGORIES &&
+                        <button onClick={() => openMenu(menuStates.NONE)}>CATEGORIES</button>)}
+                    {(whichMenuIsOpened === menuStates.ACCOUNTS &&
+                        <button onClick={() => openMenu(menuStates.NONE)}>ACCOUNTS</button>)}
                 </>
                 : <></>}
 
