@@ -3,6 +3,7 @@ import { SubCategoryDTOList } from "../dtos/CategoryDTOs";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "../App";
 import { ProductDTO, ProductEditDTO } from "../dtos/ProductDTOs";
+import Purchase from "./Purchase";
 
 export default function ProductEditComponent({ product }: { product: ProductDTO }) {
     const [nameString, setNameString] = useState(product.name);
@@ -38,7 +39,7 @@ export default function ProductEditComponent({ product }: { product: ProductDTO 
         },
         onSuccess: (response) => {
             console.log(response.message);
-            queryClient.invalidateQueries({ queryKey: ["productList"],
+            queryClient.invalidateQueries({ queryKey: ["productList"]
     });
         }
     })
@@ -78,7 +79,7 @@ export default function ProductEditComponent({ product }: { product: ProductDTO 
                     placeholder="Description"
                     style={{
                         width: "90%",
-                        height: "80px",
+                        height: "300px",
                         background: "rgba(30, 30, 30, 1)",
                         border: "2px solid white",
                         borderRadius: "10px",
@@ -113,12 +114,7 @@ export default function ProductEditComponent({ product }: { product: ProductDTO 
 
             <div style={{ width: "50%", display: "flex", flexDirection: "column", alignItems: "center", background: "rgba(21, 21, 21, 1)", fontSize: "25px" }}>
                 <strong style={{ width: "90%", textAlign: "center", margin: "5px", fontSize: "25px" }}>Orders:</strong>
-                {product.purchases.map(p =>
-                    <div style={{ width: "90%", height: "110px", border: "2px solid white", borderRadius: "10px", margin: "5px" }}>
-                        <p style={{ margin: "5px" }}>User: ?</p>
-                        <p style={{ margin: "5px" }}>Quantity: {p.amount}</p>
-                        <p style={{ margin: "5px" }}>Status: {p.status}</p>
-                    </div>)}
+                {product.purchases.map(p => <Purchase purchase={p}/>)}
             </div>
 
         </div>

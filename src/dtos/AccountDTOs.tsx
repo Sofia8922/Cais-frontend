@@ -11,3 +11,11 @@ export interface AccountDTO {
     recentOrders: PurchaseDTOList;
     roles: string[];
 }
+
+export interface AccountShortDTO { // not set up yet i think
+    id: number;
+    username: string;
+    email: string;
+    address: string;
+    phoneNumber: string; 
+}

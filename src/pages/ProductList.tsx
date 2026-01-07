@@ -9,6 +9,7 @@ import { CategoryDTO, SubCategoryDTO } from "../dtos/CategoryDTOs";
 import ProductMenu from "../components/ProductMenu";
 import { useUserStore } from "../Stores/userStore";
 import PriceFormat from "../components/PriceFormat";
+import CategoryMenu from "../components/CategoryMenu";
 
 export default function ProductList() {
     const account = useUserStore((state) => state.user);
@@ -18,6 +19,7 @@ export default function ProductList() {
     const [priceFilter, setPriceFilter] = useState(priceRange.maxPrice + 1);
 
     const [isProductMenuOpened, openProductMenu] = useState(false)
+    const [isCategoryMenuOpened, openCategoryMenu] = useState(false)
 
     return (
         <div className="mainDiv">
@@ -28,8 +30,8 @@ export default function ProductList() {
                 <div className="priceDiv">
                     <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "23px" }}>Price range</strong>
                     <div style={{ display: "flex", flexDirection: "row", width: "90%", alignSelf: "center", marginTop: "0px", fontSize: "23px", justifyContent: "center", alignItems: "center" }}>
-                        <p style={{ textAlign: "left", margin: "0px" }}><PriceFormat priceNumber={priceRange.minPrice}/></p>
-                        
+                        <p style={{ textAlign: "left", margin: "0px" }}><PriceFormat priceNumber={priceRange.minPrice} /></p>
+
                         <input
                             style={{ flex: 1 }}
                             id="typeinp"
@@ -40,24 +42,26 @@ export default function ProductList() {
                             step=".05">
                         </input>
 
-                        <p style={{ textAlign: "right", margin: "0px" }}><PriceFormat priceNumber={priceRange.maxPrice}/></p>
+                        <p style={{ textAlign: "right", margin: "0px" }}><PriceFormat priceNumber={priceRange.maxPrice} /></p>
                     </div>
                     {
                         priceFilter > priceRange.maxPrice ?
-                        <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>€ -</p>
-                        :
-                        <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}><PriceFormat priceNumber={priceFilter}/></p>
+                            <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}>€ -</p>
+                            :
+                            <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}><PriceFormat priceNumber={priceFilter} /></p>
                     }
                 </div>
 
-                {account?.roles.some(role => role === "ADMIN") ?
-                <>
-                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
-                    onClick={() => openProductMenu(true)}>Manage products</button>
-                    {(isProductMenuOpened && <ProductMenu closeFunction={() => openProductMenu(false)}/>)}
-                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}>Manage categories</button>
+                {account?.roles.some(role => role === "ADMIN") && <>
+                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px" }}
+                        onClick={() => openProductMenu(true)}>Manage products</button>
+                    {(isProductMenuOpened && <ProductMenu closeFunction={() => openProductMenu(false)} />)}
+
+                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px" }}
+                        onClick={() => openCategoryMenu(true)}>Manage categories</button>
+                    {(isCategoryMenuOpened && <CategoryMenu closeFunction={() => openCategoryMenu(false)} />)}
                 </>
-                : <></>}
+                }
 
             </div>
 
