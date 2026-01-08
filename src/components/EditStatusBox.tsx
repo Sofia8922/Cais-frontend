@@ -3,10 +3,12 @@ import { PurchaseShortDTO } from "../dtos/PurchaseDTOs"
 import { API_URL } from "../App";
 
 interface PurchaseProps {
+    purchaseStatus: String;
     purchase: PurchaseShortDTO;
+    changeStatus: Function;
 }
 
-export default function EditStatusBox({ purchase }: PurchaseProps) {
+export default function EditStatusBox({ purchaseStatus, purchase, changeStatus }: PurchaseProps) {
 
     const queryClient = useQueryClient();
 
@@ -54,8 +56,8 @@ export default function EditStatusBox({ purchase }: PurchaseProps) {
                 padding: "0px",
                 margin: "4px"
             }}
-                disabled={purchase?.status == "PROCESSING"}
-                onClick={() => { changeRole.mutate("PROCESSING") }}>
+                disabled={purchaseStatus == "PROCESSING"}
+                onClick={() => { changeStatus("PROCESSING"); changeRole.mutate("PROCESSING") }}>
                 Processing
             </button>
 
@@ -66,8 +68,8 @@ export default function EditStatusBox({ purchase }: PurchaseProps) {
                 padding: "0px",
                 margin: "4px"
             }}
-                disabled={purchase?.status == "UNDERWAY"}
-                onClick={() => { changeRole.mutate("UNDERWAY") }}>
+                disabled={purchaseStatus == "UNDERWAY"}
+                onClick={() => { changeStatus("UNDERWAY"); changeRole.mutate("UNDERWAY") }}>
                 Underway
             </button>
 
@@ -78,25 +80,10 @@ export default function EditStatusBox({ purchase }: PurchaseProps) {
                 padding: "0px",
                 margin: "4px"
             }}
-                disabled={purchase?.status == "DELIVERED"}
-                onClick={() => { changeRole.mutate("DELIVERED") }}>
+                disabled={purchaseStatus == "DELIVERED"}
+                onClick={() => { changeStatus("DELIVERED"); changeRole.mutate("DELIVERED") }}>
                 Delivered
             </button>
-
-            {/* {user && (
-                <button style={{
-                    width: "80px",
-                    height: "50px",
-                    lineHeight: "20px",
-                    padding: "0px",
-                    margin: "4px",
-                    position: "absolute",
-                    bottom: "0px"
-                }}
-                    onClick={() => { removeUser.mutate(user.id) }}>
-                    Remove user
-                </button>)} */}
-
         </div>
     )
 }
