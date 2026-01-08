@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { PurchaseDTO } from "../dtos/PurchaseDTOs"
+import { PurchaseShortDTO } from "../dtos/PurchaseDTOs"
 import { API_URL } from "../App";
 
 interface PurchaseProps {
-    purchase: PurchaseDTO;
+    purchase: PurchaseShortDTO;
 }
 
 export default function EditStatusBox({ purchase }: PurchaseProps) {

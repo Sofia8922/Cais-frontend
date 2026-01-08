@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { PurchaseDTO } from "../dtos/PurchaseDTOs";
+import { PurchaseShortDTO } from "../dtos/PurchaseDTOs";
 import EditStatusBox from "./EditStatusBox";
 
 interface PurchaseProps {
-    purchase: PurchaseDTO;
+    purchase: PurchaseShortDTO;
 }
 
 export default function Purchase({ purchase }: PurchaseProps) {
