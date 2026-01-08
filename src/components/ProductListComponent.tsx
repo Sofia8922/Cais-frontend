@@ -82,23 +82,18 @@ export default function ProductListComponent({ expandedCategory, expandedSubCate
     }
 
     return (
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-            <p style={{ fontSize: "30px", margin: "0px" }}>
+        <div className="product-list-container">
+            <p className="product-list-title">
                 Showing {searchFilter ? "results for " + searchFilter : "products"} in {
                 expandedCategory ? (expandedSubCategory ? expandedSubCategory.name : expandedCategory.name) : "all categories"}</p>
-            <div style={{
-                flex: 1, display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                padding: "20px"
-            }}>
+            <div className="product-list-grid">
                 {priceFilteredProducts && priceFilteredProducts?.length > 0 ? (
                     priceFilteredProducts
                         .map((product, index) => (
                             <ProductComponent key={index} product={product} />
                         )))
-                    : (<>no products found</>)}
+                    : (<p className="no-products">no products found</p>)}
             </div>
         </div>
-    )
+    );
 }

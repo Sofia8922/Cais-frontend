@@ -58,3 +58,12 @@
     font-size: 18px;
     /* border-image: linear-gradient(45deg, grey, white,) 1; */
 }
+
+.nav-btn.favorite i {
+    transition: color 0.1s ease, transform 0.1s ease;
+}
+
+.nav-btn.favorite i:hover {
+    color: crimson;
+    transform: scale(1.1);
+}
