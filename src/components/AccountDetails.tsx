@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AccountDTO } from "../dtos/AccountDTOs";
 
 interface AccountProps {
@@ -5,6 +6,8 @@ interface AccountProps {
 }
 
 export default function AccountDetails ({account}: AccountProps) {
+    const [adress, setAdress] = useState(account?.address);
+
     if(!account) {
         return (<>
             loading error
@@ -14,7 +17,7 @@ export default function AccountDetails ({account}: AccountProps) {
     return(
     <>
         <h1>{account.username}</h1>
-        <p>Adress: {account.address}</p>
+        <p>Adress: {adress}</p>
         <p>Email: {account.email}</p>
         <p>Phone: {account.phoneNumber}</p>
         <p>Role: {account.roles}</p>
