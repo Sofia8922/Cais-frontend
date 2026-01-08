@@ -6,7 +6,7 @@ import { ProductDTO, ProductDTOList } from "../dtos/ProductDTOs";
 import ProductTile from "./ProductTile";
 import ProductEditComponent from "./ProductEditComponent";
 import { CategoryDTOList } from "../dtos/CategoryDTOs";
-import AdminCategoryComponent from "./AdminSubCategoryComponent";
+import AdminCategoryComponent from "./AdminCategoryComponent";
 import AdminSubCategoryComponent from "./AdminSubCategoryComponent";
 
 export default function CategoryPopupContent() {
@@ -33,18 +33,7 @@ export default function CategoryPopupContent() {
             {categoryList && categoryList?.length > 0 && (
                 categoryList
                     .map((category: any) => (
-                        <div style={{ fontSize: "25px", marginLeft: "15px", marginTop: "0px", marginBottom: "0px" }}>
-                            <strong style={{ cursor: "pointer", margin: "0px" }}>{category.name}</strong>
-                            {category.subcategories?.length > 0 && (
-                                category.subcategories.map(sc =>
-                                    <>
-                                        <AdminSubCategoryComponent subcategory={sc} />
-                                    </>
-                                )
-                            )}
-                            <button style={{ marginLeft: "20px", marginTop: "5px", height: "40px", alignSelf: "center" }}
-                                onClick={() => {/* mutate */ }}>Add subcategory</button>
-                        </div>
+                        <AdminCategoryComponent category={category}/>
                     )))}
         </div>
     )
