@@ -32,7 +32,8 @@ export default function ProductEditComponent({ product }: { product: ProductDTO 
                 {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(editData)
+                    body: JSON.stringify(editData),
+                    credentials: "include"
                 });
             if (!response.ok) throw new Error("error saving product.")
             return response.json();
