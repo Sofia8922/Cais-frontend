@@ -2,9 +2,10 @@ import { AccountDTO } from "../dtos/AccountDTOs"
 
 interface TileProps {
     account: AccountDTO
+    showAccount: any
 }
 
-export default function AccountTile({account}: TileProps) {
+export default function AccountTile({account, showAccount}: TileProps) {
 console.log(account)
     const roleString = account.roles.at(0)?.includes("ADMIN") ? " (Admin)" : "";
     const phoneString = account.phoneNumber ? account.phoneNumber : "-";
@@ -29,7 +30,7 @@ console.log(account)
         }}
             onMouseOver={(e) => { e.currentTarget.style.background = "rgba(19, 19, 19, 1)" }}
             onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(0, 0, 0, 1)" }}
-            onClick={() => {}}>
+            onClick={showAccount}>
             <p style={{textAlign: "left", width: "34%"}}>{account.username}{roleString}</p>
             <p style={{textAlign: "left", width: "33%"}}>{account.email}</p>
             <p style={{textAlign: "left", width: "33%"}}>{phoneString}</p>

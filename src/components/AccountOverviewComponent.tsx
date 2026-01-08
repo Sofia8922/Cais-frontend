@@ -3,9 +3,11 @@ import { useState } from "react";
 import { AccountDTO, AccountDTOList } from "../dtos/AccountDTOs";
 import { API_URL } from "../App";
 import AccountTile from "./AccountTile";
+import AccountDetails from "./AccountDetails";
 
 export default function AccountOverviewComponent () {
     const [search, setSearch] = useState("");
+    const [accountFocus, setAccountFocus] = useState(-1);
 
     const {
             data: accountList,
@@ -38,7 +40,7 @@ export default function AccountOverviewComponent () {
         );
     }
 
-    return (
+    if (accountFocus === -1) return (
         <>
             <textarea
                 id="description"
@@ -89,7 +91,7 @@ export default function AccountOverviewComponent () {
 
                         <div style={{ width: "85%", overflowY: "scroll", display: "flex", flexDirection: "column", alignItems: "center" }}>
                             {filteredAccounts?.map((account) => (
-                              <AccountTile account={account} key={account.id} />
+                              <AccountTile account={account} showAccount={() => {setAccountFocus(account.id)}} key={account.id} />
                             ))}
                         </div>
                     </>
@@ -108,6 +110,15 @@ export default function AccountOverviewComponent () {
                     No accounts found.
                 </div>
             )}
+        </>
+    )
+
+    const focussedAcount = accountList?.find(a => a.id === accountFocus);
+
+    return (
+        <>
+            <button onClick={() => {setAccountFocus(-1)}}>Return</button>
+            <AccountDetails account={focussedAcount}/>
         </>
     )
 }
