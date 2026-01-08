@@ -11,7 +11,6 @@ export default function Purchase({ purchase }: PurchaseProps) {
 
     const [isOpened, openMenu] = useState(false);
 
-    console.log(purchase.amount)
     return (
         <div style={{ width: "90%", height: "110px", border: "2px solid white", borderRadius: "10px", margin: "5px", background: "black", position: "relative" }}
         onMouseLeave={() => openMenu(false)}>

@@ -26,7 +26,8 @@ export default function AdminSubCategoryComponent({subcategory}) {
                 }}
             />
             {nameString != subcategory.name && 
-            <button style={{marginLeft: "10px", height: "30px", alignSelf: "center"}}>save</button>}
+            <button style={{marginLeft: "10px", height: "30px", alignSelf: "center"}}
+            onClick={() => {/* mutate */}}>save</button>}
         </div>
     )
 }

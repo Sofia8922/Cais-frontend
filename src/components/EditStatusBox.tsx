@@ -11,14 +11,21 @@ export default function EditStatusBox({ purchase }: PurchaseProps) {
     const queryClient = useQueryClient();
 
     const changeRole = useMutation({
-        mutationFn: async (role: String) => {
-            const res = await fetch(`${API_URL}/purchases/${99}/role/${role}`, {
-                method: "PATCH",
+        mutationFn: async (role: string) => {
+            console.log(purchase);
+            const res = await fetch(`${API_URL}/purchases/${purchase.id}`, {
+                method: 'PUT',
+                credentials: "include",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: role })
             });
+
+            console.log("STEP 3 RESPONSE:", res);
             if (!res.ok) throw new Error("Update failed");
             return res.json();
         },
         onSuccess: () => {
+            console.log("successfully changed role")
             queryClient.invalidateQueries({ queryKey: ["productList"] })
         }
     });
@@ -36,6 +43,7 @@ export default function EditStatusBox({ purchase }: PurchaseProps) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            zIndex: "10"
         }}>
             <p style={{ display: "block", fontSize: "20px", textAlign: "center", margin: "0px" }}>Set to..</p>
 

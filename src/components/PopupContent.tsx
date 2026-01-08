@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCreateComponent from "./ProductCreateComponent";
 import { useQuery } from "@tanstack/react-query";
 import { API_URL } from "../App";
@@ -33,6 +33,9 @@ export default function PopupContent() {
             return response.json();
         },
     })
+    useEffect(() => {
+  console.log("productList updated", productList);
+}, [productList]);
 
     if (mode === state.CREATE_PRODUCT) return (<ProductCreateComponent closeFunction={() => { setMode(state.OVERVIEW) }} />);
     if (mode === state.EDIT_PRODUCT) return (<ProductEditComponent product={viewedProduct}/>);
