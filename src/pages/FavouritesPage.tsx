@@ -1,55 +1,29 @@
 import Navbar from "../components/Navbar";
 import ProductComponent from "../components/ProductComponent";
 import { useUserStore } from "../Stores/userStore";
+import "../stylesheets/favorites.css";
 
 export default function FavouritesPage() {
     const account = useUserStore((state) => state.user);
     const removeFavorite = useUserStore((state) => state.removeFavorite)
     if (!account) {
-        return <p>Login to see favorites.</p>
+        return <p className="favorites-message">Login to see favorites.</p>
     }
 
     if (account.favorites.length === 0) {
-        return <p>No favorites yet 💀💀💀</p>
+        return <p className="favorites-message">No favorites yet 💀💀💀</p>
     }
 
     return (
-        <div className="mainDiv">
-            <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <div className="favorites-page">
+            <h1 className="favorites-title">Favorites:</h1>
+            <div className="favorites-grid">
                 {account.favorites.map((product) => (
-                    <div key={product.id}>
-                        <div style={{
-                        flex: 1, display: "flex",
-                        flexDirection: "row",
-                        flexWrap: "wrap",
-                        padding: "20px"
-                        }}>
-                        <ProductComponent
-                            key={product.id}
-                            product={product} />
-                        </div>
-                    </div>
+                    <ProductComponent
+                        key={product.id}
+                        product={product} />
                 ))}
             </div>
         </div>
     )
-
-    // return (
-    //     <div className="mainDiv">
-    //         <Navbar />
-    //         <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-    //             <div style={{
-    //                 flex: 1, display: "flex",
-    //                 flexDirection: "row",
-    //                 flexWrap: "wrap",
-    //                 padding: "20px"
-    //             }}>
-    //                 <ProductComponent product={product} />
-    //                 <ProductComponent product={product} />
-    //                 <ProductComponent product={product} />
-    //                 <ProductComponent product={product} />
-    //             </div>
-    //         </div>
-    //     </div>
-    // );
 }

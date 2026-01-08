@@ -1,47 +1,49 @@
 import React, { DragEventHandler, useState } from 'react';
 
-interface LinkProps{
+interface ImageProps{
     imageSource: string;
     imageAlt: string;
     imageClassName: string;
     greyedOut: boolean;
 }
 
-const CustomImage = ({ imageSource, imageAlt, imageClassName, greyedOut }: LinkProps) => {
+const CustomImage = ({ imageSource, imageAlt, imageClassName, greyedOut }: ImageProps) => {
   const [hasError, setHasError] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const handleError = () => {
-    setHasError(true);
-    setLoading(false);
-  };
+  const fallBackImage = "../src/assets/SiteLogoGrey.svg";
 
-  const handleLoad = () => {
-    setLoading(false);
-  };
+  // const handleError = () => {
+  //   setHasError(true);
+  //   setLoading(false);
+  // };
 
-  let imageStyle = {};
+  // const handleLoad = () => {
+  //   setLoading(false);
+  // };
 
-  if(greyedOut) {
-    imageStyle = {
-      filter: 'alpha(opacity=40)',
-      opacity: '0.1'
-    }
-  }
+  // let imageStyle = {};
+
+  // if(greyedOut) {
+  //   imageStyle = {
+  //     filter: 'alpha(opacity=40)',
+  //     opacity: '0.1'
+  //   }
+  // }
   
-  if (hasError || loading || imageSource == "") {
-    imageSource = "../src/assets/SiteLogoGrey.svg";
-  }
+  // if (hasError || loading || imageSource == "") {
+  //   imageSource = "../src/assets/SiteLogoGrey.svg";
+  // }
 
   return (
     <img
-      src={imageSource}
-      alt={imageAlt}
-      className={imageClassName}
-      onError={handleError}
-      onLoad={handleLoad}
-      style={imageStyle}
-    />)
+    src={hasError || loading || !imageSource ? fallBackImage : imageSource}
+    alt={imageAlt}
+    className={`${imageClassName} ${greyedOut ? "image-disabled" : ""}`}
+    onError={() => setHasError(true)}
+    onLoad={() => setLoading(false)}
+    />
+  );
 };
 
 export default CustomImage;

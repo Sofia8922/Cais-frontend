@@ -21,14 +21,20 @@ function Navbar() {
             </div>
 
             <div className="navbar-right">
-                <button className="nav-btn favorite" onClick={() => navigate(`/favorites`)}>favourites</button>
-                <button className="nav-btn cart" onClick={() => navigate(`/cart`)}>cart</button>
+                <button className="nav-btn favorite" onClick={() => navigate(`/favorites`)}>
+                    <i className="fa fa-heart"></i>
+                </button>
+                <button className="nav-btn cart" onClick={() => navigate(`/cart`)}>
+                    <i className="fa-solid fa-cart-shopping"></i>
+                </button>
                 <button className="nav-btn profile" onClick={() => { 
                     if (!user) {
                         navigate("/login")
                     } else {
                         navigate(`/profile`)
-                    }}}>profile</button>
+                    }}}>
+                        <i className={user ? "fa-solid fa-user" : "fa-regular fa-user"}></i>
+                    </button>
             </div>
         </nav>
     )

@@ -62,3 +62,38 @@
     margin-bottom: 0px;
     cursor: pointer;
 }
+
+.product-list-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.product-list-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.product-list-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: start;
+}
+
+.no-products {
+    font-size: 1.8rem;
+    text-align: center;
+    color: #ccc;
+    grid-column: 1/-1;
+}
+@media (max-width: 800px) {
+    .product-list-grid {
+        grid-template-rows: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 0.8rem;
+    }
+
+    .product-list-title {
+        font-size: 1.5rem;
+    }
+}

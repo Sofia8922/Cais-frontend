@@ -8,32 +8,21 @@ export default function ProductComponent({ product }: {product: ProductDTO}) {
     const navigate = useNavigate();
 
     return (
-        <div className="productDiv"
-            //key={product.id}
-            onMouseOver={(e) => {
-                e.currentTarget.style.background = "rgba(20, 20, 20, 1)";
-                const image = e.currentTarget.querySelector(".productImage") as HTMLElement;
-                if (image) {
-                    image.style.filter = "hue-rotate(5deg) saturate(1) brightness(0.9)";
-                    image.style.background = "rgba(0, 0, 0, 1)"
-                }
-            }}
-            onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(25, 25, 25, 1)";
-                const image = e.currentTarget.querySelector(".productImage") as HTMLElement;
-                if (image) {
-                    image.style.filter = "hue-rotate(0deg) saturate(1) brightness(1)";
-                    image.style.background = "rgba(15, 15, 15, 1)"
-                }
-            }}
+        <div className="product-card"
             onClick={() => { navigate(`/product/${product.id}`) }}
         >
-            <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName="productImage" greyedOut={product.stock === 0}/>
-            <div style={{ height: "50px", marginBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}>{product.name}</strong>
-
-                <strong style={{ fontSize: "30px", textAlign: "center", padding: "16px", }}><Price basePrice={product.price} /></strong>
-
+            <div>
+                <CustomImage imageSource={product.imageLink} 
+                imageAlt={product.name} 
+                imageClassName="product-image" 
+                greyedOut={product.stock === 0}/>
+                
+                <div className="product-card-footer">
+                    <strong className="product-name">{product.name}</strong>
+                    <strong className="product-price">
+                        <Price basePrice={product.price} />
+                    </strong>
+                </div>
             </div>
         </div>
     )
