@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import ProductComponent from "./ProductComponent";
 import { ProductDTOList } from "../dtos/ProductDTOs.tsx";
 import { useParams } from "react-router-dom";
+import "../stylesheets/productList.css";
 
 export default function ProductListComponent({ expandedCategory, expandedSubCategory, maxPrice, setPriceRange, setPriceFilter }) {
     const { searchFilter } = useParams<{ searchFilter: string }>();
@@ -92,7 +93,7 @@ export default function ProductListComponent({ expandedCategory, expandedSubCate
                         .map((product, index) => (
                             <ProductComponent key={index} product={product} />
                         )))
-                    : (<p className="no-products">no products found</p>)}
+                    : (<p className="no-products">No products found</p>)}
             </div>
         </div>
     );

@@ -8,9 +8,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 0px 20px;
-    border-bottom: 5px solid;
-    border-image: linear-gradient(45deg, #b45f38, #d1a30c) 1;
-    background-color: #777c7c;
+    border-bottom: 3px solid;
+    border-image: linear-gradient(45deg, #8CA9FF) 1;
+    background-color: #D9CFC7;
     z-index: 1000;
     box-sizing: border-box;
 }

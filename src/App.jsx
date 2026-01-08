@@ -19,6 +19,7 @@ const appStyles = {
     display: 'flex',
     flexDirection: 'column',
     margin: 0,
+    backgroundColor: '#C9B59C',
   };
 
   const routesStyles = {
