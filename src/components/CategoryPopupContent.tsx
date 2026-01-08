@@ -5,7 +5,7 @@ import { API_URL } from "../App";
 import { ProductDTO, ProductDTOList } from "../dtos/ProductDTOs";
 import ProductTile from "./ProductTile";
 import ProductEditComponent from "./ProductEditComponent";
-import { CategoryDTOList } from "../dtos/CategoryDTOs";
+import { CategoryDTO, CategoryDTOList } from "../dtos/CategoryDTOs";
 import AdminCategoryComponent from "./AdminCategoryComponent";
 import AdminSubCategoryComponent from "./AdminSubCategoryComponent";
 
@@ -32,7 +32,7 @@ export default function CategoryPopupContent() {
         <div style={{ alignSelf: "flex-start", overflowY: "scroll" }}>
             {categoryList && categoryList?.length > 0 && (
                 categoryList
-                    .map((category: any) => (
+                    .map((category: CategoryDTO) => (
                         <AdminCategoryComponent category={category}/>
                     )))}
         </div>

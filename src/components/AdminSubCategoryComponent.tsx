@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function AdminSubCategoryComponent({ subcategory }) {
+export default function AdminSubCategoryComponent({subcategory}: any) {
 
 
     const [nameString, setNameString] = useState(subcategory.name);

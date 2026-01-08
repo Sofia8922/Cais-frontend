@@ -1,13 +1,35 @@
 import { useState } from "react";
 import AdminSubCategoryComponent from "./AdminSubCategoryComponent";
+import { CategoryDTO } from "../dtos/CategoryDTOs";
+import { useMutation } from "@tanstack/react-query";
+import { API_URL } from "../App";
 
-export default function AdminCategoryComponent({ category }) {
+interface Props {
+    category: CategoryDTO
+}
 
-
+export default function AdminCategoryComponent({category}: Props) {
     const [isAddMenuOpen, openAddMenu] = useState(false);
     const [nameString, setNameString] = useState(category.name);
     const [newSubcategoryName, setnewSubcategoryName] = useState("");
+    let idToMutate = -1;
 
+    const deleteCategory = useMutation({
+        mutationFn: async () => {
+            const response = await fetch(`${API_URL}/categories/${idToMutate}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: "include"
+            })
+            return
+        },
+        onSuccess: () => {
+            console.log("succesfully deleted")
+        },
+        onError: () => {
+            console.log("deletion error")
+        }
+    });
 
     return (
         <div style={{ fontSize: "25px", marginTop: "0px", marginBottom: "0px" }}>
@@ -29,7 +51,8 @@ export default function AdminCategoryComponent({ category }) {
                     }}
                     onClick={(e) => {
                         e.stopPropagation();
-                        //deleteCategory.mutate(category.id);
+                        idToMutate = category.id;
+                        deleteCategory.mutate();
                     }}>
                     x
                 </div>
