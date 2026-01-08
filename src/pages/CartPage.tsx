@@ -88,6 +88,7 @@ export default function CartPage() {
                 <strong>Total cost: <Price basePrice={total} /> </strong>
                 <p>Amount saved: <PriceFormat priceNumber={total*0.4} /></p>
                 <button onClick={handlePurchase} disabled={account.cart.length === 0 || outOfStock}> {outOfStock ? "Item is out of stock" : "Purchase"} </button>
+                <div style={{fontSize: 15}}>10 years no-money-back guarantuee</div>
             </div>
         </div>
     );

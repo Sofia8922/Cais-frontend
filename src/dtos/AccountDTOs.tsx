@@ -12,6 +12,8 @@ export interface AccountDTO {
     roles: string[];
 }
 
+export type AccountDTOList = AccountDTO[]
+
 export interface AccountShortDTO { // not set up yet i think
     id: number;
     username: string;

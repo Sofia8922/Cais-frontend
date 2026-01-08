@@ -11,6 +11,7 @@ import { useUserStore } from "../Stores/userStore";
 import PriceFormat from "../components/PriceFormat";
 import CategoryMenu from "../components/CategoryMenu";
 import GetExcel from "../components/GetExcel";
+import AccountOverview from "../components/AccountOverview";
 
 export default function ProductList() {
     const account = useUserStore((state) => state.user);
@@ -71,7 +72,7 @@ export default function ProductList() {
                     {(whichMenuIsOpened === menuStates.CATEGORIES &&
                         <CategoryMenu closeFunction={() => openMenu(menuStates.NONE)} />)}
                     {(whichMenuIsOpened === menuStates.ACCOUNTS &&
-                        <button onClick={() => openMenu(menuStates.NONE)}>ACCOUNTS</button>)}
+                        <AccountOverview closeFunction={() => openMenu(menuStates.NONE)} />)}
                 </>
                 }
 
