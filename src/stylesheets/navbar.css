@@ -8,9 +8,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 0px 20px;
-    border-bottom: 5px solid;
-    border-image: linear-gradient(45deg, #b45f38, #d1a30c) 1;
-    background-color: #777c7c;
+    border-bottom: 3px solid;
+    border-image: linear-gradient(45deg, #8CA9FF) 1;
+    background-color: #D9CFC7;
     z-index: 1000;
     box-sizing: border-box;
 }
@@ -57,4 +57,13 @@
     border-radius: 10px;
     font-size: 18px;
     /* border-image: linear-gradient(45deg, grey, white,) 1; */
+}
+
+.nav-btn.favorite i {
+    transition: color 0.1s ease, transform 0.1s ease;
+}
+
+.nav-btn.favorite i:hover {
+    color: crimson;
+    transform: scale(1.1);
 }
