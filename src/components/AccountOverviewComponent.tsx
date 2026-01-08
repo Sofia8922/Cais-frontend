@@ -45,6 +45,11 @@ export default function AccountOverviewComponent () {
                 name="description"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                    }
+                }}
                 disabled={false}
                 placeholder="Search..."
                 style={{
