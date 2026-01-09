@@ -2,6 +2,7 @@ import { AccountShortDTO } from "./AccountDTOs";
 import { ProductShortDTO } from "./ProductDTOs";
 
 export interface PurchaseShortDTO {
+    id: number,
     amount: number,
     status: string //make enum later
 }

@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { PurchaseDTO } from "../dtos/PurchaseDTOs";
+import { PurchaseShortDTO } from "../dtos/PurchaseDTOs";
 import EditStatusBox from "./EditStatusBox";
 
 interface PurchaseProps {
-    purchase: PurchaseDTO;
+    purchase: PurchaseShortDTO;
 }
 
 export default function Purchase({ purchase }: PurchaseProps) {
-
-
     const [isOpened, openMenu] = useState(false);
+    const [purchaseStatus, changePurchaseStatus] = useState(purchase.status);
 
     return (
         <div style={{ width: "90%", height: "110px", border: "2px solid white", borderRadius: "10px", margin: "5px", background: "black", position: "relative" }}
@@ -19,9 +18,9 @@ export default function Purchase({ purchase }: PurchaseProps) {
             <p style={{ margin: "5px" }} >
                 Status: <span style={{ textDecoration: "underline" }}
                     onClick={() => openMenu(!isOpened)}
-                >{purchase.status}</span>
+                >{purchaseStatus}</span>
             </p>
-            {isOpened && <EditStatusBox purchase={purchase}/>}
+            {isOpened && <EditStatusBox purchaseStatus={purchaseStatus} purchase={purchase} changeStatus={changePurchaseStatus}/>}
         </div>
     )
 }

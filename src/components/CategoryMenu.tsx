@@ -14,12 +14,12 @@ export default function CategoryMenu({ closeFunction }) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            zIndex: 99
+            zIndex: 1001
         }}
             onClick={closeFunction}>
             <div style={{
-                width: "1200px",
-                height: "700px",
+                width: "600px",
+                height: "850px",
                 background: "black",
                 border: "2px solid white",
                 borderRadius: "10px",
