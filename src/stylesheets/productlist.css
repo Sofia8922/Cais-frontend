@@ -87,20 +87,22 @@
     }
 }
 
+
 .categories-list {
     display: flex;
     /* width: 280px; */
-    height: 60%;
+    height: 70%;
     justify-content: left;
     background: #574030;
     flex-direction: column;
     color: wheat;
     /* border: 3px solid; */
+    justify-content: center;
     border-bottom: 8px solid #3e2d22;
     margin: 8px;
     border-radius: 14px;
+    overflow-y: "scroll";
 }
-
 .category-title {
     font-size: 25px;
     margin-left: 15px;
@@ -108,7 +110,6 @@
 }
 
 .price-container {
-    height: 15%;
     width: 300px;
     background: #574030;
     border-bottom: 8px solid #3e2d22;
@@ -175,3 +176,4 @@ input[type="range"]::-ms-track {
     width: 100%;
     color: #8CA9FF;
 }
+
