@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AccountDTO } from "../dtos/AccountDTOs";
 
 interface AccountProps {
@@ -15,42 +15,83 @@ export default function AccountDetails ({account}: AccountProps) {
     }
     
     const [toBeEdited, setToBeEdited] = useState(edit.NONE);
-    const [adress, setAdress] = useState(account.address);
-    const [email, setEmail] = useState(account.email);
-    const [phoneNumber, setPhoneNumber] = useState(account.phoneNumber);
+    const [userData, setUserData] = useState(
+        {adress: account.address, email: account.email, phoneNumber: account.phoneNumber});
 
     return(
     <>
-        <h1>{account.username}: {adress}, {email}, {phoneNumber}</h1>
-
-        <p>Adress: 
+        <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
+            Adress:<br/>
             {toBeEdited === edit.ADRESS ?
-            <input value={adress} onChange={(e) => {setAdress(e.target.value)}}
-                onKeyDown={(e) => {if (e.key === 'Enter') {
+            <input value={userData.adress} onChange={(e) => {setUserData({...userData, adress: e.target.value})}}
+                    style={{
+                        width: "90%",
+                        height: "60px",
+                        background: "rgba(30, 30, 30, 1)",
+                        border: "2px solid white",
+                        borderRadius: "10px",
+                        cursor: "text",
+                        resize: "none",
+                        fontSize: "30px",
+                        color: "white",
+                    }}
+                onKeyDown={(e) => {if (e.key === 'Enter'){
                     e.preventDefault(); setToBeEdited(edit.NONE);
-            }}}/> :
-            <button onClick={() => setToBeEdited(edit.ADRESS)}>{adress}</button>
+            }}}
+            autoFocus/> :
+            <button onClick={() => {setToBeEdited(edit.ADRESS); }} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}}>{userData.adress}</button>
             }
-        </p>
+        </label>
 
-        <p>Email: 
+        <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
+            Email:<br/>
             {toBeEdited === edit.EMAIL ?
-            <input value={email} onChange={(e) => {setEmail(e.target.value)}}
+            <input value={userData.email} onChange={(e) => {setUserData({...userData, email: e.target.value})}}
+                    style={{
+                        width: "90%",
+                        height: "60px",
+                        background: "rgba(30, 30, 30, 1)",
+                        border: "2px solid white",
+                        borderRadius: "10px",
+                        cursor: "text",
+                        resize: "none",
+                        fontSize: "30px",
+                        color: "white",
+                    }}
                 onKeyDown={(e) => {if (e.key === 'Enter') {
                     e.preventDefault(); setToBeEdited(edit.NONE);
-            }}}/> :
-            <button onClick={() => setToBeEdited(edit.EMAIL)}>{email}</button>
+            }}}
+            autoFocus/> :
+            <button onClick={() => setToBeEdited(edit.EMAIL)} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}} >{userData.email}</button>
             }
-        </p>
+        </label>
 
-        <p>Phone number: 
+        <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
+            Phone number:<br/>
             {toBeEdited === edit.PHONE ?
-            <input value={phoneNumber} onChange={(e) => {setPhoneNumber(e.target.value)}}
+            <input value={userData.phoneNumber} onChange={(e) => {setUserData({...userData, phoneNumber: e.target.value})}}
+                    style={{
+                        width: "90%",
+                        height: "60px",
+                        background: "rgba(30, 30, 30, 1)",
+                        border: "2px solid white",
+                        borderRadius: "10px",
+                        cursor: "text",
+                        resize: "none",
+                        fontSize: "30px",
+                        color: "white",
+                    }}
                 onKeyDown={(e) => {if (e.key === 'Enter') {
                     e.preventDefault(); setToBeEdited(edit.NONE);
-            }}}/> :
-            <button onClick={() => setToBeEdited(edit.PHONE)}>{phoneNumber}</button>
             }
-        </p>
+                else if(!(/^[0-9()#_+ -]$/.test(e.key) || e.key === 'Backspace' || e.key === 'Delete' ||
+                    e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'ArrowUp' || e.key === 'ArrowDown' ||
+                    (e.ctrlKey && /^[a-zA-Z]$/.test(e.key)))){
+                    e.preventDefault();
+            }}}
+            autoFocus/> :
+            <button onClick={() => setToBeEdited(edit.PHONE)} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}} >{userData.phoneNumber}</button>
+            }
+        </label>
     </>)
 }

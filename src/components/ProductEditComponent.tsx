@@ -92,7 +92,7 @@ export default function ProductEditComponent({ product }: { product: ProductDTO 
                 />
 
                 <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
-                    Subcategory:
+                    Subcategory: <br/>
                     <select name="subcategory" defaultValue={product.subcategory.id} style={{ height: "30px" }}>
                         {subcategoryList?.map(c => <option value={c.id}>{c.name}</option>)}
                     </select>
