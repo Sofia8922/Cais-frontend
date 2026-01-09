@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { AccountDTO } from "../dtos/AccountDTOs";
+import { AccountDTO, AccountUpdateDTO } from "../dtos/AccountDTOs";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { API_URL } from "../App";
 
 interface AccountProps {
     account: AccountDTO | undefined;
@@ -14,12 +16,35 @@ export default function AccountDetails ({account}: AccountProps) {
         </>)
     }
     
+    const queryClient = useQueryClient();
     const [toBeEdited, setToBeEdited] = useState(edit.NONE);
     const [userData, setUserData] = useState(
-        {name: account.username, adress: account.address, email: account.email, phoneNumber: account.phoneNumber});
+        {name: account.username, adress: account.address, email: account.email, phoneNumber: account.phonenumber});
+
+    const editCategory = useMutation({
+        mutationFn: async (userData: AccountUpdateDTO) => {
+            const response = await fetch(`${API_URL}/accounts/${account.id}`, {
+                method: 'PUT',
+                credentials: "include",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userData })
+            })
+            return;
+        },
+        onSuccess: () => {
+            console.log("succesfully edited")
+            queryClient.invalidateQueries({ queryKey: ["accountList"] })
+        },
+        onError: () => {
+            console.log("edit error")
+        }
+    });
 
     return(
     <>
+        <button style={{ marginLeft: "10px", height: "30px", alignSelf: "center" }}
+            onClick={() => { editCategory.mutate(userData); }}>save</button>
+
         <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
             Name:<br/>
             {toBeEdited === edit.NAME ?

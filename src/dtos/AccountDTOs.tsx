@@ -6,7 +6,7 @@ export interface AccountDTO {
     username: string;
     email: string;
     address: string;
-    phoneNumber: string;
+    phonenumber: string;
     favorites: ProductDTOList;
     recentOrders: PurchaseDTOList;
     roles: string[];
@@ -20,4 +20,11 @@ export interface AccountShortDTO { // not set up yet i think
     email: string;
     address: string;
     phoneNumber: string; 
+}
+
+export interface AccountUpdateDTO {
+    username: string;
+    email: string;
+    address: string;
+    phoneNumber: string;
 }
