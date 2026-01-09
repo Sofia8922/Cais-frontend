@@ -30,7 +30,7 @@ export const AccountService = {
     removeFromFavorites: (accountId, productId) =>
         api.delete(`/accounts/${accountId}/favorites/${productId}`),
     
-    editAccount: (id, data) => api.post(`/accounts/${id}`, data),
+    editAccount: (id, data) => api.putUser(`/accounts/${id}`, data),
     
     deleteAccount: (id) => api.delete(`/accounts/${id}`),
 

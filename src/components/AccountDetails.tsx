@@ -2,14 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import { AccountDTO, AccountUpdateDTO } from "../dtos/AccountDTOs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "../App";
+import { useUserStore } from "../Stores/userStore";
 
 interface AccountProps {
     account: AccountDTO | undefined;
 }
 
-enum edit {NONE, NAME, ADRESS, EMAIL, PHONE};
+
+
+enum edit {NONE, NAME, ADDRESS, EMAIL, PHONE};
 
 export default function AccountDetails ({account}: AccountProps) {
+    const updateUser = useUserStore((state) => state.updateUser);
+
     if(!account) {
         return (<>
             loading error
@@ -18,37 +23,32 @@ export default function AccountDetails ({account}: AccountProps) {
     
     const queryClient = useQueryClient();
     const [toBeEdited, setToBeEdited] = useState(edit.NONE);
-    const [userData, setUserData] = useState(
-        {name: account.username, adress: account.address, email: account.email, phoneNumber: account.phonenumber});
+    const [userData, setUserData] = useState<AccountUpdateDTO>(
+        {username: account.username ?? "", address: account.address ?? "", email: account.email ?? "", phoneNumber: account.phoneNumber ?? ""});
 
-    const editCategory = useMutation({
+    const editAccount = useMutation({
         mutationFn: async (userData: AccountUpdateDTO) => {
-            const response = await fetch(`${API_URL}/accounts/${account.id}`, {
-                method: 'PUT',
-                credentials: "include",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userData })
-            })
-            return;
+            await updateUser(userData);
         },
         onSuccess: () => {
             console.log("succesfully edited")
-            queryClient.invalidateQueries({ queryKey: ["accountList"] })
+            queryClient.invalidateQueries({ queryKey: ["accountList"] });
+            queryClient.invalidateQueries({ queryKey: ["account"] });
         },
-        onError: () => {
-            console.log("edit error")
-        }
+        onError: (err) => {
+            console.log("edit error", err)
+        },
     });
 
     return(
     <>
         <button style={{ marginLeft: "10px", height: "30px", alignSelf: "center" }}
-            onClick={() => { editCategory.mutate(userData); }}>save</button>
+            onClick={() => editAccount.mutate(userData)}>save</button>
 
         <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
-            Name:<br/>
+            username:<br/>
             {toBeEdited === edit.NAME ?
-            <input value={userData.name} onChange={(e) => {setUserData({...userData, name: e.target.value})}}
+            <input value={userData.username} onChange={(e) => {setUserData({...userData, username: e.target.value})}}
                     style={{
                         width: "90%",
                         height: "60px",
@@ -64,7 +64,7 @@ export default function AccountDetails ({account}: AccountProps) {
                     e.preventDefault(); setToBeEdited(edit.NONE);
             }}}
             autoFocus/> :
-            <button onClick={() => {setToBeEdited(edit.NAME); }} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}}>{userData.name}</button>
+            <button onClick={() => {setToBeEdited(edit.NAME); }} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}}>{userData.username}</button>
             }
         </label>
 
@@ -121,8 +121,8 @@ export default function AccountDetails ({account}: AccountProps) {
 
         <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
             Adress:<br/>
-            {toBeEdited === edit.ADRESS ?
-            <input value={userData.adress} onChange={(e) => {setUserData({...userData, adress: e.target.value})}}
+            {toBeEdited === edit.ADDRESS ?
+            <input value={userData.address} onChange={(e) => {setUserData({...userData, address: e.target.value})}}
                     style={{
                         width: "90%",
                         height: "60px",
@@ -138,7 +138,7 @@ export default function AccountDetails ({account}: AccountProps) {
                     e.preventDefault(); setToBeEdited(edit.NONE);
             }}}
             autoFocus/> :
-            <button onClick={() => {setToBeEdited(edit.ADRESS); }} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}}>{userData.adress}</button>
+            <button onClick={() => {setToBeEdited(edit.ADDRESS); }} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}}>{userData.address}</button>
             }
         </label>
     </>)

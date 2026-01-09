@@ -6,7 +6,7 @@ export interface AccountDTO {
     username: string;
     email: string;
     address: string;
-    phonenumber: string;
+    phoneNumber: string;
     favorites: ProductDTOList;
     recentOrders: PurchaseDTOList;
     roles: string[];

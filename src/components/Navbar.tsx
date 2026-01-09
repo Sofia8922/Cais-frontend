@@ -8,7 +8,7 @@ function Navbar() {
     const navigate = useNavigate();
 
     const user =  useUserStore((state) => state.user);
-    console.log("Navbar user:", user);
+    // console.log("Navbar user:", user);
     // const userId = 1;
     return (
         <nav className="navbar">

@@ -103,6 +103,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
     if (!user) return;
     const updated = await AccountService.editAccount(user.id, partial);
     const normalized = {
+      ...user,
       ...updated,
       cart: updated.cart ?? [],
       favorites: updated.favorites ?? [],
