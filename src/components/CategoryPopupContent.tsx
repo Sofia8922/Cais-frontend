@@ -32,8 +32,9 @@ export default function CategoryPopupContent() {
         <div style={{ alignSelf: "flex-start", overflowY: "scroll" }}>
             {categoryList && categoryList?.length > 0 && (
                 categoryList
+                    .sort((a, b) => a.id - b.id)
                     .map((category: CategoryDTO) => (
-                        <AdminCategoryComponent category={category}/>
+                        <AdminCategoryComponent key={category.id} category={category}/>
                     )))}
         </div>
     )
