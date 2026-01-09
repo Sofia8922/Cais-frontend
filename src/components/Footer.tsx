@@ -1,6 +1,6 @@
 function Footer() {
     return (
-    <footer className="navbar" style={{position: 'static'}}>
+    <footer className="footer" style={{position: 'static'}}>
         <div>
             <a style={{fontWeight: 'normal', color: 'inherit', textDecoration: 'none'}} target="_blank" href="https://chatgpt.com/">Support</a>
             <br/>

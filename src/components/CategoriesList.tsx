@@ -24,7 +24,7 @@ export default function CategoriesList({ expandedId, setExpandedId, expandedSubC
 
     return (
         <div style={{
-            height: "60%",
+            height: "70%",
             width: "300px",
             background: "black",
             border: "2px solid white",
@@ -43,6 +43,7 @@ export default function CategoriesList({ expandedId, setExpandedId, expandedSubC
                         <div key={category.id}
                             style={{ fontSize: "25px", marginLeft: "15px", marginTop: "0px", marginBottom: "0px" }}
                             onClick={() => { expandedId?.id == category.id ? setExpandedId() : setExpandedId(category); setSubCategoryId() }}>
+                                {category.subcategories.length == 0 ? <></> : <>
                             {expandedId?.id == category.id ? <strong style={{ cursor: "pointer", margin: "0px" }}>{category.name}</strong> : <p style={{ cursor: "pointer", margin: "0px" }}>{category.name}</p>}
                             {expandedId?.id == category.id && category.subcategories?.length > 0 && (
                                 category.subcategories
@@ -63,7 +64,7 @@ export default function CategoriesList({ expandedId, setExpandedId, expandedSubC
                                             }
                                         </>
                                     )
-                            )}
+                            )}</>}
                         </div>
                     )))}
 
