@@ -11,7 +11,7 @@ const Price = ({basePrice}: PriceProps) => {
 
     return (
         <>
-            <>{lowPrice}</> <s>{highPrice}</s>
+            <s>{highPrice}</s> <>{lowPrice}</>
         </>
     );
 };
