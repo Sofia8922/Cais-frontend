@@ -16,14 +16,14 @@ export default function AccountDetails ({account}: AccountProps) {
     
     const [toBeEdited, setToBeEdited] = useState(edit.NONE);
     const [userData, setUserData] = useState(
-        {adress: account.address, email: account.email, phoneNumber: account.phoneNumber});
+        {name: account.username, adress: account.address, email: account.email, phoneNumber: account.phoneNumber});
 
     return(
     <>
         <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
-            Adress:<br/>
-            {toBeEdited === edit.ADRESS ?
-            <input value={userData.adress} onChange={(e) => {setUserData({...userData, adress: e.target.value})}}
+            Name:<br/>
+            {toBeEdited === edit.NAME ?
+            <input value={userData.name} onChange={(e) => {setUserData({...userData, name: e.target.value})}}
                     style={{
                         width: "90%",
                         height: "60px",
@@ -39,7 +39,7 @@ export default function AccountDetails ({account}: AccountProps) {
                     e.preventDefault(); setToBeEdited(edit.NONE);
             }}}
             autoFocus/> :
-            <button onClick={() => {setToBeEdited(edit.ADRESS); }} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}}>{userData.adress}</button>
+            <button onClick={() => {setToBeEdited(edit.NAME); }} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}}>{userData.name}</button>
             }
         </label>
 
@@ -91,6 +91,29 @@ export default function AccountDetails ({account}: AccountProps) {
             }}}
             autoFocus/> :
             <button onClick={() => setToBeEdited(edit.PHONE)} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}} >{userData.phoneNumber}</button>
+            }
+        </label>
+
+        <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
+            Adress:<br/>
+            {toBeEdited === edit.ADRESS ?
+            <input value={userData.adress} onChange={(e) => {setUserData({...userData, adress: e.target.value})}}
+                    style={{
+                        width: "90%",
+                        height: "60px",
+                        background: "rgba(30, 30, 30, 1)",
+                        border: "2px solid white",
+                        borderRadius: "10px",
+                        cursor: "text",
+                        resize: "none",
+                        fontSize: "30px",
+                        color: "white",
+                    }}
+                onKeyDown={(e) => {if (e.key === 'Enter'){
+                    e.preventDefault(); setToBeEdited(edit.NONE);
+            }}}
+            autoFocus/> :
+            <button onClick={() => {setToBeEdited(edit.ADRESS); }} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}}>{userData.adress}</button>
             }
         </label>
     </>)
