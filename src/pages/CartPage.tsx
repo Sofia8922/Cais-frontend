@@ -16,11 +16,11 @@ export default function CartPage() {
     const navigate = useNavigate();
 
     if (!account) {
-        return <p>Login to see cart.</p>
+        return <p className="cart-message">Login to see cart.</p>
     }
 
     if (account.cart.length === 0) {
-        return <p>Cart is empty 💀💀💀</p>
+        return <p className="cart-message">Cart is empty 💀💀💀</p>
     }
 
     const handleQuantityChange = async (productId: number, quantity: number) => {
@@ -58,37 +58,58 @@ export default function CartPage() {
     );
     
     return (
-        <div className="main-cart-div">
+        <div className="cart-container">
+            <div className="cart-items">
+
             {account.cart.map((item) => (
-                <div key={item.product.id} className="cart-product">
-                    <div className="cart-product-card" onClick={() => navigate(`/product/${item.product.id}`)}>
-                        <CustomImage imageSource={item.product.imageLink || "/placeholder.png"} imageAlt={item.product.name} imageClassName="cart-product-card-image" />
-                        <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <h3 className="cart-product-card-name">{item.product.name}</h3>
-                            <p className="cart-product-card-price">{<Price basePrice={item.product.price} />}</p>
+                <div key={item.product.id} className="cart-item-card">
+                    <div className="cart-item-nav" 
+                    onClick={() => navigate(`/product/${item.product.id}`)}>
+
+                        <div className="cart-item-image-wrapper">
+                            <CustomImage 
+                            imageSource={item.product.imageLink || "/placeholder.png"} 
+                            imageAlt={item.product.name} 
+                            imageClassName="cart-item-image" />
+                        </div>
+
+                        <div className="card-item-footer">
+                            <h3 className="card-item-name">{item.product.name}</h3>
+                            <span className="card-item-price">
+                                {<Price basePrice={item.product.price} />}
+                            </span>
                         </div>
                     </div>
 
-                    <div className="cart-actions">
-                        <div className="product-quantity">
-                            <input type="number" id="quantity" min="1" required value={item.quantity} onChange={(e) => {
+                    <div className="cart-item-actions">
+                            <input 
+                            type="number" 
+                            id="quantity" 
+                            min="1" 
+                            required value={item.quantity} 
+                            onChange={(e) => {
                                 handleQuantityChange(
                                     item.product.id,
                                     Number(e.target.value)
                                 )
                             }}/>
 
-                            <button onClick={() => handleRemove(item.product.id)}>Remove</button>
+                            <button onClick={() => handleRemove(item.product.id)}>
+                                Remove
+                            </button>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
 
-            <div className="total-price-div">
-                <strong>Total cost: <Price basePrice={total} /> </strong>
+            <div className="cart-summary">
+                <strong>Total cost: <Price basePrice={total} /></strong>
                 <p>Amount saved: <PriceFormat priceNumber={total*0.4} /></p>
-                <button onClick={handlePurchase} disabled={account.cart.length === 0 || outOfStock}> {outOfStock ? "Item is out of stock" : "Purchase"} </button>
-                <div style={{fontSize: 15}}>10 years no-money-back guarantuee</div>
+
+                <button onClick={handlePurchase} className="button-purchase"
+                disabled={account.cart.length === 0 || outOfStock}> {outOfStock ? "Item is out of stock" : "Purchase"} </button>
+
+                <div className="cart-warning">10 years no-money-back guarantuee</div>
             </div>
         </div>
     );
