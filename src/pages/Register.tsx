@@ -6,7 +6,7 @@ import { RoleService } from "../services/roleService.js";
 
 export default function Register() {
     const [credentials, setCredentials] = useState({
-        username: "", password: "", email: "", roles: [] as string[]
+        username: "", password: "", email: "", roles: ["USER"] as string[]
     });
     const [availableRoles, setAvailableRoles] = useState<string[]>([]);
     const registerUser = useUserStore((state) => state.register);
@@ -87,7 +87,7 @@ export default function Register() {
                 onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
             />
             
-            <div style={{ display: "flex", gap: "10px", flexDirection: "column"}}>
+            {/* <div style={{ display: "flex", gap: "10px", flexDirection: "column"}}>
                 <span>choose roles</span>
                 {availableRoles.map((role) => (
                     <label key={role}>
@@ -97,7 +97,7 @@ export default function Register() {
                         {role}
                     </label>
                 ))}
-            </div>
+            </div> */}
             <button onClick={handleRegister}>Register</button>
         </div>
     )

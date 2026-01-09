@@ -2,6 +2,7 @@ import { API_URL } from "../App";
 import { useQuery } from "@tanstack/react-query";
 import * as XLSX from 'xlsx';
 import saveAs from 'file-saver';
+import "../stylesheets/productlist.css"
 import { ProductDTOList } from "../dtos/ProductDTOs";
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -77,7 +78,7 @@ function GetExcel() {
     };
 
     return (
-        <button onClick={handleExport} style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}>Download Financial Overview</button>
+        <button onClick={handleExport} className="admin-button">Download Financial Overview</button>
     );
 }
 
