@@ -29,13 +29,12 @@ export default function ProductList() {
 
                 <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} expandedSubCategory={selectedSubcategory} setSubCategoryId={setSubcategory} />
 
-                <div className="priceDiv">
-                    <strong style={{ alignSelf: "center", textAlign: "center", marginTop: "20px", fontSize: "23px" }}>Price range</strong>
-                    <div style={{ display: "flex", flexDirection: "row", width: "90%", alignSelf: "center", marginTop: "0px", fontSize: "23px", justifyContent: "center", alignItems: "center" }}>
-                        <p style={{ textAlign: "left", margin: "0px" }}><PriceFormat priceNumber={priceRange.minPrice} /></p>
+                <div className="price-container">
+                    <strong className="price-title">Price range</strong>
+                    <div className="price-values">
+                        <p style={{ textAlign: "left", margin: "0px", color: "wheat" }}><PriceFormat priceNumber={priceRange.minPrice} /></p>
 
                         <input
-                            style={{ flex: 1 }}
                             id="typeinp"
                             type="range"
                             min={priceRange.minPrice} max={priceRange.maxPrice}
@@ -44,7 +43,7 @@ export default function ProductList() {
                             step=".05">
                         </input>
 
-                        <p style={{ textAlign: "right", margin: "0px" }}><PriceFormat priceNumber={priceRange.maxPrice} /></p>
+                        <p style={{ textAlign: "right", margin: "0px", color: "wheat" }}><PriceFormat priceNumber={priceRange.maxPrice} /></p>
                     </div>
                     {
                         priceFilter > priceRange.maxPrice ?
@@ -56,13 +55,13 @@ export default function ProductList() {
 
                 {account?.roles.some(role => role === "ADMIN") &&
                 <>
-                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
+                    <button className="admin-button" 
                         onClick={() => openMenu(menuStates.PRODUCT)}>Manage products</button>
                     
-                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
+                    <button className="admin-button"
                         onClick={() => openMenu(menuStates.CATEGORIES)}>Manage categories</button>
                     
-                    <button style={{ width: "90%", height: "50px", alignSelf: "center", margin: "5px"}}
+                    <button className="admin-button"
                         onClick={() => openMenu(menuStates.ACCOUNTS)}>Manage accounts</button>
                     
                     <GetExcel/>

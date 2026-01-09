@@ -2,6 +2,7 @@ import { useState } from "react";
 import { API_URL } from "../App";
 import { useQuery } from "@tanstack/react-query";
 import { CategoryDTOList } from "../dtos/CategoryDTOs";
+import "../stylesheets/productlist.css"
 
 export default function CategoriesList({ expandedId, setExpandedId, expandedSubCategory, setSubCategoryId }) {
 
@@ -23,25 +24,12 @@ export default function CategoriesList({ expandedId, setExpandedId, expandedSubC
 
 
     return (
-        <div style={{
-            height: "70%",
-            width: "300px",
-            background: "black",
-            border: "2px solid white",
-            borderRadius: "10px",
-            margin: "8px",
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            color: "white",
-            overflowY: "scroll"
-        }}>
+        <div className="categories-list" >
             {categoryList && categoryList?.length > 0 && (
                 categoryList
                     .sort((a, b) => a.id - b.id)
                     .map((category) => (
-                        <div key={category.id}
-                            style={{ fontSize: "25px", marginLeft: "15px", marginTop: "0px", marginBottom: "0px" }}
+                        <div key={category.id} className="category-title"
                             onClick={() => { expandedId?.id == category.id ? setExpandedId() : setExpandedId(category); setSubCategoryId() }}>
                                 {category.subcategories.length == 0 ? <></> : <>
                             {expandedId?.id == category.id ? <strong style={{ cursor: "pointer", margin: "0px" }}>{category.name}</strong> : <p style={{ cursor: "pointer", margin: "0px" }}>{category.name}</p>}
