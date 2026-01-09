@@ -1,14 +1,15 @@
 import { useState } from "react";
 import AdminSubCategoryComponent from "./AdminSubCategoryComponent";
 import { CategoryDTO } from "../dtos/CategoryDTOs";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "../App";
 
 interface Props {
     category: CategoryDTO
 }
 
-export default function AdminCategoryComponent({category}: Props) {
+export default function AdminCategoryComponent({ category }: Props) {
+    const queryClient = useQueryClient();
     const [isAddMenuOpen, openAddMenu] = useState(false);
     const [nameString, setNameString] = useState(category.name);
     const [newSubcategoryName, setnewSubcategoryName] = useState("");
@@ -28,6 +29,25 @@ export default function AdminCategoryComponent({category}: Props) {
         },
         onError: () => {
             console.log("deletion error")
+        }
+    });
+
+    const editCategory = useMutation({
+        mutationFn: async (newName: string) => {
+            const response = await fetch(`${API_URL}/categories/${category.id}`, {
+                method: 'PUT',
+                credentials: "include",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: newName })
+            })
+            return;
+        },
+        onSuccess: () => {
+            console.log("succesfully edited")
+            queryClient.invalidateQueries({ queryKey: ["categoryList"] })
+        },
+        onError: () => {
+            console.log("edit error")
         }
     });
 
@@ -77,7 +97,7 @@ export default function AdminCategoryComponent({category}: Props) {
                 />
                 {nameString != category.name &&
                     <button style={{ marginLeft: "10px", height: "30px", alignSelf: "center" }}
-                        onClick={() => {/* editCategory.mutate(Category.id, Category.name) */ }}>save</button>}
+                        onClick={() => { editCategory.mutate(nameString) }}>save</button>}
                 {nameString != category.name &&
                     <button
                         style={{ marginLeft: "10px", height: "30px", alignSelf: "center" }}
@@ -89,12 +109,14 @@ export default function AdminCategoryComponent({category}: Props) {
             </div>
 
             {category.subcategories?.length > 0 && (
-                category.subcategories.map(sc =>
-                    <div key={sc.id}
-                        style={{ display: "flex", flexDirection: "row" }}>
-                        <AdminSubCategoryComponent subcategory={sc} />
-                    </div>
-                )
+                category.subcategories
+                    .sort((a, b) => a.id - b.id)
+                    .map(sc =>
+                        <div key={sc.id}
+                            style={{ display: "flex", flexDirection: "row" }}>
+                            <AdminSubCategoryComponent subcategory={sc} />
+                        </div>
+                    )
             )}
             {!isAddMenuOpen ?
                 <button style={{ marginLeft: "20px", marginTop: "5px", height: "40px", alignSelf: "center" }}
