@@ -65,10 +65,10 @@
   font-weight: bold;
   margin-bottom: 4px;
   word-wrap: break-word;
+  color:wheat;
 }
 .product-price {
   font-size: 1.2rem;
-  color: #ccc;
   text-align: right;
 }
 

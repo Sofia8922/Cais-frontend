@@ -10,18 +10,6 @@
     flex-direction: column;
 }
 
-.priceDiv {
-    height: 15%;
-    width: 300px;
-    background: black;
-    border: 2px solid white;
-    border-radius: 10px;
-    margin: 8px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
 .productDiv {
     height: 400px;
     width: 300px;
@@ -58,8 +46,6 @@
 .category-text {
     font-size: 25px;
     margin-left: 20px; 
-    margin-top: 0px;
-    margin-bottom: 0px;
     cursor: pointer;
 }
 
@@ -96,4 +82,93 @@
     .product-list-title {
         font-size: 1.5rem;
     }
+}
+
+.categories-list {
+    display: flex;
+    /* width: 280px; */
+    height: 60%;
+    justify-content: left;
+    background: #574030;
+    flex-direction: column;
+    color: wheat;
+    /* border: 3px solid; */
+    border-bottom: 8px solid #3e2d22;
+    margin: 8px;
+    border-radius: 14px;
+}
+
+.category-title {
+    font-size: 25px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.price-container {
+    height: 15%;
+    width: 300px;
+    background: #574030;
+    border-bottom: 8px solid #3e2d22;
+    border-radius: 14px;
+    margin: 8px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.price-title {
+    color: wheat;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 24px;
+}
+
+.price-values {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    width: 90%;
+}
+
+.admin-button {
+    width: 300px;
+    height: 65px;
+    align-self: center;
+    margin: 4px;
+    color: wheat;
+    font-size: 24px;
+    font-style: bold;
+    text-wrap: warp;
+    padding: 4px;
+    border-radius: 14px;
+    border-bottom: 4px solid #3e2d22;
+    background: #574030;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    background: #D9CFC7;
+    width: 100%;
+    border-radius: 14px;
+    height: 10px;
+    
+}
+
+input[type="range"]:hover {
+    outline: none;
+    background: #3e2d22;
+    transition: ease 0.1s, ease 0.1s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #8CA9FF;
+}
+
+input[type="range"]::-ms-track {
+    width: 100%;
+    color: #8CA9FF;
 }
