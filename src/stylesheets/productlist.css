@@ -147,6 +147,7 @@
     font-style: bold;
     text-wrap: warp;
     padding: 4px;
+    border: none;
     border-radius: 14px;
     border-bottom: 4px solid #3e2d22;
     background: #574030;
