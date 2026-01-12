@@ -19,6 +19,7 @@ export default function ProductList() {
     const [selectedSubcategory, setSubcategory] = useState<SubCategoryDTO>();
     const [priceRange, setPriceRange] = useState({ minPrice: 0, maxPrice: 99 })
     const [priceFilter, setPriceFilter] = useState(priceRange.maxPrice + 1);
+    const [showOutOfStock, setSetOutOfSTock] = useState(true)
 
     enum menuStates {NONE, PRODUCT, CATEGORIES, ACCOUNTS};
     const [whichMenuIsOpened, openMenu] = useState(menuStates.NONE)
@@ -28,6 +29,14 @@ export default function ProductList() {
             <div className="settingsDiv">
 
                 <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} expandedSubCategory={selectedSubcategory} setSubCategoryId={setSubcategory} />
+
+                <div className="price-container">
+                    <strong className="price-title">Items out of stock</strong>
+                    <div className="price-values" >
+                        <input type="checkbox" checked={showOutOfStock} onChange={(e) => setSetOutOfSTock(e.target.checked)}/>
+                        {showOutOfStock ? <> Show</>: <> Hide</>}
+                    </div>
+                </div>
 
                 <div className="price-container">
                     <strong className="price-title">Price range</strong>
@@ -77,7 +86,7 @@ export default function ProductList() {
 
             </div>
 
-            <ProductListComponent expandedCategory={expandedCategory} expandedSubCategory={selectedSubcategory} maxPrice={priceFilter} setPriceRange={setPriceRange} priceRange={priceRange} setPriceFilter={setPriceFilter} />
+            <ProductListComponent expandedCategory={expandedCategory} expandedSubCategory={selectedSubcategory} maxPrice={priceFilter} setPriceRange={setPriceRange} priceRange={priceRange} setPriceFilter={setPriceFilter} showOutOfStock={showOutOfStock} />
 
         </div>
     );
