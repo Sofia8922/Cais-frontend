@@ -36,6 +36,10 @@ export default function ProductDetail() {
         fetchProduct();
     }, [productId]);
 
+    useEffect(() => {
+        setQuantity(1);
+    }, [productId]);
+
     const handleAddToCart = async () => {
         if (!account || !product) {
             alert("You must be logged in to add items to cart!");
@@ -69,44 +73,39 @@ export default function ProductDetail() {
     if (!product) return <p>Loading...</p>
 
     return (
-        <div>
-            <div className="product-grid">
-                {/* left block */}
-                <div className="product-left">
-                    <div className="product-header">
-                        <h2 style={{flex: 1}}>{product.name}</h2>
-                        <span className="price">in stock: {product.stock}</span>
-                    </div>
-                    {/* img here */}
-                    <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName=""/>
+        <div className="product-page">
+            <div className="product-main">
+                <div className="product-media">
+                    <h2>{product.name}</h2>
+                    <span className="stock">in stock: {product.stock}</span>
+                    <CustomImage key={product.id} imageSource={product.imageLink} imageAlt={product.name} imageClassName=""/>
                 </div>
 
-                {/* center block */}
-                <div className="product-center">
-                    <div className="product-cost">
+                <div className="product-info">
+                    
+                    <p className="category">
+                        Category: {product.subcategory.category.name} {"->"} {product.subcategory.name}
+                    </p>
+                    
+                    <p className="description">
+                        {product.description || "No description available"}
+                    </p>
+
+                    <div className="product-price">
                         <h2>{<Price basePrice={product.price} />}</h2>
-                        {/* {account?.roles.some(role => role === "ADMIN") ?
-                        <button className="admin">Edit</button> :
-                        <></>} */}
                     </div>
-                    <p>{product.description || "No description available"}</p>
 
-                    <div className="product-category">
-                        <p>Category: {product.subcategory.category.name} {"->"} {product.subcategory.name}</p>
-                        <div className="product-actions">
-                            <input type="number" id="quantity" min="1" value="1" max={product.stock} onChange={(e) => setQuantity(Math.min(product.stock, Math.max(1, Number(e.target.value))))} required />
-                            <button onClick={handleAddToCart} disabled={product.stock < 1 || quantity > product.stock}>{product.stock < 1 ? "Out of stock": "Add to cart"}</button>
-                            {/* maybe a saved button next to the add to cart button too? */}
-                            <button type="button" onClick={handleAddToFavorites}>{exists ? "delete from favourites" : "add to favourites"}</button>
-                        </div>
+                    <div className="product-actions">
+                        <input type="number" id="quantity" value={quantity} min="1" max={product.stock} onChange={(e) => setQuantity(Math.min(product.stock, Math.max(1, Number(e.target.value))))} required />
+                        <button onClick={handleAddToCart} disabled={product.stock < 1 || quantity > product.stock}>{product.stock < 1 ? "Out of stock": "Add to cart"}</button>
+                        <button type="button" onClick={handleAddToFavorites}>{exists ? "delete from favourites" : "add to favourites"}</button>
                     </div>
                 </div>
+            </div>
 
-                {/* right block */}
-                <div className="product-right">
-                    <h1>Similar products:</h1>
-                    <SimilarProducts products={similarProducts} currentProduct={product}/>
-                </div>
+            <div className="product-similar">
+                <h2>Similar products</h2>
+                <SimilarProducts products={similarProducts} currentProduct={product}/>
             </div>
         </div>
     );
