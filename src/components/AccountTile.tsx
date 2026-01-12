@@ -6,9 +6,9 @@ interface TileProps {
 }
 
 export default function AccountTile({account, showAccount}: TileProps) {
-console.log(account)
+    //console.log(account)
     const roleString = account.roles.at(0)?.includes("ADMIN") ? " (Admin)" : "";
-    const phoneString = account.phonenumber ? account.phonenumber : "-";
+    const phoneString = account.phoneNumber ? account.phoneNumber : "-";
 
     return (
         <div style={{

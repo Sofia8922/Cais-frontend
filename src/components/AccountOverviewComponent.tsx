@@ -90,7 +90,7 @@ export default function AccountOverviewComponent () {
                         </div >
 
                         <div style={{ width: "85%", overflowY: "scroll", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                            {filteredAccounts?.map((account) => (
+                            {filteredAccounts?.sort((a, b) => a.username.localeCompare(b.username)).map((account) => (
                               <AccountTile account={account} showAccount={() => {setAccountFocus(account.id)}} key={account.id} />
                             ))}
                         </div>
@@ -117,8 +117,8 @@ export default function AccountOverviewComponent () {
 
     return (
         <>
-            <button className="admin-button" onClick={() => {setAccountFocus(-1)}}>Return</button>
-            <AccountDetails account={focussedAcount}/>
+            <button className="admin-button" onClick={() => setAccountFocus(-1)}>Return</button>
+            <AccountDetails account={focussedAcount} returnFunction={() => setAccountFocus(-1)}/>
         </>
     )
 }

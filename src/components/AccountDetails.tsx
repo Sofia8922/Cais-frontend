@@ -6,13 +6,14 @@ import { useUserStore } from "../Stores/userStore";
 
 interface AccountProps {
     account: AccountDTO | undefined;
+    returnFunction: Function;
 }
 
 
 
 enum edit {NONE, NAME, ADDRESS, EMAIL, PHONE};
 
-export default function AccountDetails ({account}: AccountProps) {
+export default function AccountDetails ({account, returnFunction}: AccountProps) {
     const updateUser = useUserStore((state) => state.updateUser);
 
     if(!account) {
@@ -49,6 +50,23 @@ export default function AccountDetails ({account}: AccountProps) {
         },
         onError: (err) => {
             console.log("edit error", err)
+        },
+    });
+
+    const deleteAccount = useMutation({
+        mutationFn: async () => {
+            const response = await fetch(`${API_URL}/accounts/${account.id}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: "include"
+            })
+            return
+        },
+        onSuccess: () => {
+            console.log("deletion success")
+        },
+        onError: () => {
+            console.log("deletion error")
         },
     });
 
@@ -159,7 +177,10 @@ export default function AccountDetails ({account}: AccountProps) {
         {account?.roles.some(role => role === "ADMIN") ?
         <button className="admin-button" style={{background: "grey"}}>cannot delete admin account</button> :  
         <button className="admin-button" style={{background: "red"}}
-            onClick={() => {editAccount.mutate(userData); setDataWasEdited(false); setToBeEdited(edit.NONE) }}>delete</button>
+            onClick={() => {deleteAccount.mutate(undefined, {onSuccess: () => {
+                returnFunction();
+                queryClient.invalidateQueries({ queryKey: ["accountList"] });
+            }})}}>delete</button>
         }
     </>)
 }
