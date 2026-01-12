@@ -1,5 +1,5 @@
 import ProductCard from "./ProductCard";
-
+import "../stylesheets/product.css";
 
 function SimilarProducts({products, currentProduct }) {
 
@@ -7,7 +7,7 @@ function SimilarProducts({products, currentProduct }) {
     const similar = products.filter(p => p !== currentProduct);
 
     return (
-        <div className="similar-list">
+        <div className="similar-horizontal">
             {similar.map((p) => {
                 return (
                     <ProductCard key={p.id} product={p} />

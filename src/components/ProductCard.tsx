@@ -8,8 +8,10 @@ function ProductCard({ product }) {
 
     return (
         <div className="product-card" onClick={() => navigate(`/product/${product.id}`)}>
-            <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName="product-card-image"/>
-            <div style={{ height: "40px", margin: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div className="product-card-image-wrapper">
+                <CustomImage imageSource={product.imageLink} imageAlt={product.name} imageClassName="product-card-image"/>
+            </div>
+            <div className="product-card-footer">
                 <h3 className="product-card-name">{product.name}</h3>
                 <p className="product-card-price">{<Price basePrice={product.price} />}</p>
             </div>
