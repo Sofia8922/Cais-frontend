@@ -26,9 +26,20 @@ export default function AccountDetails ({account}: AccountProps) {
     const [userData, setUserData] = useState<AccountUpdateDTO>(
         {username: account.username ?? "", address: account.address ?? "", email: account.email ?? "", phoneNumber: account.phoneNumber ?? ""});
 
+    const updateAccountById = async (id: number, userData: AccountUpdateDTO) => {
+        const res = await fetch(`${API_URL}/accounts/${id}`, {
+            method: "PUT",
+            credentials: "include",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(userData),
+        });
+        if (!res.ok) throw new Error("Failed to update account");
+        return await res.json();
+    };
+    
     const editAccount = useMutation({
         mutationFn: async (userData: AccountUpdateDTO) => {
-            await updateUser(userData);
+            await updateAccountById(account.id, userData);
         },
         onSuccess: () => {
             console.log("succesfully edited")
