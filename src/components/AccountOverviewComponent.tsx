@@ -117,7 +117,7 @@ export default function AccountOverviewComponent () {
 
     return (
         <>
-            <button onClick={() => {setAccountFocus(-1)}}>Return</button>
+            <button className="admin-button" onClick={() => {setAccountFocus(-1)}}>Return</button>
             <AccountDetails account={focussedAcount}/>
         </>
     )
