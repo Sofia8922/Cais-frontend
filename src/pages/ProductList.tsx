@@ -31,14 +31,6 @@ export default function ProductList() {
                 <CategoriesList expandedId={expandedCategory} setExpandedId={setExpandedCategory} expandedSubCategory={selectedSubcategory} setSubCategoryId={setSubcategory} />
 
                 <div className="price-container">
-                    <strong className="price-title">Items out of stock</strong>
-                    <div className="price-values" >
-                        <input type="checkbox" checked={showOutOfStock} onChange={(e) => setSetOutOfSTock(e.target.checked)}/>
-                        {showOutOfStock ? <> Show</>: <> Hide</>}
-                    </div>
-                </div>
-
-                <div className="price-container">
                     <strong className="price-title">Price range</strong>
                     <div className="price-values">
                         <p style={{ textAlign: "left", margin: "0px", color: "wheat" }}><PriceFormat priceNumber={priceRange.minPrice} /></p>
@@ -60,6 +52,14 @@ export default function ProductList() {
                             :
                             <p style={{ textAlign: "center", marginTop: "0px", fontSize: "25px" }}><PriceFormat priceNumber={priceFilter} /></p>
                     }
+                </div>
+
+                <div className="price-container">
+                    <strong className="price-title">Out of stock items</strong>
+                    <div className="price-values" >
+                        <input type="checkbox" checked={showOutOfStock} onChange={(e) => setSetOutOfSTock(e.target.checked)}/>
+                        {showOutOfStock ? <> Shown</>: <> Hidden</>}
+                    </div>
                 </div>
 
                 {account?.roles.some(role => role === "ADMIN") &&
