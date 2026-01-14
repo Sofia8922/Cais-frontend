@@ -19,6 +19,7 @@ export default function ProductList() {
     const [selectedSubcategory, setSubcategory] = useState<SubCategoryDTO>();
     const [priceRange, setPriceRange] = useState({ minPrice: 0, maxPrice: 99 })
     const [priceFilter, setPriceFilter] = useState(priceRange.maxPrice + 1);
+    const [showOutOfStock, setSetOutOfSTock] = useState(true)
 
     enum menuStates {NONE, PRODUCT, CATEGORIES, ACCOUNTS};
     const [whichMenuIsOpened, openMenu] = useState(menuStates.NONE)
@@ -53,16 +54,25 @@ export default function ProductList() {
                     }
                 </div>
 
+                <div className="price-container">
+                    <strong className="price-title">Out of stock items</strong>
+                    <div className="price-values" >
+                        <input type="checkbox" checked={showOutOfStock} onChange={(e) => setSetOutOfSTock(e.target.checked)}/>
+                        {showOutOfStock ? <> Shown</>: <> Hidden</>}
+                    </div>
+                </div>
+
                 {account?.roles.some(role => role === "ADMIN") &&
                 <>
+                    <button className="admin-button"
+                        onClick={() => openMenu(menuStates.ACCOUNTS)}>Manage accounts</button>
+                        
+                    <button className="admin-button"
+                        onClick={() => openMenu(menuStates.CATEGORIES)}>Manage categories</button>
+
                     <button className="admin-button" 
                         onClick={() => openMenu(menuStates.PRODUCT)}>Manage products</button>
                     
-                    <button className="admin-button"
-                        onClick={() => openMenu(menuStates.CATEGORIES)}>Manage categories</button>
-                    
-                    <button className="admin-button"
-                        onClick={() => openMenu(menuStates.ACCOUNTS)}>Manage accounts</button>
                     
                     <GetExcel/>
 
@@ -77,7 +87,7 @@ export default function ProductList() {
 
             </div>
 
-            <ProductListComponent expandedCategory={expandedCategory} expandedSubCategory={selectedSubcategory} maxPrice={priceFilter} setPriceRange={setPriceRange} priceRange={priceRange} setPriceFilter={setPriceFilter} />
+            <ProductListComponent expandedCategory={expandedCategory} expandedSubCategory={selectedSubcategory} maxPrice={priceFilter} setPriceRange={setPriceRange} priceRange={priceRange} setPriceFilter={setPriceFilter} showOutOfStock={showOutOfStock} />
 
         </div>
     );

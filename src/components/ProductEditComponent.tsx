@@ -5,7 +5,7 @@ import { API_URL } from "../App";
 import { ProductDTO, ProductEditDTO } from "../dtos/ProductDTOs";
 import Purchase from "./Purchase";
 
-export default function ProductEditComponent({ product }: { product: ProductDTO }) {
+export default function ProductEditComponent({ closeFunction, product }: { closeFunction: any, product: ProductDTO }) {
     const [nameString, setNameString] = useState(product.name);
     const [descString, setDescString] = useState(product.description);
     const queryClient = useQueryClient();
@@ -40,8 +40,9 @@ export default function ProductEditComponent({ product }: { product: ProductDTO 
         },
         onSuccess: (response) => {
             console.log(response.message);
-            queryClient.invalidateQueries({ queryKey: ["productList"]
-    });
+            queryClient.invalidateQueries({
+                queryKey: ["productList"]
+            });
         }
     })
 
@@ -60,7 +61,7 @@ export default function ProductEditComponent({ product }: { product: ProductDTO 
                     style={{
                         width: "90%",
                         height: "60px",
-                        background: "rgba(30, 30, 30, 1)",
+                        background: "#3e2d22",
                         border: "2px solid white",
                         borderRadius: "10px",
                         cursor: "text",
@@ -81,7 +82,7 @@ export default function ProductEditComponent({ product }: { product: ProductDTO 
                     style={{
                         width: "90%",
                         height: "300px",
-                        background: "rgba(30, 30, 30, 1)",
+                        background: "#3e2d22",
                         border: "2px solid white",
                         borderRadius: "10px",
                         cursor: "text",
@@ -92,30 +93,39 @@ export default function ProductEditComponent({ product }: { product: ProductDTO 
                 />
 
                 <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
-                    Subcategory: <br/>
+                    Subcategory: <br />
                     <select name="subcategory" defaultValue={product.subcategory.id} style={{ height: "30px" }}>
                         {subcategoryList?.map(c => <option value={c.id}>{c.name}</option>)}
                     </select>
                 </label>
 
+                <div style={{ height: "50px", width: "400px", marginTop: "100px", display: "flex", flexDirection: "row", gap: "10px" }}>
 
-                <button style={{ height: "50px", width: "250px", marginTop: "350px" }}
-                    onClick={() => editProduct.mutate({
-                        name: nameString,
-                        description: descString,
-                        price: product.price,
-                        stock: product.stock,
-                        imageLink: product.imageLink,
-                        subcategoryId: product.subcategory.id
-                    })}>Save</button>
+                    <button
+                        className="admin-button"
+                        style={{ height: "50px", width: "370px" }}
+                        onClick={closeFunction}>return to overview
+                    </button>
+                    <button className="admin-button" style={{ height: "50px", width: "280px" }}
+                        onClick={() => editProduct.mutate({
+                            name: nameString,
+                            description: descString,
+                            price: product.price,
+                            stock: product.stock,
+                            imageLink: product.imageLink,
+                            subcategoryId: product.subcategory.id
+                        })}>Save
+                    </button>
+
+                </div>
 
             </div>
 
 
 
-            <div style={{ width: "50%", display: "flex", flexDirection: "column", alignItems: "center", background: "rgba(21, 21, 21, 1)", fontSize: "25px" }}>
+            <div style={{ width: "50%", display: "flex", flexDirection: "column", alignItems: "center", background: "#3e2d22", fontSize: "25px" }}>
                 <strong style={{ width: "90%", textAlign: "center", margin: "5px", fontSize: "25px" }}>Orders:</strong>
-                {product.purchases.map(p => <Purchase purchase={p}/>)}
+                {product.purchases.map(p => <Purchase purchase={p} />)}
             </div>
 
         </div>

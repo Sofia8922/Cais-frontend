@@ -38,7 +38,7 @@ export default function EditStatusBox({ purchaseStatus, purchase, changeStatus }
             position: "absolute",
             width: "250px",
             height: "180px",
-            background: "black",
+            background: "#221612",
             border: "2px solid white",
             borderRadius: "10px",
             left: "20px",

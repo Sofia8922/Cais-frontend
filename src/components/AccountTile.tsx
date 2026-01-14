@@ -6,15 +6,15 @@ interface TileProps {
 }
 
 export default function AccountTile({account, showAccount}: TileProps) {
-console.log(account)
+    //console.log(account)
     const roleString = account.roles.at(0)?.includes("ADMIN") ? " (Admin)" : "";
-    const phoneString = account.phonenumber ? account.phonenumber : "-";
+    const phoneString = account.phoneNumber ? account.phoneNumber : "-";
 
     return (
         <div style={{
             width: "95%",
             height: "30px",
-            background: "black",
+            background: "#3e2d22",
             border: "2px solid white",
             borderRadius: "10px",
             margin: "8px",
@@ -28,8 +28,8 @@ console.log(account)
             fontSize: "23px",
             gap: "70px"
         }}
-            onMouseOver={(e) => { e.currentTarget.style.background = "rgba(19, 19, 19, 1)" }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(0, 0, 0, 1)" }}
+            onMouseOver={(e) => { e.currentTarget.style.background = "#291915" }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "#3e2d22" }}
             onClick={showAccount}>
             <p style={{textAlign: "left", width: "34%"}}>{account.username}{roleString}</p>
             <p style={{textAlign: "left", width: "33%"}}>{account.email}</p>

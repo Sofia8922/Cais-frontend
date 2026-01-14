@@ -6,13 +6,14 @@ import { useUserStore } from "../Stores/userStore";
 
 interface AccountProps {
     account: AccountDTO | undefined;
+    returnFunction: Function;
 }
 
 
 
 enum edit {NONE, NAME, ADDRESS, EMAIL, PHONE};
 
-export default function AccountDetails ({account}: AccountProps) {
+export default function AccountDetails ({account, returnFunction}: AccountProps) {
     const updateUser = useUserStore((state) => state.updateUser);
 
     if(!account) {
@@ -22,6 +23,7 @@ export default function AccountDetails ({account}: AccountProps) {
     }
     
     const queryClient = useQueryClient();
+    const [dataWasEdited, setDataWasEdited] = useState(false);
     const [toBeEdited, setToBeEdited] = useState(edit.NONE);
     const [userData, setUserData] = useState<AccountUpdateDTO>(
         {username: account.username ?? "", address: account.address ?? "", email: account.email ?? "", phoneNumber: account.phoneNumber ?? ""});
@@ -50,16 +52,35 @@ export default function AccountDetails ({account}: AccountProps) {
             console.log("edit error", err)
         },
     });
- 
+
+    const deleteAccount = useMutation({
+        mutationFn: async () => {
+            const response = await fetch(`${API_URL}/accounts/${account.id}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: "include"
+            })
+            return
+        },
+        onSuccess: () => {
+            console.log("deletion success")
+        },
+        onError: () => {
+            console.log("deletion error")
+        },
+    });
+
     return(
     <>
-        <button style={{ marginLeft: "10px", height: "30px", alignSelf: "center" }}
-            onClick={() => editAccount.mutate(userData)}>save</button>
+        {dataWasEdited ?
+        <button className="admin-button" style={{background: "green"}}
+            onClick={() => {editAccount.mutate(userData); setDataWasEdited(false); setToBeEdited(edit.NONE) }}>save</button> :
+        <></>}
 
         <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
             username:<br/>
             {toBeEdited === edit.NAME ?
-            <input value={userData.username} onChange={(e) => {setUserData({...userData, username: e.target.value})}}
+            <input value={userData.username} onChange={(e) => {setUserData({...userData, username: e.target.value}); setDataWasEdited(e.target.value !== "") }}
                     style={{
                         width: "90%",
                         height: "60px",
@@ -82,7 +103,7 @@ export default function AccountDetails ({account}: AccountProps) {
         <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
             Email:<br/>
             {toBeEdited === edit.EMAIL ?
-            <input value={userData.email} onChange={(e) => {setUserData({...userData, email: e.target.value})}}
+            <input value={userData.email} onChange={(e) => {setUserData({...userData, email: e.target.value}); setDataWasEdited(true)}}
                     style={{
                         width: "90%",
                         height: "60px",
@@ -105,7 +126,7 @@ export default function AccountDetails ({account}: AccountProps) {
         <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
             Phone number:<br/>
             {toBeEdited === edit.PHONE ?
-            <input value={userData.phoneNumber} onChange={(e) => {setUserData({...userData, phoneNumber: e.target.value})}}
+            <input value={userData.phoneNumber} onChange={(e) => {setUserData({...userData, phoneNumber: e.target.value}); setDataWasEdited(true)}}
                     style={{
                         width: "90%",
                         height: "60px",
@@ -133,7 +154,7 @@ export default function AccountDetails ({account}: AccountProps) {
         <label style={{ width: "90%", textAlign: "left", margin: "5px", fontSize: "25px" }}>
             Adress:<br/>
             {toBeEdited === edit.ADDRESS ?
-            <input value={userData.address} onChange={(e) => {setUserData({...userData, address: e.target.value})}}
+            <input value={userData.address} onChange={(e) => {setUserData({...userData, address: e.target.value}); setDataWasEdited(true)}}
                     style={{
                         width: "90%",
                         height: "60px",
@@ -152,5 +173,14 @@ export default function AccountDetails ({account}: AccountProps) {
             <button onClick={() => {setToBeEdited(edit.ADDRESS); }} style={{width: "90%", height: "60px", fontSize: "30px", textAlign: "left"}}>{userData.address}</button>
             }
         </label>
+        
+        {account?.roles.some(role => role === "ADMIN") ?
+        <button className="admin-button" style={{background: "grey"}}>cannot delete admin account</button> :  
+        <button className="admin-button" style={{background: "red"}}
+            onClick={() => {deleteAccount.mutate(undefined, {onSuccess: () => {
+                returnFunction();
+                queryClient.invalidateQueries({ queryKey: ["accountList"] });
+            }})}}>delete</button>
+        }
     </>)
 }

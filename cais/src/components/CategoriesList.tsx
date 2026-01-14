@@ -50,9 +50,6 @@ export default function CategoriesList({expandedId, setExpandedId}) {
                     )}
                 </div>
 
-
-
-
             </div>
     )
 }

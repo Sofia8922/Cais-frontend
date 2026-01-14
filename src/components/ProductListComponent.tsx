@@ -6,7 +6,7 @@ import { ProductDTOList } from "../dtos/ProductDTOs.tsx";
 import { useParams } from "react-router-dom";
 import "../stylesheets/productList.css";
 
-export default function ProductListComponent({ expandedCategory, expandedSubCategory, maxPrice, setPriceRange, setPriceFilter }) {
+export default function ProductListComponent({ expandedCategory, expandedSubCategory, maxPrice, setPriceRange, setPriceFilter, showOutOfStock }) {
     const { searchFilter } = useParams<{ searchFilter: string }>();
 
 
@@ -72,6 +72,8 @@ export default function ProductListComponent({ expandedCategory, expandedSubCate
 
     const priceFilteredProducts = filteredProducts?.filter(p => p.price <= maxPrice);
 
+    const stockFilteredProducts = showOutOfStock ? priceFilteredProducts : priceFilteredProducts?.filter(p => p.stock > 0)
+
 
 
     if (isProductListLoading) {
@@ -88,8 +90,8 @@ export default function ProductListComponent({ expandedCategory, expandedSubCate
                 Showing {searchFilter ? "results for " + searchFilter : "products"} in {
                 expandedCategory ? (expandedSubCategory ? expandedSubCategory.name : expandedCategory.name) : "all categories"}</p>
             <div className="product-list-grid">
-                {priceFilteredProducts && priceFilteredProducts?.length > 0 ? (
-                    priceFilteredProducts
+                {stockFilteredProducts && stockFilteredProducts?.length > 0 ? (
+                    stockFilteredProducts
                         .map((product, index) => (
                             <ProductComponent key={index} product={product} />
                         )))
