@@ -23,28 +23,31 @@ export default function Login() {
     });
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "100px", gap: "10px" }}>
-            <h1>Login</h1>
+        <div className="login-container">
+            <h1 className="login-title">Login</h1>
             <input
                 type="username"
                 placeholder="Username"
                 value={credentials.username}
                 onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+                className="login-input"
             />
             <input
                 type="password"
                 placeholder="Password"
                 value={credentials.password}
                 onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                className="login-input"
             />
             <button
                 onClick={() => loginMutation.mutate()}
                 disabled={loginMutation.isPending}
+                className="login-button"
             >
                 {loginMutation.isPending ? "Logging in..." : "Login"}
             </button>
 
-            <button onClick={() => navigate("/register")}>Register</button>
+            <button onClick={() => navigate("/register")} className="login-button">Register</button>
         </div>
     );
 }

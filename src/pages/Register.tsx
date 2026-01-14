@@ -67,25 +67,28 @@ export default function Register() {
     }
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "100px", gap: "10px" }}>
-            <h1>register</h1>
+        <div className="register-container">
+            <h1 className="register-title">register</h1>
             <input
                 type="username"
                 placeholder="Username"
                 value={credentials.username}
                 onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+                className="register-input"
             />
             <input
                 type="password"
                 placeholder="Password"
                 value={credentials.password}
                 onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                className="register-input"
             />
             <input
                 type="email"
                 placeholder="Email"
                 value={credentials.email}
                 onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+                className="register-input"
             />
             
             {/* <div style={{ display: "flex", gap: "10px", flexDirection: "column"}}>
@@ -99,7 +102,7 @@ export default function Register() {
                     </label>
                 ))}
             </div> */}
-            <button onClick={handleRegister}>Register</button>
+            <button onClick={handleRegister} className="register-button">Register</button>
         </div>
     )
 }
