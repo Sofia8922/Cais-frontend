@@ -15,6 +15,10 @@
     transition: background 0.2s ease, transform 0.2s ease;
 }
 
+.product-card--similar {
+    filter: saturate(1) brightness(0.9);
+}
+
 .product-card:hover {
     background: #3e2d22;
     transform: translateY(-2px);

@@ -3,7 +3,7 @@ import "../stylesheets/product.css";
 import Price from "./Price"
 import CustomImage from "./CustomImage";
 
-function ProductCard({ product }) {
+function ProductCard2({ product }) {
     const navigate = useNavigate();
 
     return (
@@ -19,4 +19,4 @@ function ProductCard({ product }) {
     );
 };
 
-export default ProductCard;
+export default ProductCard2;

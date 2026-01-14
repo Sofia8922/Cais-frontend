@@ -4,11 +4,17 @@ import Price from "./Price";
 import { ProductDTO } from "../dtos/ProductDTOs";
 import CustomImage from "./CustomImage.tsx";
 
-export default function ProductComponent({ product }: { product: ProductDTO }) {
+type ProductCardProps = {
+    product: ProductDTO;
+    variant?: "default" | "similar";
+};
+
+export default function ProductCard({ product, variant = "default" }: ProductCardProps) {
     const navigate = useNavigate();
 
     return (
-        <div className="product-card"
+        <div 
+            className={`product-card product-card--${variant}`}
             onClick={() => { navigate(`/product/${product.id}`) }}
         >
             <div className="product-image-container">

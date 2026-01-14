@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ProductCreateDTO } from "../dtos/ProductDTOs";
 import { SubCategoryDTOList } from "../dtos/CategoryDTOs";
 import { API_URL } from "../App";
-import { useState } from "react";
+import { cloneElement, useState } from "react";
 import CustomImage from "./CustomImage";
 import React from 'react';
 
@@ -160,8 +160,8 @@ export default function ProductCreateComponent({ closeFunction }) {
             />
 
 
-            <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", fontSize: "25px" }}>
-                <div style={{ width: "50%", display: "flex", flexDirection: "column", alignItems: "start" }}>
+            <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", fontSize: "25px", padding: "20px", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: "45%", display: "flex", flexDirection: "column", alignItems: "start" }}>
 
                     <p style={{fontSize: "25px"}}>
                         subcategory:
