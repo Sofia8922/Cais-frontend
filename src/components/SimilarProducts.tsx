@@ -1,7 +1,7 @@
-import ProductCard from "./ProductCard";
+import ProductCard from "./ProductComponent";
 import "../stylesheets/product.css";
 
-function SimilarProducts({products, currentProduct }) {
+function SimilarProducts({ products, currentProduct }) {
 
     // filter out current product
     const similar = products.filter(p => p !== currentProduct);
@@ -10,7 +10,11 @@ function SimilarProducts({products, currentProduct }) {
         <div className="similar-horizontal">
             {similar.map((p) => {
                 return (
-                    <ProductCard key={p.id} product={p} />
+                    <ProductCard
+                        key={p.id}
+                        product={p}
+                        variant="similar"
+                    />
                 )
             })}
         </div>

@@ -42,6 +42,7 @@ const CustomImage = ({ imageSource, imageAlt, imageClassName, greyedOut }: Image
     className={`${imageClassName} ${greyedOut ? "image-disabled" : ""}`}
     onError={() => setHasError(true)}
     onLoad={() => setLoading(false)}
+    style={{maxWidth: "100%", maxHeight: "350px"}}
     />
   );
 };
