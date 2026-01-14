@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useUserStore } from "../Stores/userStore.ts";
 import { RoleService } from "../services/roleService.js";
+import "../stylesheets/profile.css"
 
 export default function Register() {
     const [credentials, setCredentials] = useState({

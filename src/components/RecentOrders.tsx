@@ -1,5 +1,7 @@
 import { PurchaseDTOList} from "../dtos/PurchaseDTOs";
 import PriceFormat from "./PriceFormat";
+import "../stylesheets/profile.css";
+import CustomImage from "./CustomImage";
 
 interface RecentOrdersProps {
   orders: PurchaseDTOList;
@@ -17,15 +19,20 @@ export default function RecentOrders({orders}: RecentOrdersProps) {
     }
 
     return (
-        <div className="recent-orders">
-            <h2>Recent Orders</h2>
+        <div className="order-container">
+            
 
             {orders.map((order) => (
                 <p key={order.id} className="order-card">
                     <hr/>
-                    <p><strong>Purchase:</strong> {order.productDTO.name ?? "Unknown Product"} × {order.amount}</p>
-                    <p><strong>Total price:</strong> <PriceFormat priceNumber={((order.productDTO.price) * (order.amount))}/></p>
-                    <p><strong>Status:</strong> {order.status}</p>
+                    <CustomImage imageSource={order.productDTO.imageLink} 
+                        imageAlt={order.productDTO.name} 
+                        imageClassName="product-image" 
+                        greyedOut={order.productDTO.stock === 0}/>
+                        
+                    <p className="card-info"><strong>Purchase:</strong> {order.productDTO.name ?? "Unknown Product"} × {order.amount}</p>
+                    <p className="card-info"><strong>Total price:</strong> <PriceFormat priceNumber={((order.productDTO.price) * (order.amount))}/></p>
+                    <p className="card-info"><strong>Status:</strong> {order.status}</p>
                 </p>
             ))}
         </div>

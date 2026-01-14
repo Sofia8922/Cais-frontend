@@ -50,7 +50,7 @@ export default function AccountDetails ({account}: AccountProps) {
             console.log("edit error", err)
         },
     });
-
+ 
     return(
     <>
         <button style={{ marginLeft: "10px", height: "30px", alignSelf: "center" }}
