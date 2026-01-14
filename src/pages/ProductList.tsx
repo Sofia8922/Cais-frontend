@@ -64,14 +64,15 @@ export default function ProductList() {
 
                 {account?.roles.some(role => role === "ADMIN") &&
                 <>
+                    <button className="admin-button"
+                        onClick={() => openMenu(menuStates.ACCOUNTS)}>Manage accounts</button>
+                        
+                    <button className="admin-button"
+                        onClick={() => openMenu(menuStates.CATEGORIES)}>Manage categories</button>
+
                     <button className="admin-button" 
                         onClick={() => openMenu(menuStates.PRODUCT)}>Manage products</button>
                     
-                    <button className="admin-button"
-                        onClick={() => openMenu(menuStates.CATEGORIES)}>Manage categories</button>
-                    
-                    <button className="admin-button"
-                        onClick={() => openMenu(menuStates.ACCOUNTS)}>Manage accounts</button>
                     
                     <GetExcel/>
 
