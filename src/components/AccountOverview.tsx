@@ -18,7 +18,7 @@ export default function AccountOverview({ closeFunction }: { closeFunction: () =
                 <div style={{
                     width: "1200px",
                     height: "700px",
-                    background: "black",
+                    background: "#AB886D",
                     border: "2px solid white",
                     borderRadius: "10px",
                     boxShadow: "0 10px 30px rgba(0,0,0,0.2)",

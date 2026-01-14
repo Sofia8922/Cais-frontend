@@ -2,10 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { API_URL } from "../App";
 
-export default function AdminSubCategoryComponent({subcategory}: any) {
+export default function AdminSubCategoryComponent({ subcategory }: any) {
     const queryClient = useQueryClient();
     const [nameString, setNameString] = useState(subcategory.name);
-    
+    let idToMutate = -1;
 
     const editCategory = useMutation({
         mutationFn: async (newName: string) => {
@@ -26,11 +26,29 @@ export default function AdminSubCategoryComponent({subcategory}: any) {
         }
     });
 
+    const deleteSubcategory = useMutation({
+        mutationFn: async () => {
+            const response = await fetch(`${API_URL}/subcategories/${idToMutate}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: "include"
+            })
+            return
+        },
+        onSuccess: () => {
+            console.log("succesfully deleted")
+            queryClient.invalidateQueries({ queryKey: ["categoryList"] })
+        },
+        onError: () => {
+            console.log("deletion error")
+        }
+    });
+
 
     return (
         <div className="category-text" style={{ display: "flex", flexDirection: "row" }}>
             <div style={{
-                background: "black",
+                background: "#451d15",
                 height: "40px",
                 width: "40px",
                 borderRadius: "10px",
@@ -41,11 +59,12 @@ export default function AdminSubCategoryComponent({subcategory}: any) {
                     e.currentTarget.style.background = "rgba(179, 37, 49, 1)";
                 }}
                 onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "rgba(0, 0, 0, 0)";
+                    e.currentTarget.style.background = "#451d15";
                 }}
                 onClick={(e) => {
                     e.stopPropagation();
-                    //deleteSubcategory.mutate(subcategory.id);
+                    idToMutate = subcategory.id;
+                    deleteSubcategory.mutate(subcategory.id);
                 }}>
                 x
             </div>
@@ -59,7 +78,7 @@ export default function AdminSubCategoryComponent({subcategory}: any) {
                 style={{
                     width: "400px",
                     height: "40px",
-                    background: "rgba(30, 30, 30, 1)",
+                    background: "#4f3c2e",
                     border: "2px solid white",
                     borderRadius: "10px",
                     cursor: "text",
@@ -69,8 +88,10 @@ export default function AdminSubCategoryComponent({subcategory}: any) {
                 }}
             />
             {nameString != subcategory.name &&
-                <button style={{ marginLeft: "10px", height: "30px", alignSelf: "center" }}
-                    onClick={() => { editCategory.mutate(nameString); }}>save</button>
+                <button
+                    style={{ marginLeft: "10px", height: "30px", alignSelf: "center" }}
+                    onClick={() => { editCategory.mutate(nameString); }}
+                >save</button>
             }
             {nameString != subcategory.name &&
                 <button

@@ -57,7 +57,7 @@ export default function AccountOverviewComponent () {
                 style={{
                     width: "90%",
                     height: "60px",
-                    background: "rgba(30, 30, 30, 1)",
+                    background: "#3e2d22",
                     border: "2px solid white",
                     borderRadius: "10px",
                     margin: "8px",
@@ -73,7 +73,6 @@ export default function AccountOverviewComponent () {
                         <div style={{
                             width: "80%",
                             height: "20px",
-                            background: "black",
                             margin: "8px",
                             display: "flex",
                             flexDirection: "row",

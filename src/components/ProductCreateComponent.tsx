@@ -163,7 +163,7 @@ export default function ProductCreateComponent({ closeFunction }) {
             <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", fontSize: "25px", padding: "20px", alignItems: "center", justifyContent: "center" }}>
                 <div style={{ width: "45%", display: "flex", flexDirection: "column", alignItems: "start" }}>
 
-                    <p style={{fontSize: "25px"}}>
+                    <p style={{ fontSize: "25px" }}>
                         subcategory:
                         <form>
                             {(subList && subList.length > 0) ? (
@@ -190,26 +190,33 @@ export default function ProductCreateComponent({ closeFunction }) {
                         €<input name="price" type="number" value={Number(formData.price).toFixed(2)} defaultValue={formData.price} min={0.01} step={0.01} onChange={handleChangeBootstrap} />
                     </p>
 
+                    {(error.errorfound) ?
+                        (
+                            <p>{error.errorMessage}</p>
+                        ) : (
+                            <></>
+                        )}
+                    <div style={{display: "flex", flexDirection: "row"}}>
+                        {(formData.name === "" || formData.price === 0 || formData.subcategoryId === 0) ?
+                            (
+                                <></>
+                            ) : (
+                                <>
+                                    <button
+                                        className="admin-button"
+                                        style={{ width: "200px", marginTop: "20px" }}
+                                        onClick={() => createProduct.mutate(formData)}>Add Product</button>
+                                </>
+                            )}
 
-                    <div>
-                {(formData.name === "" || formData.price === 0 || formData.subcategoryId === 0) ?
-                    (
-                        <></>
-                    ) : (
-                        <>
-                            <button onClick={() => createProduct.mutate(formData)}>Add Product</button>
-                        </>
-                    )}
 
-                {(error.errorfound) ?
-                    (
-                        <p>{error.errorMessage}</p>
-                    ) : (
-                        <></>
-                    )}
 
-                <button onClick={closeFunction}>return to overview</button>
-            </div>
+
+                        <button
+                            className="admin-button"
+                            style={{ width: "200px", marginTop: "20px" }}
+                            onClick={closeFunction}>return to overview</button>
+                    </div>
 
 
                 </div>
@@ -217,7 +224,7 @@ export default function ProductCreateComponent({ closeFunction }) {
                 <div style={{ width: "50%", display: "flex", flexDirection: "column", alignItems: "center", background: "#3e2d22", fontSize: "25px", borderRadius: "14px" }}>
                     <p onDrop={handleDrop} onDragOver={handleDragOver}>
                         image:
-                        <div style={{maxHeight: "500px"}}>
+                        <div style={{ maxHeight: "500px" }}>
                             <CustomImage imageSource={formData.imageLink} imageAlt="image preview" imageClassName="preview" />
                         </div>
                         <input name="imageLink" type="text" placeholder="imageLink" defaultValue={formData.imageLink} onChange={handleChangeBootstrap} />
@@ -246,7 +253,7 @@ export default function ProductCreateComponent({ closeFunction }) {
 
 
 
-            
+
         </div >
     );
 }

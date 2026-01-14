@@ -15,6 +15,25 @@ export default function AdminCategoryComponent({ category }: Props) {
     const [newSubcategoryName, setnewSubcategoryName] = useState("");
     let idToMutate = -1;
 
+    const AddSubCategory = useMutation({
+        mutationFn: async (newName) => {
+            const response = await fetch(`${API_URL}/subcategories`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: "include",
+                body: JSON.stringify({ name: newName, categoryId: category.id })
+            })
+            return
+        },
+        onSuccess: () => {
+            console.log("succesfully created")
+            queryClient.invalidateQueries({ queryKey: ["categoryList"] })
+        },
+        onError: () => {
+            console.log("creation error")
+        }
+    });
+
     const deleteCategory = useMutation({
         mutationFn: async () => {
             const response = await fetch(`${API_URL}/categories/${idToMutate}`, {
@@ -26,6 +45,7 @@ export default function AdminCategoryComponent({ category }: Props) {
         },
         onSuccess: () => {
             console.log("succesfully deleted")
+            queryClient.invalidateQueries({ queryKey: ["categoryList"] })
         },
         onError: () => {
             console.log("deletion error")
@@ -56,7 +76,7 @@ export default function AdminCategoryComponent({ category }: Props) {
 
             <div style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}>
                 <div style={{
-                    background: "black",
+                    background: "#451d15",
                     height: "40px",
                     width: "40px",
                     borderRadius: "10px",
@@ -67,7 +87,7 @@ export default function AdminCategoryComponent({ category }: Props) {
                         e.currentTarget.style.background = "rgba(179, 37, 49, 1)";
                     }}
                     onMouseLeave={(e) => {
-                        e.currentTarget.style.background = "rgba(0, 0, 0, 0)";
+                        e.currentTarget.style.background = "#451d15";
                     }}
                     onClick={(e) => {
                         e.stopPropagation();
@@ -86,7 +106,7 @@ export default function AdminCategoryComponent({ category }: Props) {
                     style={{
                         width: "400px",
                         height: "40px",
-                        background: "rgba(30, 30, 30, 1)",
+                        background: "#3e2d22",
                         border: "2px solid white",
                         borderRadius: "10px",
                         cursor: "text",
@@ -119,7 +139,9 @@ export default function AdminCategoryComponent({ category }: Props) {
                     )
             )}
             {!isAddMenuOpen ?
-                <button style={{ marginLeft: "20px", marginTop: "5px", height: "40px", alignSelf: "center" }}
+                <button
+                    className="admin-button"
+                    style={{ marginLeft: "30px", marginTop: "5px", height: "40px", alignSelf: "center" }}
                     onClick={() => { openAddMenu(true) }}>Add subcategory</button>
                 :
                 <div className="category-text" style={{ display: "flex", flexDirection: "row" }}>
@@ -145,7 +167,7 @@ export default function AdminCategoryComponent({ category }: Props) {
                     <button
                         style={{ marginLeft: "10px", height: "30px", alignSelf: "center" }}
                         onClick={() => {
-                            //addCategory.mutate(newSubcategoryName);
+                            AddSubCategory.mutate(newSubcategoryName);
                             openAddMenu(false);
                         }}
                     >save</button>

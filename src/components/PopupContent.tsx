@@ -14,7 +14,7 @@ export default function PopupContent() {
     const [viewedProduct, setViewedProduct] = useState<ProductDTO>()
 
 
-    const viewProduct = (product : ProductDTO) => {
+    const viewProduct = (product: ProductDTO) => {
         setViewedProduct(product);
         setMode(state.EDIT_PRODUCT);
     }
@@ -34,13 +34,13 @@ export default function PopupContent() {
         },
     })
     useEffect(() => {
-  console.log("productList updated", productList);
-}, [productList]);
+        console.log("productList updated", productList);
+    }, [productList]);
 
     if (mode === state.CREATE_PRODUCT) return (<ProductCreateComponent closeFunction={() => { setMode(state.OVERVIEW) }} />);
-    if (mode === state.EDIT_PRODUCT) return (<ProductEditComponent product={viewedProduct}/>);
+    if (mode === state.EDIT_PRODUCT) return (<ProductEditComponent closeFunction={() => { setMode(state.OVERVIEW) }} product={viewedProduct} />);
     return (
-        <>
+        <div style={{ width: "100%", height: "100%", position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
 
             <textarea
                 id="description"
@@ -52,7 +52,7 @@ export default function PopupContent() {
                 style={{
                     width: "90%",
                     height: "60px",
-                    background: "rgba(30, 30, 30, 1)",
+                    background: "#3e2d22",
                     border: "2px solid white",
                     borderRadius: "10px",
                     margin: "8px",
@@ -68,7 +68,6 @@ export default function PopupContent() {
                     <div style={{
                         width: "80%",
                         height: "20px",
-                        background: "black",
                         margin: "8px",
                         display: "flex",
                         flexDirection: "row",
@@ -86,7 +85,7 @@ export default function PopupContent() {
                     </div >
                     <div style={{ width: "85%", overflowY: "scroll", display: "flex", flexDirection: "column", alignItems: "center" }}>
                         {productList?.map((product) => (
-                            <ProductTile product={product} setMode={() => viewProduct(product)} key={product.id}  />
+                            <ProductTile product={product} setMode={() => viewProduct(product)} key={product.id} />
                         ))}
                     </div>
                 </>
@@ -106,8 +105,13 @@ export default function PopupContent() {
                 </div>
             )}
 
-            <button onClick={() => { setMode(state.CREATE_PRODUCT) }}>add product {mode}</button>
-        </>
+            <button
+                className="admin-button"
+                style={{ height: "50px", width: "250px", position: "absolute", bottom: "0" }}
+                onClick={() => { setMode(state.CREATE_PRODUCT) }}
+            >add product
+            </button>
+        </div>
     )
 
 }
