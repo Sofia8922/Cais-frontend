@@ -9,12 +9,13 @@ type ProductCardProps = {
     variant?: "default" | "similar";
 };
 
-export default function ProductCard({ product, variant = "default" }: ProductCardProps) {
+export default function ProductCard({ product, variant = "default"}: ProductCardProps) {
     const navigate = useNavigate();
 
     return (
         <div 
             className={`product-card product-card--${variant}`}
+            style={ product.stock === 0 ? {background: "#000000"}: {}}
             onClick={() => { navigate(`/product/${product.id}`) }}
         >
             <div className="product-image-container">
@@ -26,7 +27,7 @@ export default function ProductCard({ product, variant = "default" }: ProductCar
                 />
             </div>
 
-            <div className="product-card-footer">
+            <div className="product-card-footer">                    
                 <strong className="product-name">{product.name}</strong>
                 <strong className="product-price">
                     <Price basePrice={product.price} />

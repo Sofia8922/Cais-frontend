@@ -1,6 +1,11 @@
 import { ProductDTO } from "../dtos/ProductDTOs"
 import PriceFormat from "./PriceFormat"
 
+interface props {
+    product: ProductDTO;
+    setMode: any;
+}
+
 export default function ProductTile({product, setMode}) {
 //console.log(product)
     return (

@@ -13,27 +13,29 @@ const CustomImage = ({ imageSource, imageAlt, imageClassName, greyedOut }: Image
 
   const fallBackImage = "../src/assets/SiteLogoGrey.svg";
 
-  // const handleError = () => {
-  //   setHasError(true);
-  //   setLoading(false);
-  // };
+  const handleError = () => {
+    setHasError(true);
+    setLoading(false);
+  };
 
-  // const handleLoad = () => {
-  //   setLoading(false);
-  // };
+  const handleLoad = () => {
+    setLoading(false);
+  };
 
-  // let imageStyle = {};
+  let imageStyle = {filter: "", opacity: "", maxWidth: "100%", maxHeight: "350px"};
 
-  // if(greyedOut) {
-  //   imageStyle = {
-  //     filter: 'alpha(opacity=40)',
-  //     opacity: '0.1'
-  //   }
-  // }
+  if(greyedOut) {
+    imageStyle = {
+      filter: 'brightness(40%)',
+      opacity: '0.2',
+      maxWidth: "100%",
+      maxHeight: "350px",
+    }
+  }
   
-  // if (hasError || loading || imageSource == "") {
-  //   imageSource = "../src/assets/SiteLogoGrey.svg";
-  // }
+  if (hasError || loading || imageSource == "") {
+    imageSource = "../src/assets/SiteLogoGrey.svg";
+  }
 
   return (
     <img
@@ -42,7 +44,7 @@ const CustomImage = ({ imageSource, imageAlt, imageClassName, greyedOut }: Image
     className={`${imageClassName} ${greyedOut ? "image-disabled" : ""}`}
     onError={() => setHasError(true)}
     onLoad={() => setLoading(false)}
-    style={{maxWidth: "100%", maxHeight: "350px"}}
+    style={imageStyle}
     />
   );
 };
