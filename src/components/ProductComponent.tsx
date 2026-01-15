@@ -15,7 +15,7 @@ export default function ProductCard({ product, variant = "default"}: ProductCard
     return (
         <div 
             className={`product-card product-card--${variant}`}
-            style={ product.stock === 0 ? {background: "#000000"}: {}}
+            style={ product.stock === 0 ? {background: "#8d7564", borderBottom: "5px solid #715d4f"}: {}}
             onClick={() => { navigate(`/product/${product.id}`) }}
         >
             <div className="product-image-container">
