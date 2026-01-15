@@ -92,19 +92,22 @@
 
 .categories-list {
     display: flex;
-    /* width: 280px; */
-    height: 70%;
-    justify-content: left;
+    height: 300px;
     background: #574030;
-    flex-direction: column;
     color: wheat;
-    /* border: 3px solid; */
-    justify-content: center;
     border-bottom: 8px solid #3e2d22;
     margin: 8px;
     border-radius: 14px;
-    overflow-y: "scroll";
+    overflow-y: auto;
+    justify-content: flex-start;
 }
+
+.categories-inner {
+    display: flex;
+    flex-direction: column;
+    margin: auto 0;
+}
+
 .category-title {
     font-size: 25px;
     margin-left: 15px;

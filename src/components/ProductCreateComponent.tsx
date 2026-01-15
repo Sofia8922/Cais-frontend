@@ -163,9 +163,9 @@ export default function ProductCreateComponent({ closeFunction }) {
             <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "row", fontSize: "25px", padding: "20px", alignItems: "center", justifyContent: "center" }}>
                 <div style={{ width: "45%", display: "flex", flexDirection: "column", alignItems: "start" }}>
 
-                    <p style={{ fontSize: "25px" }}>
+                    <p style={{ fontSize: "25px", overflowY: "scroll", margin: "0px"}}>
                         subcategory:
-                        <form>
+                        <form style={{height: "200px", overflowY: "scroll"}}>
                             {(subList && subList.length > 0) ? (
                                 subList.map((sub, index) => (
                                     <React.Fragment key={index}>

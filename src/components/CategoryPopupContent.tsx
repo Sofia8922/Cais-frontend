@@ -29,7 +29,7 @@ export default function CategoryPopupContent() {
 
 
     return (
-        <div style={{ alignSelf: "flex-start", overflowY: "scroll" }}>
+        <div style={{ alignSelf: "flex-start", overflowY: "scroll", width: "100%" }}>
             {categoryList && categoryList?.length > 0 && (
                 categoryList
                     .sort((a, b) => a.id - b.id)

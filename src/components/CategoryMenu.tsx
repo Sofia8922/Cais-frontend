@@ -72,7 +72,7 @@ export default function CategoryMenu({ closeFunction }) {
         }}
             onClick={closeFunction}>
             <div style={{
-                width: "600px",
+                width: "580px",
                 height: "850px",
                 background: "#AB886D",
                 border: "2px solid white",
@@ -115,6 +115,7 @@ export default function CategoryMenu({ closeFunction }) {
                             onClick={() => {
                                 AddCategory.mutate(newCategoryName);
                                 openAddMenu(false);
+                                setnewCategoryName("");
                             }}
                         >save</button>
                         <button

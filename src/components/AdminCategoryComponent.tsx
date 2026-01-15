@@ -169,6 +169,7 @@ export default function AdminCategoryComponent({ category }: Props) {
                         onClick={() => {
                             AddSubCategory.mutate(newSubcategoryName);
                             openAddMenu(false);
+                            setnewSubcategoryName("");
                         }}
                     >save</button>
                     <button
