@@ -2,7 +2,7 @@ import { ProductDTO } from "../dtos/ProductDTOs"
 import PriceFormat from "./PriceFormat"
 
 export default function ProductTile({product, setMode}) {
-console.log(product)
+//console.log(product)
     return (
         <div style={{
             width: "95%",

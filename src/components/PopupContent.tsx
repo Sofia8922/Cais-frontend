@@ -46,7 +46,7 @@ export default function PopupContent() {
                 id="description"
                 name="description"
                 value={searchString}
-                onChange={(e) => setSearchString(e.target.value)}
+                onChange={(e) => {setSearchString(e.target.value)}}
                 disabled={false}
                 placeholder="Search"
                 style={{
